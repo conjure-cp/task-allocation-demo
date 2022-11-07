@@ -14,11 +14,12 @@ export default function TasksPage() {
             "mt-4 w-full divide-y-2 divide-slate-600 border border-slate-600"
           }
         >
-          <thead>
+          <thead className={"bg-slate-800"}>
             <tr>
               <TableHeader>Task</TableHeader>
               <TableHeader>Category</TableHeader>
               <TableHeader>Weight</TableHeader>
+              <TableHeader />
             </tr>
           </thead>
           <tbody className={"divide-y divide-slate-600"}>
