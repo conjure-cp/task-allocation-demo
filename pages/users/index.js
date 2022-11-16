@@ -1,16 +1,16 @@
 import Link from "next/link";
 
-export default function TasksPage() {
+export default function UsersPage() {
   return (
     <div>
       <div>
-        <h1 className={"text-2xl font-semibold"}>Tasks Data</h1>
+        <h1 className={"text-2xl font-semibold"}>Users Data</h1>
         <p className={"text-slate-300"}>
-          Some description about how tasks data is used or whatever.
+          Some description about how users data is used or whatever.
         </p>
       </div>
       <div className={"mt-8"}>
-        <Link href={"/tasks/new"} className={"border py-2 px-2 hover:underline"}>New Task</Link>
+        <Link href={"/users/new"} className={"border py-2 px-2 hover:underline"}>New User</Link>
         <table
           className={
             "mt-4 w-full divide-y-2 divide-slate-600 border border-slate-600"
@@ -18,16 +18,17 @@ export default function TasksPage() {
         >
           <thead className={"bg-slate-800"}>
             <tr>
-              <TableHeader>Task</TableHeader>
-              <TableHeader>Category</TableHeader>
-              <TableHeader>Weight</TableHeader>
+              <TableHeader>User</TableHeader>
+              <TableHeader>Task Categories</TableHeader>
+              <TableHeader>Possibilities</TableHeader>
+              <TableHeader>Preferences</TableHeader>
               <TableHeader />
             </tr>
           </thead>
           <tbody className={"divide-y divide-slate-600"}>
-            <TaskRow />
-            <TaskRow />
-            <TaskRow />
+            <UserRow />
+            <UserRow />
+            <UserRow />
           </tbody>
         </table>
       </div>
@@ -35,23 +36,37 @@ export default function TasksPage() {
   );
 }
 
-function TaskRow() {
+function UserRow() {
   return (
     <tr>
-      <TableData className={"flex flex-col items-start space-y-1"}>
-        <button className={"hover:underline"}>Teach CS3102</button>
-        <p className={"text-sm text-slate-400"}>
-          This module is something and yea...
-        </p>
+      <TableData>
+        <button className={"hover:underline"}>John Smith</button>
       </TableData>
-      <TableData>Teaching</TableData>
-      <TableData className={""}>
+      <TableData className={"flex items-center space-x-4"}>
+        <div className={"flex flex-col"}>
+          <p className={"text-xs text-slate-500"}>20%</p>
+          <p className={"text-sm"}>Teaching</p>
+        </div>
+        <div className={"flex flex-col"}>
+          <p className={"text-xs text-slate-500"}>10%</p>
+          <p className={"text-sm"}>Admin</p>
+        </div>
+        <div className={"flex flex-col"}>
+          <p className={"text-xs text-slate-500"}>30%</p>
+          <p className={"text-sm"}>Research</p>
+        </div>
+        <p className={"text-sm text-slate-500"}>+ 2</p>
+      </TableData>
+      <TableData>
+        14 <span className={"text-slate-500"}>/</span> 20
+      </TableData>
+      <TableData>
         <span
           className={
             "bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider"
           }
         >
-          26 Points
+          4 Allocated
         </span>
       </TableData>
       <TableData>

@@ -12,7 +12,7 @@ export default function NewTaskPage() {
         <Input
           label={"Description"}
           placeholder={"Oversee all academics within the school."}
-          width={"w-96"}
+          width={"w-[600px]"}
         />
         <Select label={"Category"} placeholder={"Select..."}>
           <option>Test A</option>
@@ -20,7 +20,7 @@ export default function NewTaskPage() {
           <option>Test C</option>
         </Select>
         <Input label={"Weight"} placeholder={"1+"} />
-        <button className={"border py-1 px-2 hover:underline"}>
+        <button className={"border py-2 px-2 hover:underline"}>
           Create Task
         </button>
       </div>
