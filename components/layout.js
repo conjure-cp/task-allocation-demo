@@ -11,6 +11,7 @@ export default function Layout({ children }) {
         <div className={"mt-8 flex flex-col items-start space-y-2"}>
           <NavigationLink href={"#"}>Tasks (?)</NavigationLink>
           <NavigationLink href={"#"}>Users (?)</NavigationLink>
+          <NavigationLink href={"#"}>Categories (?)</NavigationLink>
         </div>
       </div>
       <div className={"py-8 px-28 w-full"}>{children}</div>
