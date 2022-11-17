@@ -9,8 +9,8 @@ export default function Layout({ children }) {
           <span className={"text-xs tracking-wider font-medium text-fuchsia-500"}>v0.1</span>
         </div>
         <div className={"mt-8 flex flex-col items-start space-y-2"}>
-          <NavigationLink href={"#"}>Tasks (?)</NavigationLink>
-          <NavigationLink href={"#"}>Users (?)</NavigationLink>
+          <NavigationLink href={"/tasks"}>Tasks (?)</NavigationLink>
+          <NavigationLink href={"/users"}>Users (?)</NavigationLink>
           <NavigationLink href={"#"}>Categories (?)</NavigationLink>
         </div>
       </div>
