@@ -1,16 +1,27 @@
-import useStickyState from "../utils/sticky-state-hook";
+import { useContext } from "react";
+import { ProjectDataContext } from "../utils/ProjectDataContext";
 
 export default function Test() {
-  const [c, setC, loading] = useStickyState(0, "counter");
+  const [projectData, setProjectData, projectDataLoading] =
+    useContext(ProjectDataContext);
 
-  if (loading) {
-    return <p>content loading</p>
+  if (projectDataLoading) {
+    return <p>content loading</p>;
   }
 
   return (
     <div>
-      <p>count is currently {c}</p>
-      <button className={"border"} onClick={() => setC(old => old + 1)}>inc</button>
+      <p>count is currently {projectData.id}</p>
+      <button
+        className={"border"}
+        onClick={() =>
+          setProjectData((old) => {
+            return { ...old, id: old.id + 1 };
+          })
+        }
+      >
+        inc
+      </button>
     </div>
   );
 }

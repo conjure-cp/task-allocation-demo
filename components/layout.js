@@ -5,7 +5,7 @@ export default function Layout({ children }) {
     <div className={"flex items-stretch h-screen"}>
       <div className={"w-[19rem] bg-slate-800 border-slate-700 border-r px-8 py-8"}>
         <div className={"flex items-center space-x-2"}>
-          <h1 className={"text-lg font-semibold"}>Workload Planner</h1>
+          <Link href={"/"}><h1 className={"text-lg font-semibold hover:underline"}>Workload Planner</h1></Link>
           <span className={"text-xs tracking-wider font-medium text-fuchsia-500"}>v0.1</span>
         </div>
         <div className={"mt-8 flex flex-col items-start space-y-2"}>
