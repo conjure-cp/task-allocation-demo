@@ -1,7 +1,6 @@
 import { createContext } from "react";
 
 export const ProjectDataContext = createContext(null);
-export const ProjectDataDispatchContext = createContext(null);
 
 /*
 
