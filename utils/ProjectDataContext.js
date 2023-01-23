@@ -11,9 +11,15 @@ export default function useProjectData() {
 {
   id: 12,
   name: "CS School Work",
-  tasks: {},
-  users: {},
-  categories: {}
+  tasks: [
+    id: 0
+    name: "Teach CS3102",
+    description: "Some description about xyz",
+    category: 2,
+    weight: 26
+  [,
+  users: [],
+  categories: []
 }
 
 */

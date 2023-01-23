@@ -1,6 +1,14 @@
 import Link from "next/link";
+import useProjectData from "../../utils/ProjectDataContext";
 
 export default function TasksPage() {
+  const [projectData, dispatch, loading] = useProjectData();
+
+  if (loading) {
+    // TODO
+    return null;
+  }
+
   return (
     <div>
       <div>
@@ -10,7 +18,12 @@ export default function TasksPage() {
         </p>
       </div>
       <div className={"mt-8"}>
-        <Link href={"/tasks/new"} className={"border py-2 px-2 hover:underline"}>New Task</Link>
+        <Link
+          href={"/tasks/new"}
+          className={"border py-2 px-2 hover:underline"}
+        >
+          New Task
+        </Link>
         <table
           className={
             "mt-4 w-full divide-y-2 divide-slate-600 border border-slate-600"
