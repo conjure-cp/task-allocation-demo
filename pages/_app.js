@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import Layout from "../components/layout";
 import { ProjectDataContext } from "../utils/ProjectDataContext";
 import useStickyReducer from "../utils/StickyStateHook";
+import projectDataReducer from "../utils/ProjectDataReducer";
 
 function MyApp({ Component, pageProps }) {
   // TODO not sure what to put for reducer initial data argument
@@ -18,17 +19,6 @@ function MyApp({ Component, pageProps }) {
       </Layout>
     </ProjectDataContext.Provider>
   );
-}
-
-// TODO probably move this reducer
-function projectDataReducer(projectData, action) {
-  // TODO add actions
-  switch (action.type) {
-    case "inc_id_test":
-      return { ...projectData, id: projectData.id + 1 };
-    default:
-      return projectData;
-  }
 }
 
 export default MyApp;
