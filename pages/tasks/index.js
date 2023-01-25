@@ -24,47 +24,68 @@ export default function TasksPage() {
         >
           New Task
         </Link>
-        <table
-          className={
-            "mt-4 w-full divide-y-2 divide-slate-600 border border-slate-600"
-          }
-        >
-          <thead className={"bg-slate-800"}>
-            <tr>
-              <TableHeader>Task</TableHeader>
-              <TableHeader>Category</TableHeader>
-              <TableHeader>Weight</TableHeader>
-              <TableHeader />
-            </tr>
-          </thead>
-          <tbody className={"divide-y divide-slate-600"}>
-            <TaskRow />
-            <TaskRow />
-            <TaskRow />
-          </tbody>
-        </table>
+        <div className={"mt-4"}>
+          {!projectData.tasks || projectData.tasks.length === 0 ? (
+            <p className={"text-sm text-slate-300"}>
+              There are currently no tasks in your project.
+            </p>
+          ) : (
+            /* TODO make this prettier */
+            <table
+              className={
+                "w-full divide-y-2 divide-slate-600 border border-slate-600"
+              }
+            >
+              <thead className={"bg-slate-800"}>
+                <tr>
+                  <TableHeader>Task</TableHeader>
+                  <TableHeader>Category</TableHeader>
+                  <TableHeader>Weight</TableHeader>
+                  <TableHeader />
+                </tr>
+              </thead>
+              <tbody className={"divide-y divide-slate-600"}>
+                {projectData.tasks.map((task) => (
+                  <TaskRow
+                    key={task.id}
+                    name={task.name}
+                    description={task.description}
+                    category={projectData.categories.find(
+                      (c) => c.id === task.category
+                    )}
+                    weight={task.weight}
+                  />
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-function TaskRow() {
+function TaskRow({ name, description, category, weight }) {
   return (
     <tr>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <button className={"hover:underline"}>Teach CS3102</button>
-        <p className={"text-sm text-slate-400"}>
-          This module is something and yea...
-        </p>
+        <button className={"hover:underline"}>{name}</button>
+        <p className={"text-sm text-slate-400"}>{description}</p>
       </TableData>
-      <TableData>Teaching</TableData>
-      <TableData className={""}>
+      <TableData>
+        {category ? (
+          category.name
+        ) : (
+          <span className={"text-sm text-slate-400"}>None</span>
+        )}
+      </TableData>
+      <TableData>
         <span
           className={
             "bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider"
           }
         >
-          26 Points
+          {weight} Points
         </span>
       </TableData>
       <TableData>
