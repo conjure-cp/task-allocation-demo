@@ -16,6 +16,8 @@ export default function NewUserPage() {
 
   const [createCategory, setCreateCategory] = useState("");
 
+  const [disallowedTasks, setDisallowedTasks] = useState([]);
+
   const handleAddCategory = (e) => {
     e.preventDefault();
 
@@ -44,6 +46,14 @@ export default function NewUserPage() {
 
   const handleRemoveAllocation = (catId) => {
     setCategories((old) => old.filter((c) => c.id !== catId));
+  };
+
+  const handleToggleTaskAllowed = (taskId) => {
+    if (disallowedTasks.includes(taskId)) {
+      setDisallowedTasks((old) => old.filter((t) => t !== taskId));
+    } else {
+      setDisallowedTasks((old) => [...old, taskId]);
+    }
   };
 
   return (
@@ -188,9 +198,14 @@ export default function NewUserPage() {
                   </tr>
                 </thead>
                 <tbody className={"divide-y divide-slate-600"}>
-                  <TaskRow />
-                  <TaskRow />
-                  <TaskRow />
+                  {projectData.tasks.map((task) => (
+                    <TaskRow
+                      key={task.id}
+                      task={task}
+                      isDisallowed={disallowedTasks.includes(task.id)}
+                      onToggle={handleToggleTaskAllowed}
+                    />
+                  ))}
                 </tbody>
               </table>
             </>
@@ -298,19 +313,24 @@ function CategoryAllocationRow({ category, categories, onSave, onRemove }) {
   );
 }
 
-function TaskRow() {
+function TaskRow({ task, isDisallowed, onToggle }) {
   return (
     <tr>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <button className={"hover:underline"}>Teach CS3102</button>
-        <p className={"text-sm text-slate-400"}>
-          This module is something and yea...
-        </p>
+        <button className={"hover:underline"}>{task.name}</button>
+        <p className={"text-sm text-slate-400"}>{task.description}</p>
       </TableData>
       <TableData>
         <div className={"flex items-center space-x-4"}>
-          <button className={"text-sm underline"}>Yes</button>
-          {/* click to change to "no" */}
+          <button
+            className={"text-sm underline"}
+            onClick={(e) => {
+              e.preventDefault();
+              onToggle(task.id);
+            }}
+          >
+            {isDisallowed ? "No" : "Yes"}
+          </button>
         </div>
       </TableData>
     </tr>
