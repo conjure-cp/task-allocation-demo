@@ -1,7 +1,48 @@
 import { useState } from "react";
+import useProjectData from "../../utils/ProjectDataContext";
+import Input from "../../components/ui/Input";
+import Select from "../../components/ui/Select";
+import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 export default function NewUserPage() {
   const [currentStep, setCurrentStep] = useState(1);
+
+  const [projectData, dispatch, loading] = useProjectData();
+
+  const [name, setName] = useState("");
+
+  const [selectedCategory, setSelectedCategory] = useState(-1);
+  const [categories, setCategories] = useState([]);
+
+  const handleAddCategory = (e) => {
+    e.preventDefault();
+
+    if (categories.includes((c) => c.id === selectedCategory)) {
+      // already allocated this category
+      setSelectedCategory(-1);
+      return;
+    }
+
+    setCategories((old) => [...old, { id: selectedCategory, percentage: 0 }]);
+
+    setSelectedCategory(-1);
+  };
+
+  const handleSaveAllocation = (catId, percentage) => {
+    setCategories((old) =>
+      old.map((c) => {
+        if (c.id === catId) {
+          return { id: c.id, percentage: percentage };
+        } else {
+          return c;
+        }
+      })
+    );
+  };
+
+  const handleRemoveAllocation = (catId) => {
+    setCategories((old) => old.filter((c) => c.id !== catId));
+  };
 
   return (
     <div>
@@ -29,7 +70,12 @@ export default function NewUserPage() {
         <div className={"mt-12"}>
           {currentStep === 1 && (
             <>
-              <Input label={"Name"} placeholder={"John Smith"} />
+              <Input
+                label={"Name"}
+                placeholder={"John Smith"}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </>
           )}
           {currentStep === 2 && (
@@ -42,44 +88,53 @@ export default function NewUserPage() {
                 <div className={"flex-1"}>
                   <p className={"font-medium"}>Selected categories</p>
                   <div className={"mt-4 flex items-center space-x-4"}>
-                    <Select placeholder={"Select..."}>
-                      <option>Test A</option>
-                      <option>Test B</option>
-                      <option>Test C</option>
+                    <Select
+                      placeholder={"Select..."}
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                      {projectData.categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.name}
+                        </option>
+                      ))}
                     </Select>
-                    <button className={"border py-2 px-2 hover:underline"}>
+                    <button
+                      className={"border py-2 px-2 hover:underline"}
+                      onClick={handleAddCategory}
+                    >
                       Add
                     </button>
                   </div>
                   <div className={"mt-8 min-h-[176px] border"}>
                     {/* magic number because height of 3x items */}
-                    <div
-                      className={
-                        "flex items-center justify-between border px-6 py-4"
-                      }
-                    >
-                      <p>Teaching</p>
-                      <button className={"text-sm underline"}>20%</button>
-                    </div>
-                    <div
-                      className={
-                        "flex items-center justify-between border px-6 py-4"
-                      }
-                    >
-                      <p>Admin</p>
-                      <button className={"text-sm underline"}>10%</button>
-                    </div>
-                    <div
-                      className={
-                        "flex items-center justify-between border px-6 py-4"
-                      }
-                    >
-                      <p>Research</p>
-                      <button className={"text-sm underline"}>30%</button>
-                    </div>
+                    {categories.length === 0 && (
+                      <div
+                        className={
+                          "flex h-[176px] w-full items-center justify-center"
+                        }
+                      >
+                        <p className={"text-sm text-slate-400"}>
+                          Select categories to be allocated.
+                        </p>
+                      </div>
+                    )}
+                    {categories.map((c) => (
+                      <CategoryAllocationRow
+                        key={c.id}
+                        category={c}
+                        categories={projectData.categories}
+                        onSave={handleSaveAllocation}
+                        onRemove={handleRemoveAllocation}
+                      />
+                    ))}
                   </div>
                   <p className={"mt-8 text-sm text-slate-500"}>
-                    This user has 60% of their tasks allocated to categories.
+                    This user has{" "}
+                    {categories
+                      .map((c) => parseInt(c.percentage))
+                      .reduce((ps, a) => ps + a, 0)}
+                    % of their tasks allocated to categories.
                     <br />
                     Any remaining space will be filled by tasks outside of the
                     specified categories.
@@ -93,7 +148,7 @@ export default function NewUserPage() {
                   <Input
                     label={"Name"}
                     placeholder={"Some category"}
-                    className={"mt-8"}
+                    divClassName={"mt-8"}
                   />
                   <button className={"mt-8 border p-2 hover:underline"}>
                     Create
@@ -168,6 +223,60 @@ export default function NewUserPage() {
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function CategoryAllocationRow({ category, categories, onSave, onRemove }) {
+  const [changing, setChanging] = useState(false);
+  const [percentage, setPercentage] = useState(category.percentage);
+
+  return (
+    <div className={"flex items-center justify-between border px-6 py-4"}>
+      <p>{categories.find((c) => c.id === parseInt(category.id)).name}</p>
+      {!changing ? (
+        <button
+          className={"text-sm underline"}
+          onClick={(e) => setChanging(true)}
+        >
+          {category.percentage}%
+        </button>
+      ) : (
+        <div className={"inline-flex items-center space-x-2"}>
+          <div className={"relative"}>
+            <Input
+              className={"block"}
+              width={"w-28"}
+              value={percentage}
+              onChange={(e) => setPercentage(e.target.value)}
+            />
+            <div
+              className={
+                "pointer-events-none absolute inset-y-0 right-0 mt-1 flex items-center pr-3"
+              }
+            >
+              <span className={"text-sm text-slate-400"}>%</span>
+            </div>
+          </div>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onSave(category.id, percentage);
+              setChanging(false);
+            }}
+          >
+            <CheckCircleIcon className={"h-5 w-5"} />
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onRemove(category.id);
+            }}
+          >
+            <TrashIcon className={"h-5 w-5"} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -257,52 +366,6 @@ function Step({ id, children, currentStep }) {
       >
         {children}
       </p>
-    </div>
-  );
-}
-
-function Input({ label, placeholder, width = "w-72", className }) {
-  return (
-    <div className={className}>
-      <p
-        className={
-          "text-xs font-semibold uppercase tracking-wider text-slate-400"
-        }
-      >
-        {label}
-      </p>
-      <input
-        type={"text"}
-        className={`mt-1 ${width} border border-white/5 bg-slate-800/75 py-2.5 px-4 text-sm placeholder-slate-500`}
-        placeholder={placeholder}
-      />
-    </div>
-  );
-}
-
-function Select({ label, placeholder, children }) {
-  return (
-    <div>
-      {label && (
-        <p
-          className={
-            "text-xs font-semibold uppercase tracking-wider text-slate-400"
-          }
-        >
-          {label}
-        </p>
-      )}
-      <select
-        required
-        className={`${
-          label && "mt-1"
-        } w-72 border border-white/5 bg-slate-800/75 py-2.5 px-4 text-sm invalid:text-slate-500`}
-      >
-        <option value={""} disabled selected>
-          {placeholder}
-        </option>
-        {children}
-      </select>
     </div>
   );
 }

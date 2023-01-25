@@ -1,6 +1,13 @@
-export default function Input({ label, placeholder, width = "w-72", className, ...props }) {
+export default function Input({
+  label,
+  placeholder,
+  width = "w-72",
+  divClassName,
+  className,
+  ...props
+}) {
   return (
-    <div>
+    <div className={divClassName}>
       <p
         className={
           "text-xs font-semibold uppercase tracking-wider text-slate-400"
