@@ -303,6 +303,7 @@ export default function NewUserPage() {
                       </tbody>
                     </table>
                     <p className={"mt-8 text-sm text-slate-500"}>
+                      {/* TODO actually implement dragging etc. */}
                       Click and drag tasks into preference order.
                     </p>
                   </>
