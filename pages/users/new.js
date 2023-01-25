@@ -3,8 +3,10 @@ import useProjectData from "../../utils/ProjectDataContext";
 import Input from "../../components/ui/Input";
 import Select from "../../components/ui/Select";
 import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 
 export default function NewUserPage() {
+  const MAX_STEPS = 4;
   const [currentStep, setCurrentStep] = useState(1);
 
   const [projectData, dispatch, loading] = useProjectData();
@@ -18,17 +20,24 @@ export default function NewUserPage() {
 
   const [disallowedTasks, setDisallowedTasks] = useState([]);
 
+  const [selectedTask, setSelectedTask] = useState(-1);
+  const [tasks, setTasks] = useState([]);
+
+  const router = useRouter();
+
   const handleAddCategory = (e) => {
     e.preventDefault();
 
-    if (categories.includes((c) => c.id === selectedCategory)) {
+    if (categories.includes((c) => c.id === parseInt(selectedCategory))) {
       // already allocated this category
       setSelectedCategory(-1);
       return;
     }
 
-    setCategories((old) => [...old, { id: selectedCategory, percentage: 0 }]);
-
+    setCategories((old) => [
+      ...old,
+      { id: parseInt(selectedCategory), percentage: 0 },
+    ]);
     setSelectedCategory(-1);
   };
 
@@ -54,6 +63,35 @@ export default function NewUserPage() {
     } else {
       setDisallowedTasks((old) => [...old, taskId]);
     }
+  };
+
+  const handleAddTask = (e) => {
+    e.preventDefault();
+
+    if (tasks.includes(selectedTask)) {
+      // already selected this task
+      setSelectedTask(-1);
+      return;
+    }
+
+    setTasks((old) => [...old, selectedTask]);
+    setSelectedTask(-1);
+  };
+
+  const handleRemoveTask = (taskId) => {
+    setTasks((old) => old.filter((t) => parseInt(t) !== parseInt(taskId)));
+  };
+
+  const handleCreateUser = () => {
+    dispatch({
+      type: "ADD_USER",
+      name: name,
+      task_blacklist: disallowedTasks.map((x) => parseInt(x)),
+      preferences: tasks.map((x) => parseInt(x)),
+      categories: categories,
+    });
+
+    router.push("/users");
   };
 
   return (
@@ -214,44 +252,79 @@ export default function NewUserPage() {
             <>
               <p className={"font-medium"}>Task preferences</p>
               <div className={"mt-4 flex items-center space-x-4"}>
-                <Select placeholder={"Select..."}>
-                  <option>Test A</option>
-                  <option>Test B</option>
-                  <option>Test C</option>
+                <Select
+                  placeholder={"Select..."}
+                  value={selectedTask}
+                  onChange={(e) => setSelectedTask(e.target.value)}
+                >
+                  {projectData.tasks.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.name}
+                    </option>
+                  ))}
                 </Select>
-                <button className={"border py-2 px-2 hover:underline"}>
+                <button
+                  className={"border py-2 px-2 hover:underline"}
+                  onClick={handleAddTask}
+                >
                   Add
                 </button>
               </div>
-              <table
-                className={
-                  "mt-4 w-2/3 divide-y-2 divide-slate-600 border border-slate-600"
-                }
-              >
-                <thead className={"bg-slate-800"}>
-                  <tr>
-                    <TableHeader>Rank</TableHeader>
-                    <TableHeader>Task</TableHeader>
-                    <TableHeader />
-                  </tr>
-                </thead>
-                <tbody className={"divide-y divide-slate-600"}>
-                  <PreferenceRow rank={1} />
-                  <PreferenceRow rank={2} />
-                  <PreferenceRow rank={3} />
-                </tbody>
-              </table>
-              <p className={"mt-8 text-sm text-slate-500"}>
-                Click and drag tasks into preference order.
-              </p>
+              <div className={"mt-4"}>
+                {tasks.length === 0 ? (
+                  <p className={"text-sm text-slate-300"}>
+                    There are currently no tasks preferences.
+                  </p>
+                ) : (
+                  <>
+                    <table
+                      className={
+                        "w-2/3 divide-y-2 divide-slate-600 border border-slate-600"
+                      }
+                    >
+                      <thead className={"bg-slate-800"}>
+                        <tr>
+                          <TableHeader>Rank</TableHeader>
+                          <TableHeader>Task</TableHeader>
+                          <TableHeader />
+                        </tr>
+                      </thead>
+                      <tbody className={"divide-y divide-slate-600"}>
+                        {tasks.map((t, i) => (
+                          <PreferenceRow
+                            key={i}
+                            rank={i + 1}
+                            task={projectData.tasks.find(
+                              (tt) => tt.id === parseInt(t)
+                            )}
+                            onRemove={handleRemoveTask}
+                          />
+                        ))}
+                      </tbody>
+                    </table>
+                    <p className={"mt-8 text-sm text-slate-500"}>
+                      Click and drag tasks into preference order.
+                    </p>
+                  </>
+                )}
+              </div>
             </>
           )}
-          {/* TODO replace click functionality */}
           <button
-            onClick={() => setCurrentStep(currentStep + 1)}
+            onClick={(e) => {
+              e.preventDefault();
+
+              if (currentStep < MAX_STEPS) {
+                // next step of user creation
+                setCurrentStep(currentStep + 1);
+              } else {
+                // finish creating user
+                handleCreateUser();
+              }
+            }}
             className={"mt-12 border py-2 px-2 hover:underline"}
           >
-            {currentStep === 4 ? "Create User" : "Continue"}
+            {currentStep === MAX_STEPS ? "Create User" : "Continue"}
           </button>
         </div>
       </div>
@@ -337,7 +410,7 @@ function TaskRow({ task, isDisallowed, onToggle }) {
   );
 }
 
-function PreferenceRow({ rank }) {
+function PreferenceRow({ rank, task, onRemove }) {
   return (
     <tr>
       <TableData>
@@ -350,14 +423,20 @@ function PreferenceRow({ rank }) {
         </span>
       </TableData>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <button className={"hover:underline"}>Teach CS3102</button>
-        <p className={"text-sm text-slate-400"}>
-          This module is something and yea...
-        </p>
+        <button className={"hover:underline"}>{task.name}</button>
+        <p className={"text-sm text-slate-400"}>{task.description}</p>
       </TableData>
       <TableData>
         <div className={"flex justify-end"}>
-          <button className={"text-sm hover:underline"}>Remove</button>
+          <button
+            className={"text-sm hover:underline"}
+            onClick={(e) => {
+              e.preventDefault();
+              onRemove(task.id);
+            }}
+          >
+            Remove
+          </button>
         </div>
       </TableData>
     </tr>

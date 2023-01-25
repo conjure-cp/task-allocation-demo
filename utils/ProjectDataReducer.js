@@ -84,6 +84,21 @@ export default function projectDataReducer(state, action) {
         ],
       };
 
+    case "ADD_USER":
+      return {
+        ...state,
+        users: [
+          ...state.users,
+          {
+            id: Math.max(...state.users.map((x) => parseInt(x.id))) + 1,
+            name: action.name,
+            task_blacklist: action.task_blacklist,
+            preferences: action.preferences,
+            categories: action.categories,
+          },
+        ],
+      };
+
     default:
       return state;
   }
