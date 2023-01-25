@@ -14,6 +14,8 @@ export default function NewUserPage() {
   const [selectedCategory, setSelectedCategory] = useState(-1);
   const [categories, setCategories] = useState([]);
 
+  const [createCategory, setCreateCategory] = useState("");
+
   const handleAddCategory = (e) => {
     e.preventDefault();
 
@@ -149,8 +151,23 @@ export default function NewUserPage() {
                     label={"Name"}
                     placeholder={"Some category"}
                     divClassName={"mt-8"}
+                    value={createCategory}
+                    onChange={(e) => setCreateCategory(e.target.value)}
                   />
-                  <button className={"mt-8 border p-2 hover:underline"}>
+                  {/* TODO make this a form, and make this actually work nicely (eg notify you it worked) */}
+                  <button
+                    className={"mt-8 border p-2 hover:underline"}
+                    onClick={(e) => {
+                      e.preventDefault();
+
+                      dispatch({
+                        type: "ADD_CATEGORY",
+                        name: createCategory,
+                      });
+
+                      setCreateCategory("");
+                    }}
+                  >
                     Create
                   </button>
                 </div>

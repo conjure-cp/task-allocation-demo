@@ -63,11 +63,23 @@ export default function projectDataReducer(state, action) {
         tasks: [
           ...state.tasks,
           {
-            id: state.tasks.length,
+            id: Math.max(...state.tasks) + 1,
             name: action.name,
             description: action.description,
             category: action.category,
             weight: action.weight,
+          },
+        ],
+      };
+
+    case "ADD_CATEGORY":
+      return {
+        ...state,
+        categories: [
+          ...state.categories,
+          {
+            id: Math.max(...state.categories.map(x => parseInt(x.id))) + 1,
+            name: action.name,
           },
         ],
       };
