@@ -1,5 +1,4 @@
 export default function projectDataReducer(state, action) {
-  // TODO add actions
   switch (action.type) {
     case "inc_id_test":
       return { ...state, id: state.id + 1 };
@@ -13,6 +12,7 @@ export default function projectDataReducer(state, action) {
             id: 0,
             name: "Test task",
             description: "Some test description fo this task",
+            category: 1,
             weight: 26,
           },
           {
@@ -22,9 +22,39 @@ export default function projectDataReducer(state, action) {
             category: 0,
             weight: 2,
           },
+          {
+            id: 2,
+            name: "Teach EC4000",
+            description: "This module is something and yea",
+            category: 0,
+            weight: 2,
+          },
+          {
+            id: 3,
+            name: "Some admin",
+            description: "This module is something and yea",
+            category: 1,
+            weight: 6,
+          },
         ],
-        users: [],
-        categories: [{ id: 0, name: "Teaching" }],
+        users: [
+          {
+            id: 0,
+            name: "John Smith",
+            categories: [
+              { id: 0, percentage: 20 },
+              { id: 1, percentage: 10 },
+              { id: 2, percentage: 30 },
+            ],
+            task_blacklist: [1],
+            preferences: [2, 0],
+          },
+        ],
+        categories: [
+          { id: 0, name: "Teaching" },
+          { id: 1, name: "Admin" },
+          { id: 2, name: "Research" },
+        ],
       };
 
     case "ADD_TASK":

@@ -1,6 +1,14 @@
 import Link from "next/link";
+import useProjectData from "../../utils/ProjectDataContext";
 
 export default function UsersPage() {
+  const [projectData, dispatch, loading] = useProjectData();
+
+  if (loading) {
+    // TODO
+    return null;
+  }
+
   return (
     <div>
       <div>
@@ -10,55 +18,95 @@ export default function UsersPage() {
         </p>
       </div>
       <div className={"mt-8"}>
-        <Link href={"/users/new"} className={"border py-2 px-2 hover:underline"}>New User</Link>
-        <table
-          className={
-            "mt-4 w-full divide-y-2 divide-slate-600 border border-slate-600"
-          }
+        <Link
+          href={"/users/new"}
+          className={"border py-2 px-2 hover:underline"}
         >
-          <thead className={"bg-slate-800"}>
-            <tr>
-              <TableHeader>User</TableHeader>
-              <TableHeader>Task Categories</TableHeader>
-              <TableHeader>Possibilities</TableHeader>
-              <TableHeader>Preferences</TableHeader>
-              <TableHeader />
-            </tr>
-          </thead>
-          <tbody className={"divide-y divide-slate-600"}>
-            <UserRow />
-            <UserRow />
-            <UserRow />
-          </tbody>
-        </table>
+          New User
+        </Link>
+        <div className={"mt-4"}>
+          {!projectData.users || projectData.users.length === 0 ? (
+            <p className={"text-sm text-slate-300"}>
+              There are currently no users in your project.
+            </p>
+          ) : (
+            /* TODO make this prettier */
+            <table
+              className={
+                "w-full divide-y-2 divide-slate-600 border border-slate-600"
+              }
+            >
+              <thead className={"bg-slate-800"}>
+                <tr>
+                  <TableHeader>User</TableHeader>
+                  <TableHeader>Task Categories</TableHeader>
+                  <TableHeader>Possibilities</TableHeader>
+                  <TableHeader>Preferences</TableHeader>
+                  <TableHeader />
+                </tr>
+              </thead>
+              <tbody className={"divide-y divide-slate-600"}>
+                {projectData.users.map((u, i) => (
+                  <UserRow
+                    key={i}
+                    user={u}
+                    tasks={projectData.tasks}
+                    categories={projectData.categories}
+                  />
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-function UserRow() {
+function UserRow({ user, tasks, categories }) {
   return (
     <tr>
       <TableData>
-        <button className={"hover:underline"}>John Smith</button>
+        <button className={"hover:underline"}>{user.name}</button>
       </TableData>
       <TableData className={"flex items-center space-x-4"}>
-        <div className={"flex flex-col"}>
-          <p className={"text-xs text-slate-500"}>20%</p>
-          <p className={"text-sm"}>Teaching</p>
-        </div>
-        <div className={"flex flex-col"}>
-          <p className={"text-xs text-slate-500"}>10%</p>
-          <p className={"text-sm"}>Admin</p>
-        </div>
-        <div className={"flex flex-col"}>
-          <p className={"text-xs text-slate-500"}>30%</p>
-          <p className={"text-sm"}>Research</p>
-        </div>
-        <p className={"text-sm text-slate-500"}>+ 2</p>
+        {user.categories.map((o, i) => {
+          // only display first 3 categories and percentages
+          if (i <= 2) {
+            return (
+              <div key={i} className={"flex flex-col"}>
+                <p className={"text-xs text-slate-500"}>{o.percentage}%</p>
+                <p className={"text-sm"}>
+                  {categories.find((c) => c.id === o.id).name}
+                </p>
+              </div>
+            );
+          } else {
+            return o;
+          }
+        })}
+        {user.categories.length > 3 && (
+          <p className={"text-sm text-slate-500"}>
+            + {user.categories.length - 3}
+          </p>
+        )}
+        {/*<div className={"flex flex-col"}>*/}
+        {/*  <p className={"text-xs text-slate-500"}>20%</p>*/}
+        {/*  <p className={"text-sm"}>Teaching</p>*/}
+        {/*</div>*/}
+        {/*<div className={"flex flex-col"}>*/}
+        {/*  <p className={"text-xs text-slate-500"}>10%</p>*/}
+        {/*  <p className={"text-sm"}>Admin</p>*/}
+        {/*</div>*/}
+        {/*<div className={"flex flex-col"}>*/}
+        {/*  <p className={"text-xs text-slate-500"}>30%</p>*/}
+        {/*  <p className={"text-sm"}>Research</p>*/}
+        {/*</div>*/}
+        {/*<p className={"text-sm text-slate-500"}>+ 2</p>*/}
       </TableData>
       <TableData>
-        14 <span className={"text-slate-500"}>/</span> 20
+        {tasks.length - user.task_blacklist.length}{" "}
+        <span className={"text-slate-500"}>/</span> {tasks.length}
       </TableData>
       <TableData>
         <span
@@ -66,7 +114,11 @@ function UserRow() {
             "bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider"
           }
         >
-          4 Allocated
+          {!user.task_blacklist || user.task_blacklist.length === 0 ? (
+            <span className={"text-sm text-slate-400"}>None</span>
+          ) : (
+            <span>{user.preferences.length} Allocated</span>
+          )}
         </span>
       </TableData>
       <TableData>
