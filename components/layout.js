@@ -43,7 +43,7 @@ export default function Layout({ children }) {
         </div>
         <div className={"mt-8"}>TODO here display what project is current</div>
       </div>
-      <div className={"w-full py-8 px-28"}>{children}</div>
+      <div className={"w-full overflow-auto py-8 px-28"}>{children}</div>
     </div>
   );
 }
