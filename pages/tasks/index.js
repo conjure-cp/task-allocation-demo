@@ -2,6 +2,7 @@ import Link from "next/link";
 import useProjectData from "../../utils/ProjectDataContext";
 import TableData from "../../components/ui/TableData";
 import TableHeader from "../../components/ui/TableHeader";
+import Tag from "../../components/ui/Tag";
 
 export default function TasksPage() {
   const [projectData, dispatch, loading] = useProjectData();
@@ -50,6 +51,7 @@ export default function TasksPage() {
                 {projectData.tasks.map((task) => (
                   <TaskRow
                     key={task.id}
+                    id={task.id}
                     name={task.name}
                     description={task.description}
                     category={projectData.categories.find(
@@ -67,11 +69,13 @@ export default function TasksPage() {
   );
 }
 
-function TaskRow({ name, description, category, weight }) {
+function TaskRow({ id, name, description, category, weight }) {
   return (
     <tr>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <button className={"hover:underline"}>{name}</button>
+        <Link href={`/tasks/${id}`}>
+          <button className={"hover:underline"}>{name}</button>
+        </Link>
         <p className={"text-sm text-slate-400"}>{description}</p>
       </TableData>
       <TableData>
@@ -82,13 +86,7 @@ function TaskRow({ name, description, category, weight }) {
         )}
       </TableData>
       <TableData>
-        <span
-          className={
-            "bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider"
-          }
-        >
-          {weight} Points
-        </span>
+        <Tag>{weight} Points</Tag>
       </TableData>
       <TableData>
         <div className={"flex items-center justify-end space-x-4"}>

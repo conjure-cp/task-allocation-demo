@@ -391,7 +391,7 @@ function TaskRow({ task, isDisallowed, onToggle }) {
   return (
     <tr>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <button className={"hover:underline"}>{task.name}</button>
+        <p>{task.name}</p>
         <p className={"text-sm text-slate-400"}>{task.description}</p>
       </TableData>
       <TableData>
