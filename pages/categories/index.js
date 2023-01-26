@@ -1,9 +1,9 @@
-import Link from "next/link";
 import useProjectData from "../../utils/ProjectDataContext";
-import TableData from "../../components/ui/TableData";
+import Link from "next/link";
 import TableHeader from "../../components/ui/TableHeader";
+import TableData from "../../components/ui/TableData";
 
-export default function TasksPage() {
+export default function CategoriesPage() {
   const [projectData, dispatch, loading] = useProjectData();
 
   if (loading) {
@@ -14,22 +14,22 @@ export default function TasksPage() {
   return (
     <div>
       <div>
-        <h1 className={"text-2xl font-semibold"}>Tasks Data</h1>
+        <h1 className={"text-2xl font-semibold"}>Categories Data</h1>
         <p className={"text-slate-300"}>
-          Some description about how tasks data is used or whatever.
+          Some description about how categories data is used or whatever.
         </p>
       </div>
       <div className={"mt-8"}>
         <Link
-          href={"/tasks/new"}
+          href={"/categories/new"}
           className={"border py-2 px-2 hover:underline"}
         >
-          New Task
+          New Category
         </Link>
         <div className={"mt-4"}>
-          {!projectData.tasks || projectData.tasks.length === 0 ? (
+          {!projectData.categories || projectData.categories.length === 0 ? (
             <p className={"text-sm text-slate-300"}>
-              There are currently no tasks in your project.
+              There are currently no categories in your project.
             </p>
           ) : (
             /* TODO make this prettier */
@@ -40,22 +40,17 @@ export default function TasksPage() {
             >
               <thead className={"bg-slate-800"}>
                 <tr>
-                  <TableHeader>Task</TableHeader>
                   <TableHeader>Category</TableHeader>
-                  <TableHeader>Weight</TableHeader>
+                  <TableHeader>Tasks</TableHeader>
                   <TableHeader />
                 </tr>
               </thead>
               <tbody className={"divide-y divide-slate-600"}>
-                {projectData.tasks.map((task) => (
-                  <TaskRow
-                    key={task.id}
-                    name={task.name}
-                    description={task.description}
-                    category={projectData.categories.find(
-                      (c) => c.id === task.category
-                    )}
-                    weight={task.weight}
+                {projectData.categories.map((cat) => (
+                  <CategoryRow
+                    key={cat.id}
+                    category={cat}
+                    tasks={projectData.tasks}
                   />
                 ))}
               </tbody>
@@ -67,28 +62,26 @@ export default function TasksPage() {
   );
 }
 
-function TaskRow({ name, description, category, weight }) {
+function CategoryRow({ category, tasks }) {
+  const numTasks = tasks.filter((t) => t.category === category.id).length;
+
   return (
     <tr>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <button className={"hover:underline"}>{name}</button>
-        <p className={"text-sm text-slate-400"}>{description}</p>
+        <p>{category.name}</p>
       </TableData>
       <TableData>
-        {category ? (
-          category.name
+        {numTasks !== 0 ? (
+          <span
+            className={
+              "bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider"
+            }
+          >
+            {numTasks}
+          </span>
         ) : (
           <span className={"text-sm text-slate-400"}>None</span>
         )}
-      </TableData>
-      <TableData>
-        <span
-          className={
-            "bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider"
-          }
-        >
-          {weight} Points
-        </span>
       </TableData>
       <TableData>
         <div className={"flex items-center justify-end space-x-4"}>

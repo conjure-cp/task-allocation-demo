@@ -1,5 +1,7 @@
 import Link from "next/link";
 import useProjectData from "../../utils/ProjectDataContext";
+import TableData from "../../components/ui/TableData";
+import TableHeader from "../../components/ui/TableHeader";
 
 export default function UsersPage() {
   const [projectData, dispatch, loading] = useProjectData();
@@ -90,19 +92,6 @@ function UserRow({ user, tasks, categories }) {
             + {user.categories.length - 3}
           </p>
         )}
-        {/*<div className={"flex flex-col"}>*/}
-        {/*  <p className={"text-xs text-slate-500"}>20%</p>*/}
-        {/*  <p className={"text-sm"}>Teaching</p>*/}
-        {/*</div>*/}
-        {/*<div className={"flex flex-col"}>*/}
-        {/*  <p className={"text-xs text-slate-500"}>10%</p>*/}
-        {/*  <p className={"text-sm"}>Admin</p>*/}
-        {/*</div>*/}
-        {/*<div className={"flex flex-col"}>*/}
-        {/*  <p className={"text-xs text-slate-500"}>30%</p>*/}
-        {/*  <p className={"text-sm"}>Research</p>*/}
-        {/*</div>*/}
-        {/*<p className={"text-sm text-slate-500"}>+ 2</p>*/}
       </TableData>
       <TableData>
         {tasks.length - user.task_blacklist.length}{" "}
@@ -130,20 +119,4 @@ function UserRow({ user, tasks, categories }) {
       </TableData>
     </tr>
   );
-}
-
-function TableHeader({ children }) {
-  return (
-    <th
-      className={
-        "py-4 px-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400"
-      }
-    >
-      {children}
-    </th>
-  );
-}
-
-function TableData({ children, className }) {
-  return <td className={`py-4 px-4 ${className}`}>{children}</td>;
 }

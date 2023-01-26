@@ -36,7 +36,7 @@ export default function Layout({ children }) {
           <NavigationLink href={"/users"}>
             Users ({projectData.users ? projectData.users.length : 0})
           </NavigationLink>
-          <NavigationLink href={"#"}>
+          <NavigationLink href={"/categories"}>
             Categories (
             {projectData.categories ? projectData.categories.length : 0})
           </NavigationLink>
