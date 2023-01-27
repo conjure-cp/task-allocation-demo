@@ -7,6 +7,20 @@ import Tag from "../../components/ui/Tag";
 export default function TasksPage() {
   const [projectData, dispatch, loading] = useProjectData();
 
+  const handleRemove = (taskId) => {
+    dispatch({
+      type: "REMOVE_TASK",
+      taskId: taskId,
+    });
+  };
+
+  const handleDuplicate = (task) => {
+    dispatch({
+      type: "DUPLICATE_TASK",
+      task: task,
+    });
+  };
+
   if (loading) {
     // TODO
     return null;
@@ -51,13 +65,12 @@ export default function TasksPage() {
                 {projectData.tasks.map((task) => (
                   <TaskRow
                     key={task.id}
-                    id={task.id}
-                    name={task.name}
-                    description={task.description}
+                    task={task}
+                    onRemove={handleRemove}
+                    onDuplicate={handleDuplicate}
                     category={projectData.categories.find(
                       (c) => c.id === task.category
                     )}
-                    weight={task.weight}
                   />
                 ))}
               </tbody>
@@ -69,14 +82,14 @@ export default function TasksPage() {
   );
 }
 
-function TaskRow({ id, name, description, category, weight }) {
+function TaskRow({ task, category, onRemove, onDuplicate }) {
   return (
     <tr>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <Link href={`/tasks/${id}`}>
-          <button className={"hover:underline"}>{name}</button>
+        <Link href={`/tasks/${task.id}`}>
+          <button className={"hover:underline"}>{task.name}</button>
         </Link>
-        <p className={"text-sm text-slate-400"}>{description}</p>
+        <p className={"text-sm text-slate-400"}>{task.description}</p>
       </TableData>
       <TableData>
         {category ? (
@@ -86,13 +99,31 @@ function TaskRow({ id, name, description, category, weight }) {
         )}
       </TableData>
       <TableData>
-        <Tag>{weight} Points</Tag>
+        <Tag>{task.weight} Points</Tag>
       </TableData>
       <TableData>
         <div className={"flex items-center justify-end space-x-4"}>
-          <button className={"text-sm hover:underline"}>Edit</button>
-          <button className={"text-sm hover:underline"}>Duplicate</button>
-          <button className={"text-sm hover:underline"}>Remove</button>
+          <Link href={`/tasks/${task.id}/edit`}>
+            <button className={"text-sm hover:underline"}>Edit</button>
+          </Link>
+          <button
+            className={"text-sm hover:underline"}
+            onClick={(e) => {
+              e.preventDefault();
+              onDuplicate(task);
+            }}
+          >
+            Duplicate
+          </button>
+          <button
+            className={"text-sm hover:underline"}
+            onClick={(e) => {
+              e.preventDefault();
+              onRemove(task.id);
+            }}
+          >
+            Remove
+          </button>
         </div>
       </TableData>
     </tr>
