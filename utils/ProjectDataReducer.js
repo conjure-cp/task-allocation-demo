@@ -72,6 +72,19 @@ export default function projectDataReducer(state, action) {
         ],
       };
 
+    case "EDIT_TASK": {
+      let arr = [...state.tasks];
+      const index = arr.findIndex((t) => t.id === action.taskId);
+      arr[index] = {
+        id: action.taskId,
+        name: action.name,
+        description: action.description,
+        category: action.category,
+        weight: action.weight,
+      };
+      return { ...state, tasks: arr };
+    }
+
     case "ADD_CATEGORY":
       return {
         ...state,
