@@ -99,6 +99,47 @@ export default function projectDataReducer(state, action) {
         ],
       };
 
+    case "REMOVE_TASK":
+      return {
+        ...state,
+        tasks: state.tasks.filter(
+          (t) => parseInt(t.id) !== parseInt(action.taskId)
+        ),
+      };
+
+    case "DUPLICATE_TASK":
+      return {
+        ...state,
+        tasks: [
+          ...state.tasks,
+          {
+            ...action.task,
+            id: Math.max(...state.tasks.map((x) => parseInt(x.id))) + 1,
+          },
+        ],
+      };
+
+    case "USER_ALLOW_TASK": {
+      let arr = [...state.users];
+      const index = arr.findIndex((u) => u.id === action.user);
+      let u = arr[index];
+      u.task_blacklist = u.task_blacklist.filter((t) => t !== action.task);
+      arr[index] = u;
+      return { ...state, users: arr };
+    }
+
+    case "USER_DISALLOW_TASK": {
+      let arr = [...state.users];
+      const index = arr.findIndex((u) => u.id === action.user);
+      const u = arr[index];
+      if (u.task_blacklist.includes(action.task)) {
+        return { ...state };
+      }
+      u.task_blacklist = [...u.task_blacklist, action.task];
+      arr[index] = u;
+      return { ...state, users: arr };
+    }
+
     default:
       return state;
   }
