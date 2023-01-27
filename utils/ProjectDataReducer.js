@@ -4,6 +4,7 @@ export default function projectDataReducer(state, action) {
       return { ...state, id: state.id + 1 };
 
     case "NEW_PROJECT":
+      // TODO remove this lol
       return {
         id: 0,
         name: "My test project",
