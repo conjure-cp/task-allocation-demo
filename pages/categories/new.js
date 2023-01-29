@@ -1,18 +1,12 @@
 import useProjectData from "../../utils/ProjectDataContext";
-import Input from "../../components/ui/Input";
-import { useState } from "react";
 import { useRouter } from "next/router";
-import PrimaryButton from "../../components/ui/PrimaryButton";
+import { CategoryCreator } from "../../components/tasks/CategoryCreateEdit";
 
 export default function NewCategoryPage() {
   const [projectData, dispatch, loading] = useProjectData();
   const router = useRouter();
 
-  const [name, setName] = useState();
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const handleSubmit = (name) => {
     dispatch({
       type: "ADD_CATEGORY",
       name: name,
@@ -34,15 +28,7 @@ export default function NewCategoryPage() {
           Some description about how categories data is used or whatever.
         </p>
       </div>
-      <form className={"mt-8 space-y-8"} onSubmit={handleSubmit}>
-        <Input
-          label={"Name"}
-          placeholder={"Teaching"}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <PrimaryButton>Create Category</PrimaryButton>
-      </form>
+      <CategoryCreator onSubmit={handleSubmit} />
     </div>
   );
 }
