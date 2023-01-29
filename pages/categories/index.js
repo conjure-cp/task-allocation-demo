@@ -6,6 +6,20 @@ import TableData from "../../components/ui/TableData";
 export default function CategoriesPage() {
   const [projectData, dispatch, loading] = useProjectData();
 
+  const handleRemove = (categoryId) => {
+    dispatch({
+      type: "REMOVE_CATEGORY",
+      category: parseInt(categoryId),
+    });
+  };
+
+  const handleDuplicate = (category) => {
+    dispatch({
+      type: "DUPLICATE_CATEGORY",
+      category: category,
+    });
+  };
+
   if (loading) {
     // TODO
     return null;
@@ -51,6 +65,8 @@ export default function CategoriesPage() {
                     key={cat.id}
                     category={cat}
                     tasks={projectData.tasks}
+                    handleRemove={handleRemove}
+                    handleDuplicate={handleDuplicate}
                   />
                 ))}
               </tbody>
@@ -62,7 +78,7 @@ export default function CategoriesPage() {
   );
 }
 
-function CategoryRow({ category, tasks }) {
+function CategoryRow({ category, tasks, handleRemove, handleDuplicate }) {
   const numTasks = tasks.filter((t) => t.category === category.id).length;
 
   return (
@@ -85,9 +101,27 @@ function CategoryRow({ category, tasks }) {
       </TableData>
       <TableData>
         <div className={"flex items-center justify-end space-x-4"}>
-          <button className={"text-sm hover:underline"}>Edit</button>
-          <button className={"text-sm hover:underline"}>Duplicate</button>
-          <button className={"text-sm hover:underline"}>Remove</button>
+          <Link href={`/categories/${category.id}/edit`}>
+            <button className={"text-sm hover:underline"}>Edit</button>
+          </Link>
+          <button
+            className={"text-sm hover:underline"}
+            onClick={(e) => {
+              e.preventDefault();
+              handleDuplicate(category);
+            }}
+          >
+            Duplicate
+          </button>
+          <button
+            className={"text-sm hover:underline"}
+            onClick={(e) => {
+              e.preventDefault();
+              handleRemove(category.id);
+            }}
+          >
+            Remove
+          </button>
         </div>
       </TableData>
     </tr>

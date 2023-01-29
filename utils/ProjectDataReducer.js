@@ -154,6 +154,34 @@ export default function projectDataReducer(state, action) {
       return { ...state, users: arr };
     }
 
+    case "REMOVE_CATEGORY": {
+      return {
+        ...state,
+        tasks: state.tasks.map((t) => {
+          if (t.category === action.category) {
+            let tt = { ...t };
+            delete tt.category;
+            return tt;
+          } else {
+            return t;
+          }
+        }),
+        categories: state.categories.filter((c) => c.id !== action.category),
+      };
+    }
+
+    case "DUPLICATE_CATEGORY":
+      return {
+        ...state,
+        categories: [
+          ...state.categories,
+          {
+            ...action.category,
+            id: Math.max(...state.categories.map((x) => parseInt(x.id))) + 1,
+          },
+        ],
+      };
+
     default:
       return state;
   }
