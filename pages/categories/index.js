@@ -84,7 +84,9 @@ function CategoryRow({ category, tasks, handleRemove, handleDuplicate }) {
   return (
     <tr>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <p>{category.name}</p>
+        <Link href={`/categories/${category.id}`}>
+          <button className={"hover:underline"}>{category.name}</button>
+        </Link>
       </TableData>
       <TableData>
         {numTasks !== 0 ? (
