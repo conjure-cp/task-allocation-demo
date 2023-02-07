@@ -79,10 +79,12 @@ export default function TaskViewPage() {
         </div>
       </div>
       <div className={"mt-4 flex items-center space-x-4"}>
-        {task.category && (
+        {task.category ? (
           <Tag>
             {projectData.categories.find((c) => c.id === task.category).name}
           </Tag>
+        ) : (
+          ""
         )}
         <Tag>{task.weight} Points</Tag>
       </div>

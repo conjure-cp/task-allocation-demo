@@ -1,5 +1,6 @@
 import Link from "next/link";
 import useProjectData from "../utils/ProjectDataContext";
+import { useRouter } from "next/router";
 
 export default function Layout({ children }) {
   const [projectData, dispatch, loading] = useProjectData();
@@ -28,30 +29,58 @@ export default function Layout({ children }) {
             v0.1
           </span>
         </div>
-        <div className={"mt-8 flex flex-col items-start space-y-2"}>
-          {/* TODO make the numbers in nav prettier */}
-          <NavigationLink href={"/tasks"}>
-            Tasks ({projectData.tasks ? projectData.tasks.length : 0})
+        <div className={"mt-8 flex flex-col items-start space-y-4"}>
+          <NavigationLink
+            href={"/tasks"}
+            badge={projectData.tasks ? projectData.tasks.length : 0}
+          >
+            Tasks
           </NavigationLink>
-          <NavigationLink href={"/users"}>
-            Users ({projectData.users ? projectData.users.length : 0})
+          <NavigationLink
+            href={"/users"}
+            badge={projectData.users ? projectData.users.length : 0}
+          >
+            Users
           </NavigationLink>
-          <NavigationLink href={"/categories"}>
-            Categories (
-            {projectData.categories ? projectData.categories.length : 0})
+          <NavigationLink
+            href={"/categories"}
+            badge={projectData.categories ? projectData.categories.length : 0}
+          >
+            Categories
           </NavigationLink>
         </div>
-        <div className={"mt-8"}>TODO here display what project is current</div>
+        {/*<div className={"mt-8"}>TODO here display what project is current</div>*/}
       </div>
       <div className={"w-full overflow-auto py-8 px-28"}>{children}</div>
     </div>
   );
 }
 
-function NavigationLink({ children, href }) {
+function NavigationLink({ children, badge, href }) {
+  const router = useRouter();
+
+  const active = router.pathname.includes(href);
+
   return (
-    <Link href={href} className={"hover:underline"}>
-      {children}
-    </Link>
+    <button
+      className={`flex w-full items-center justify-between px-3 py-2 ${
+        active ? "bg-slate-900" : "hover:bg-slate-700"
+      }`}
+      onClick={(e) => {
+        e.preventDefault();
+        router.push(href);
+      }}
+    >
+      <span className={`${active ? "text-slate-100" : "text-slate-400"}`}>
+        {children}
+      </span>
+      <code
+        className={`${
+          active ? "text-slate-400" : "bg-slate-700 text-slate-400"
+        } px-1 text-sm font-medium`}
+      >
+        {badge}
+      </code>
+    </button>
   );
 }

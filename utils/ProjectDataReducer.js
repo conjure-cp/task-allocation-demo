@@ -166,6 +166,12 @@ export default function projectDataReducer(state, action) {
             return t;
           }
         }),
+        users: state.users.map((u) => {
+          return {
+            ...u,
+            categories: u.categories.filter((c) => c.id !== action.category),
+          };
+        }),
         categories: state.categories.filter((c) => c.id !== action.category),
       };
     }

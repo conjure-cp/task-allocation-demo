@@ -79,7 +79,9 @@ function UserRow({ user, tasks, categories }) {
               <div key={i} className={"flex flex-col"}>
                 <p className={"text-xs text-slate-500"}>{o.percentage}%</p>
                 <p className={"text-sm"}>
-                  {categories.find((c) => c.id === o.id).name}
+                  {categories.find((c) => c.id === o.id)
+                    ? categories.find((c) => c.id === o.id).name
+                    : "FIXME"}
                 </p>
               </div>
             );
