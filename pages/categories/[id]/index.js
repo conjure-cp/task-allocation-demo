@@ -20,15 +20,16 @@ export default function CategoryViewPage() {
 
   return (
     <div>
-      <div>
-        <h1 className={"text-2xl font-semibold"}>Categories Data</h1>
-        <p className={"text-slate-300"}>
-          Some description about how tasks data is used or whatever.
-        </p>
-      </div>
-      <div className={"mt-8 flex justify-between border-t pt-8"}>
+      <div className={"flex items-center justify-between"}>
         <div>
-          <p className={"text-lg font-medium"}>{category.name}</p>
+          <p
+            className={
+              "pb-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            }
+          >
+            Category
+          </p>
+          <h1 className={"text-2xl font-semibold"}>{category.name}</h1>
         </div>
         <div className={"flex items-center space-x-4"}>
           <Link href={`/categories/${id}/edit`}>

@@ -35,16 +35,17 @@ export default function TaskViewPage() {
 
   return (
     <div>
-      <div>
-        <h1 className={"text-2xl font-semibold"}>Tasks Data</h1>
-        <p className={"text-slate-300"}>
-          Some description about how tasks data is used or whatever.
-        </p>
-      </div>
-      <div className={"mt-8 flex justify-between border-t pt-8"}>
+      <div className={"flex items-center justify-between"}>
         <div>
-          <p className={"text-lg font-medium"}>{task.name}</p>
-          <p className={"text-sm text-slate-300"}>{task.description}</p>
+          <p
+            className={
+              "pb-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            }
+          >
+            Task
+          </p>
+          <h1 className={"text-2xl font-semibold"}>{task.name}</h1>
+          <p className={"text-slate-300"}>{task.description}</p>
         </div>
         <div className={"flex items-center space-x-4"}>
           <Link href={`/tasks/${id}/edit`}>

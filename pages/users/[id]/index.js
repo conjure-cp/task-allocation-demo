@@ -21,16 +21,16 @@ export default function UserViewPage() {
 
   return (
     <div>
-      <div>
-        {/* TODO just redo this whole hierarchy */}
-        <h1 className={"text-2xl font-semibold"}>Users Data</h1>
-        <p className={"text-slate-300"}>
-          Some description about how tasks data is used or whatever.
-        </p>
-      </div>
-      <div className={"mt-8 flex justify-between border-t pt-8"}>
+      <div className={"flex items-center justify-between"}>
         <div>
-          <p className={"text-lg font-medium"}>{user.name}</p>
+          <p
+            className={
+              "pb-2 text-xs font-semibold uppercase tracking-wide text-slate-500"
+            }
+          >
+            User
+          </p>
+          <h1 className={"text-2xl font-semibold"}>{user.name}</h1>
         </div>
         <div className={"flex items-center space-x-4"}>
           <Link href={`/users/${id}/edit`}>
