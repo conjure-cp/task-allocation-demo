@@ -26,10 +26,13 @@ function CategoryForm({ initialName, handleSubmit, buttonText }) {
   const [name, setName] = useState(initialName);
 
   return (
-    <form className={"mt-8 space-y-8"} onSubmit={e => {
-      e.preventDefault();
-      handleSubmit(name);
-    }}>
+    <form
+      className={"mt-8 space-y-8"}
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(name);
+      }}
+    >
       <Input
         label={"Name"}
         placeholder={"Teaching"}

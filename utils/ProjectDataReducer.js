@@ -116,9 +116,16 @@ export default function projectDataReducer(state, action) {
     case "REMOVE_TASK":
       return {
         ...state,
-        tasks: state.tasks.filter(
-          (t) => parseInt(t.id) !== parseInt(action.taskId)
-        ),
+        tasks: state.tasks.filter((t) => t.id !== parseInt(action.taskId)),
+        users: state.users.map((u) => ({
+          ...u,
+          task_blacklist: u.task_blacklist.filter(
+            (x) => x !== parseInt(action.taskId)
+          ),
+          preferences: u.preferences.filter(
+            (x) => x !== parseInt(action.taskId)
+          ),
+        })),
       };
 
     case "DUPLICATE_TASK":
@@ -154,7 +161,7 @@ export default function projectDataReducer(state, action) {
       return { ...state, users: arr };
     }
 
-    case "REMOVE_CATEGORY": {
+    case "REMOVE_CATEGORY":
       return {
         ...state,
         tasks: state.tasks.map((t) => {
@@ -174,7 +181,6 @@ export default function projectDataReducer(state, action) {
         }),
         categories: state.categories.filter((c) => c.id !== action.category),
       };
-    }
 
     case "DUPLICATE_CATEGORY":
       return {
@@ -197,6 +203,37 @@ export default function projectDataReducer(state, action) {
       };
       return { ...state, categories: arr };
     }
+
+    case "EDIT_USER": {
+      let arr = [...state.users];
+      const index = arr.findIndex((u) => u.id === action.userId);
+      arr[index] = {
+        id: action.userId,
+        name: action.name,
+        categories: action.categories,
+        task_blacklist: action.task_blacklist,
+        preferences: action.preferences,
+      };
+      return { ...state, users: arr };
+    }
+
+    case "REMOVE_USER":
+      return {
+        ...state,
+        users: state.users.filter((u) => u.id !== parseInt(action.userId)),
+      };
+
+    case "DUPLICATE_USER":
+      return {
+        ...state,
+        users: [
+          ...state.users,
+          {
+            ...action.user,
+            id: Math.max(...state.users.map((x) => parseInt(x.id))) + 1,
+          },
+        ],
+      };
 
     default:
       return state;

@@ -1,6 +1,6 @@
 import useProjectData from "../../utils/ProjectDataContext";
 import { useRouter } from "next/router";
-import { CategoryCreator } from "../../components/tasks/CategoryCreateEdit";
+import { CategoryCreator } from "../../components/categories/CategoryCreateEdit";
 
 export default function NewCategoryPage() {
   const [projectData, dispatch, loading] = useProjectData();

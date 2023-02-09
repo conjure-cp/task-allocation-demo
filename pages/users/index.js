@@ -6,6 +6,20 @@ import TableHeader from "../../components/ui/TableHeader";
 export default function UsersPage() {
   const [projectData, dispatch, loading] = useProjectData();
 
+  const handleRemove = (userId) => {
+    dispatch({
+      type: "REMOVE_USER",
+      userId: userId,
+    });
+  };
+
+  const handleDuplicate = (user) => {
+    dispatch({
+      type: "DUPLICATE_USER",
+      user: user,
+    });
+  };
+
   if (loading) {
     // TODO
     return null;
@@ -54,6 +68,8 @@ export default function UsersPage() {
                     user={u}
                     tasks={projectData.tasks}
                     categories={projectData.categories}
+                    handleRemove={handleRemove}
+                    handleDuplicate={handleDuplicate}
                   />
                 ))}
               </tbody>
@@ -65,11 +81,13 @@ export default function UsersPage() {
   );
 }
 
-function UserRow({ user, tasks, categories }) {
+function UserRow({ user, tasks, categories, handleRemove, handleDuplicate }) {
   return (
     <tr>
       <TableData>
-        <button className={"hover:underline"}>{user.name}</button>
+        <Link href={`/users/${user.id}`}>
+          <button className={"hover:underline"}>{user.name}</button>
+        </Link>
       </TableData>
       <TableData className={"flex items-center space-x-4"}>
         {user.categories.map((o, i) => {
@@ -105,7 +123,7 @@ function UserRow({ user, tasks, categories }) {
             "bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider"
           }
         >
-          {!user.task_blacklist || user.task_blacklist.length === 0 ? (
+          {!user.preferences || user.preferences.length === 0 ? (
             <span className={"text-sm text-slate-400"}>None</span>
           ) : (
             <span>{user.preferences.length} Allocated</span>
@@ -114,9 +132,27 @@ function UserRow({ user, tasks, categories }) {
       </TableData>
       <TableData>
         <div className={"flex items-center justify-end space-x-4"}>
-          <button className={"text-sm hover:underline"}>Edit</button>
-          <button className={"text-sm hover:underline"}>Duplicate</button>
-          <button className={"text-sm hover:underline"}>Remove</button>
+          <Link href={`/users/${user.id}/edit`}>
+            <button className={"text-sm hover:underline"}>Edit</button>
+          </Link>
+          <button
+            className={"text-sm hover:underline"}
+            onClick={(e) => {
+              e.preventDefault();
+              handleDuplicate(user);
+            }}
+          >
+            Duplicate
+          </button>
+          <button
+            className={"text-sm hover:underline"}
+            onClick={(e) => {
+              e.preventDefault();
+              handleRemove(user.id);
+            }}
+          >
+            Remove
+          </button>
         </div>
       </TableData>
     </tr>

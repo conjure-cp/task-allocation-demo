@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import useProjectData from "../../../utils/ProjectDataContext";
-import { CategoryEditor } from "../../../components/tasks/CategoryCreateEdit";
+import { CategoryEditor } from "../../../components/categories/CategoryCreateEdit";
 
 export default function EditCategoryPage() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function EditCategoryPage() {
       name: name,
     });
 
-    router.push("/categories");
+    router.push(`/categories/${id}`);
   };
 
   if (loading || !category) {
