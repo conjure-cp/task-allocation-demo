@@ -8,7 +8,7 @@ export default function EditUserPage() {
 
   const [projectData, dispatch, loading] = useProjectData();
 
-  const user = projectData.categories.find((u) => u.id === parseInt(id));
+  const user = projectData.users.find((u) => u.id === parseInt(id));
 
   const handleEditUser = (name, disallowedTasks, tasks, categories) => {
     dispatch({
