@@ -1,6 +1,7 @@
 import Link from "next/link";
 import useProjectData from "../utils/ProjectDataContext";
 import { useRouter } from "next/router";
+import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
 
 export default function Layout({ children }) {
   const [projectData, dispatch, loading] = useProjectData();
@@ -30,6 +31,7 @@ export default function Layout({ children }) {
           </span>
         </div>
         <div className={"mt-8 flex flex-col items-start space-y-4"}>
+          <NavigationLink href={"/"}>Project</NavigationLink>
           <NavigationLink
             href={"/tasks"}
             badge={projectData.tasks ? projectData.tasks.length : 0}
@@ -49,7 +51,22 @@ export default function Layout({ children }) {
             Categories
           </NavigationLink>
         </div>
-        {/*<div className={"mt-8"}>TODO here display what project is current</div>*/}
+        <div className={"mt-8 border-t border-slate-700 pt-8"}>
+          <Link href={"/output"}>
+            <button
+              className={
+                "px-2 group flex w-full items-center justify-between space-x-2"
+              }
+            >
+            <span className={"text-slate-400 group-hover:text-slate-200"}>
+              View Output
+            </span>
+              <ArrowSmallRightIcon
+                className={"h-6 w-6 text-slate-500 group-hover:text-slate-300"}
+              />
+            </button>
+          </Link>
+        </div>
       </div>
       <div className={"w-full overflow-auto py-8 px-28"}>{children}</div>
     </div>
@@ -74,13 +91,15 @@ function NavigationLink({ children, badge, href }) {
       <span className={`${active ? "text-slate-100" : "text-slate-400"}`}>
         {children}
       </span>
-      <code
-        className={`${
-          active ? "text-slate-400" : "bg-slate-700 text-slate-400"
-        } px-1 text-sm font-medium`}
-      >
-        {badge}
-      </code>
+      {badge ? (
+        <code
+          className={`${
+            active ? "text-slate-400" : "bg-slate-700 text-slate-400"
+          } px-1 text-sm font-medium`}
+        >
+          {badge}
+        </code>
+      ) : null}
     </button>
   );
 }

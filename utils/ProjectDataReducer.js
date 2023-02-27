@@ -56,6 +56,19 @@ export default function projectDataReducer(state, action) {
           { id: 1, name: "Admin" },
           { id: 2, name: "Research" },
         ],
+        // partial_allocation: {
+        //   tasks: [0, 2, 1],
+        //   users: [0]
+        // },
+        // output_state: {
+        //   status: "wait",
+        //   job_id: 156
+        // },
+        // output_history: [
+        //   {
+        //     "nb_users": 2
+        //   }
+        // ]
       };
 
     case "ADD_TASK":
@@ -234,6 +247,35 @@ export default function projectDataReducer(state, action) {
           },
         ],
       };
+
+    case "WAIT_OUTPUT":
+      return {
+        ...state,
+        output_state: { status: "wait", job_id: action.job_id },
+      };
+
+    case "ADD_OUTPUT": {
+      let obj = {
+        ...state,
+        output_state: { status: action.output.status, data: action.output },
+      };
+
+      if (!obj.output_history) {
+        obj.output_history = [];
+      }
+
+      if (
+        action.output.status === "ok" &&
+        action.output.solution &&
+        action.output.solution.length > 0
+      ) {
+        obj.output_history.push(action.output.solution[0]);
+      } else {
+        obj.output_history.push({});
+      }
+
+      return obj;
+    }
 
     default:
       return state;
