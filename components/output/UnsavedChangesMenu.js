@@ -49,14 +49,14 @@ export default function UnsavedChangesMenu() {
   return (
     <div className={"mb-8 border border-slate-600 bg-slate-800 py-3 px-5"}>
       <WarningText />
-      <div className={"mt-8"}>
-        <p className={"text-slate-300"}>
+      <div className={"mt-8 ml-10"}>
+        <p className={"w-[700px] text-slate-300"}>
           Create a new solution based on your previous output combined with
           changes made to tasks, categories and users. Any tasks locked below
           will retain their existing assignment.
         </p>
         <PrimaryButton
-          className={"mt-4"}
+          className={"mt-8 text-sm"}
           onClick={(e) => handleGenerate(e, projectData, dispatch, router)}
         >
           Update Solution
