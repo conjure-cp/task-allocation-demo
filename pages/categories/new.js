@@ -16,7 +16,6 @@ export default function NewCategoryPage() {
   };
 
   if (loading) {
-    // TODO
     return null;
   }
 

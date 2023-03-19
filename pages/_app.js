@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Layout from "../components/layout";
+import Layout from "../components/layout/layout";
 import { ProjectDataContext } from "../utils/ProjectDataContext";
 import useStickyReducer from "../utils/StickyStateHook";
 import projectDataReducer from "../utils/ProjectDataReducer";

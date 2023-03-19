@@ -1,7 +1,9 @@
 import Link from "next/link";
-import useProjectData from "../utils/ProjectDataContext";
+import useProjectData from "../../utils/ProjectDataContext";
 import { useRouter } from "next/router";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
+import OutputVersionDropdown from "./OutputVersionDropdown";
+import UnsavedChangesMenu from "../output/UnsavedChangesMenu";
 
 export default function Layout({ children }) {
   const [projectData, dispatch, loading] = useProjectData();
@@ -31,7 +33,9 @@ export default function Layout({ children }) {
           </span>
         </div>
         <div className={"mt-8 flex flex-col items-start space-y-4"}>
-          <NavigationLink href={"/"}>Project</NavigationLink>
+          <NavigationLink href={"/"} equals>
+            Project
+          </NavigationLink>
           <NavigationLink
             href={"/tasks"}
             badge={projectData.tasks ? projectData.tasks.length : 0}
@@ -51,32 +55,55 @@ export default function Layout({ children }) {
             Categories
           </NavigationLink>
         </div>
-        <div className={"mt-8 border-t border-slate-700 pt-8"}>
-          <Link href={"/output"}>
-            <button
+        {Object.hasOwn(projectData, "id") && projectData.id !== -1 ? (
+          <div>
+            <div
               className={
-                "px-2 group flex w-full items-center justify-between space-x-2"
+                "mt-8 flex flex-col space-y-1 border-t border-slate-700 px-2 pt-8"
               }
             >
-            <span className={"text-slate-400 group-hover:text-slate-200"}>
-              View Output
-            </span>
-              <ArrowSmallRightIcon
-                className={"h-6 w-6 text-slate-500 group-hover:text-slate-300"}
-              />
-            </button>
-          </Link>
-        </div>
+              <SidebarLabel>Project Name:</SidebarLabel>
+              <span className={"text-sm"}>{projectData.name}</span>
+            </div>
+            <div className={"mt-4 px-2"}>
+              <SidebarLabel>Solution Version:</SidebarLabel>
+              <OutputVersionDropdown />
+            </div>
+            <div className={"mt-8"}>
+              <Link href={"/output"}>
+                <button
+                  className={
+                    "group flex w-full items-center justify-between space-x-2 px-2"
+                  }
+                >
+                  <span className={"text-slate-400 group-hover:text-slate-200"}>
+                    Solution Details
+                  </span>
+                  <ArrowSmallRightIcon
+                    className={
+                      "h-6 w-6 text-slate-500 group-hover:text-slate-300"
+                    }
+                  />
+                </button>
+              </Link>
+            </div>
+          </div>
+        ) : null}
       </div>
-      <div className={"w-full overflow-auto py-8 px-28"}>{children}</div>
+      <div className={"w-full overflow-auto py-8 px-28"}>
+        <UnsavedChangesMenu />
+        {children}
+      </div>
     </div>
   );
 }
 
-function NavigationLink({ children, badge, href }) {
+function NavigationLink({ children, badge, href, equals = false }) {
   const router = useRouter();
 
-  const active = router.pathname.includes(href);
+  const active = equals
+    ? router.pathname === href
+    : router.pathname.includes(href);
 
   return (
     <button
@@ -101,5 +128,11 @@ function NavigationLink({ children, badge, href }) {
         </code>
       ) : null}
     </button>
+  );
+}
+
+function SidebarLabel({ children }) {
+  return (
+    <span className={"text-xs tracking-wide text-slate-400"}>{children}</span>
   );
 }

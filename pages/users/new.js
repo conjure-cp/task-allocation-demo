@@ -1,8 +1,14 @@
 import { useRouter } from "next/router";
 import { UserCreator } from "../../components/users/UserCreateEdit";
+import useProjectData from "../../utils/ProjectDataContext";
 
 export default function NewUserPage() {
   const router = useRouter();
+  const [projectData, dispatch, loading] = useProjectData();
+
+  if (loading) {
+    return null;
+  }
 
   const handleCreateUser = (name, disallowedTasks, tasks, categories) => {
     dispatch({

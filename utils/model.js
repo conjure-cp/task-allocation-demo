@@ -18,6 +18,14 @@ export function convertInput(projectData) {
       };
       return acc;
     }, {}),
+    partial_assignment: projectData.locked_tasks
+      ? projectData.locked_tasks.reduce((acc, cur) => {
+          acc[cur + 1] = projectData.output_history.find(
+            (oh) => oh.output_id === projectData.current_selected_output_id
+          ).solution.assignment[cur + 1];
+          return acc;
+        }, {})
+      : [],
   };
 }
 
@@ -108,4 +116,12 @@ export const ESSENCE_MODEL =
   "\n" +
   "\n" +
   "minimising 1000 * weight_violations + category_violations + 100 * preference_violations\n" +
+  "\n" +
+  "\n" +
+  "\n" +
+  "\n" +
+  "\n" +
+  "given partial_assignment : function TASK --> USER\n" +
+  "such that forAll (t, u) in partial_assignment . assignment(t) = u\n" +
+  "\n" +
   "\n";

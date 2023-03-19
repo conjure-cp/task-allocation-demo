@@ -1,4 +1,35 @@
+import findNextId from "./max-id";
+
+const ACTIONS_NOT_ELICITING_UNSAVED_CHANGES = [
+  "NEW_PROJECT",
+  "SELECT_OUTPUT_VERSION",
+  "ADD_OUTPUT",
+  "WAIT_OUTPUT",
+];
+
 export default function projectDataReducer(state, action) {
+  // result from actual reducer
+  let result = { ...innerProjectDataReducer(state, action) };
+
+  // if previous outputs have been generated, then we want to keep track of any unsaved changes.
+  // unsaved changes are any changes (eg add/edit task) made after an output has been generated.
+  // this is to notify the user that they have made changes and should re-generate the output.
+
+  // some actions do not elicit making a change and hence are not included
+
+  if (
+    !ACTIONS_NOT_ELICITING_UNSAVED_CHANGES.includes(action.type) &&
+    result.output_history &&
+    result.output_history.length !== 0
+  ) {
+    // set unsaved changes flag on top of reducer's result
+    result.unsaved_changes = true;
+  }
+
+  return result;
+}
+
+function innerProjectDataReducer(state, action) {
   switch (action.type) {
     case "inc_id_test":
       return { ...state, id: state.id + 1 };
@@ -37,6 +68,13 @@ export default function projectDataReducer(state, action) {
             category: 1,
             weight: 6,
           },
+          {
+            id: 4,
+            name: "THIS TASK IS NEW I THINK",
+            description: "This module is something and yea",
+            category: 1,
+            weight: 6,
+          },
         ],
         users: [
           {
@@ -56,19 +94,192 @@ export default function projectDataReducer(state, action) {
           { id: 1, name: "Admin" },
           { id: 2, name: "Research" },
         ],
-        // partial_allocation: {
-        //   tasks: [0, 2, 1],
-        //   users: [0]
-        // },
-        // output_state: {
-        //   status: "wait",
-        //   job_id: 156
-        // },
-        // output_history: [
-        //   {
-        //     "nb_users": 2
-        //   }
-        // ]
+        locked_tasks: [], // TODO KEEP THINK NEED TO KEEP THIS AS DEFAULT
+
+        // fake outputs
+
+        current_selected_output_id: 3,
+        unsaved_changes: false,
+        output_history: [
+          {
+            output_id: 1,
+            status: "ok",
+            date: 1678986668679,
+            solution: { assignment: { 1: 1, 2: 1, 3: 1, 4: 1 } },
+            state: {
+              locked_tasks: [],
+              users: [
+                {
+                  id: 0,
+                  name: "John Smith",
+                  categories: [
+                    { id: 0, percentage: 20 },
+                    { id: 1, percentage: 10 },
+                    { id: 2, percentage: 30 },
+                  ],
+                  task_blacklist: [1],
+                  preferences: [2, 0],
+                },
+              ],
+              tasks: [
+                {
+                  id: 0,
+                  name: "Test task",
+                  description: "Some test description fo this task",
+                  category: 1,
+                  weight: 26,
+                },
+                {
+                  id: 1,
+                  name: "Teach CS3102",
+                  description: "This module is something and yea",
+                  category: 0,
+                  weight: 2,
+                },
+                {
+                  id: 2,
+                  name: "Teach EC4000",
+                  description: "This module is something and yea",
+                  category: 0,
+                  weight: 2,
+                },
+                {
+                  id: 3,
+                  name: "Some admin",
+                  description: "This module is something and yea",
+                  category: 1,
+                  weight: 6,
+                },
+              ],
+              categories: [
+                { id: 0, name: "Teaching" },
+                { id: 1, name: "Admin" },
+                { id: 2, name: "Research" },
+              ],
+            },
+          },
+          {
+            output_id: 2,
+            status: "ok",
+            date: 1678986668679,
+            solution: { assignment: { 1: 1, 2: 1, 3: 1, 4: 1 } },
+            state: {
+              locked_tasks: [],
+              users: [
+                {
+                  id: 0,
+                  name: "John Smith",
+                  categories: [
+                    { id: 0, percentage: 20 },
+                    { id: 1, percentage: 10 },
+                    { id: 2, percentage: 30 },
+                  ],
+                  task_blacklist: [1],
+                  preferences: [2, 0],
+                },
+              ],
+              tasks: [
+                {
+                  id: 0,
+                  name: "Test task",
+                  description: "Some test description fo this task",
+                  category: 1,
+                  weight: 26,
+                },
+                {
+                  id: 1,
+                  name: "Teach CS3102",
+                  description: "This module is something and yea",
+                  category: 0,
+                  weight: 2,
+                },
+                {
+                  id: 2,
+                  name: "Teach EC4000",
+                  description: "This module is something and yea",
+                  category: 0,
+                  weight: 2,
+                },
+                {
+                  id: 3,
+                  name: "Some admin",
+                  description: "This module is something and yea",
+                  category: 1,
+                  weight: 6,
+                },
+              ],
+              categories: [
+                { id: 0, name: "Teaching" },
+                { id: 1, name: "Admin" },
+                { id: 2, name: "Research" },
+              ],
+            },
+          },
+          {
+            output_id: 3,
+            status: "ok",
+            date: 1678986668679,
+            solution: { assignment: { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1 } },
+            state: {
+              locked_tasks: [],
+              users: [
+                {
+                  id: 0,
+                  name: "John Smith",
+                  categories: [
+                    { id: 0, percentage: 20 },
+                    { id: 1, percentage: 10 },
+                    { id: 2, percentage: 30 },
+                  ],
+                  task_blacklist: [1],
+                  preferences: [2, 0],
+                },
+              ],
+              tasks: [
+                {
+                  id: 0,
+                  name: "Test task",
+                  description: "Some test description fo this task",
+                  category: 1,
+                  weight: 26,
+                },
+                {
+                  id: 1,
+                  name: "Teach CS3102",
+                  description: "This module is something and yea",
+                  category: 0,
+                  weight: 2,
+                },
+                {
+                  id: 2,
+                  name: "Teach EC4000",
+                  description: "This module is something and yea",
+                  category: 0,
+                  weight: 2,
+                },
+                {
+                  id: 3,
+                  name: "Some admin",
+                  description: "This module is something and yea",
+                  category: 1,
+                  weight: 6,
+                },
+                {
+                  id: 4,
+                  name: "THIS TASK IS NEW I THINK",
+                  description: "This module is something and yea",
+                  category: 1,
+                  weight: 6,
+                },
+              ],
+              categories: [
+                { id: 0, name: "Teaching" },
+                { id: 1, name: "Admin" },
+                { id: 2, name: "Research" },
+              ],
+            },
+          },
+        ],
       };
 
     case "ADD_TASK":
@@ -77,7 +288,7 @@ export default function projectDataReducer(state, action) {
         tasks: [
           ...state.tasks,
           {
-            id: Math.max(...state.tasks.map((x) => parseInt(x.id))) + 1,
+            id: findNextId(state, "tasks", "id"),
             name: action.name,
             description: action.description,
             category: action.category,
@@ -105,7 +316,7 @@ export default function projectDataReducer(state, action) {
         categories: [
           ...state.categories,
           {
-            id: Math.max(...state.categories.map((x) => parseInt(x.id))) + 1,
+            id: findNextId(state, "categories", "id"),
             name: action.name,
           },
         ],
@@ -117,7 +328,7 @@ export default function projectDataReducer(state, action) {
         users: [
           ...state.users,
           {
-            id: Math.max(...state.users.map((x) => parseInt(x.id))) + 1,
+            id: findNextId(state, "users", "id"),
             name: action.name,
             task_blacklist: action.task_blacklist,
             preferences: action.preferences,
@@ -139,6 +350,9 @@ export default function projectDataReducer(state, action) {
             (x) => x !== parseInt(action.taskId)
           ),
         })),
+        locked_tasks: state.locked_tasks
+          ? [...state.locked_tasks.filter((x) => x !== parseInt(action.taskId))]
+          : [],
       };
 
     case "DUPLICATE_TASK":
@@ -148,7 +362,7 @@ export default function projectDataReducer(state, action) {
           ...state.tasks,
           {
             ...action.task,
-            id: Math.max(...state.tasks.map((x) => parseInt(x.id))) + 1,
+            id: findNextId(state, "tasks", "id"),
           },
         ],
       };
@@ -202,7 +416,7 @@ export default function projectDataReducer(state, action) {
           ...state.categories,
           {
             ...action.category,
-            id: Math.max(...state.categories.map((x) => parseInt(x.id))) + 1,
+            id: findNextId(state, "categories", "id"),
           },
         ],
       };
@@ -230,11 +444,29 @@ export default function projectDataReducer(state, action) {
       return { ...state, users: arr };
     }
 
-    case "REMOVE_USER":
-      return {
+    case "REMOVE_USER": {
+      let obj = {
         ...state,
         users: state.users.filter((u) => u.id !== parseInt(action.userId)),
       };
+
+      const assignment = state.output_history
+        ? state.output_history.find(
+            (oh) => oh.output_id === state.current_selected_output_id
+          ).solution.assignment
+        : {};
+
+      obj.locked_tasks = state.locked_tasks
+        ? [
+            ...state.locked_tasks.filter(
+              (tid) =>
+                parseInt(assignment[tid + 1]) !== parseInt(action.userId) + 1
+            ),
+          ]
+        : [];
+
+      return obj;
+    }
 
     case "DUPLICATE_USER":
       return {
@@ -243,36 +475,87 @@ export default function projectDataReducer(state, action) {
           ...state.users,
           {
             ...action.user,
-            id: Math.max(...state.users.map((x) => parseInt(x.id))) + 1,
+            id: findNextId(state, "users", "id"),
           },
         ],
       };
 
-    case "WAIT_OUTPUT":
+    case "WAIT_OUTPUT": {
+      const new_output_id = state.output_history
+        ? Math.max(...state.output_history.map((oh) => oh.output_id)) + 1
+        : 1;
+
+      const new_output_state = {
+        status: "wait",
+        job_id: action.job_id,
+        state: {
+          tasks: [...state.tasks],
+          users: [...state.users],
+          categories: [...state.categories],
+          locked_tasks: state.locked_tasks ? [...state.locked_tasks] : [],
+        },
+        output_id: state.output_history
+          ? Math.max(...state.output_history.map((oh) => oh.output_id)) + 1
+          : 1,
+        date: Date.now(),
+      };
+
       return {
         ...state,
-        output_state: { status: "wait", job_id: action.job_id },
+        current_selected_output_id: new_output_id,
+        unsaved_changes: false,
+        locked_tasks: [],
+        output_history: state.output_history
+          ? [...state.output_history, new_output_state]
+          : [new_output_state],
       };
+    }
 
     case "ADD_OUTPUT": {
-      let obj = {
-        ...state,
-        output_state: { status: action.output.status, data: action.output },
-      };
+      let obj = { ...state };
 
-      if (!obj.output_history) {
-        obj.output_history = [];
-      }
+      const hist_obj = { ...obj.output_history.at(-1) };
 
       if (
         action.output.status === "ok" &&
         action.output.solution &&
         action.output.solution.length > 0
       ) {
-        obj.output_history.push(action.output.solution[0]);
+        hist_obj.status = "ok";
+        hist_obj.solution = action.output.solution[0];
       } else {
-        obj.output_history.push({});
+        hist_obj.status = action.output.status;
       }
+
+      const arr = [...obj.output_history];
+      arr[arr.length - 1] = hist_obj;
+      obj.output_history = arr;
+
+      return obj;
+    }
+
+    case "SET_LOCKED_TASKS":
+      return {
+        ...state,
+        locked_tasks: action.tasks,
+      };
+
+    case "SELECT_OUTPUT_VERSION": {
+      let obj = { ...state };
+
+      const version = obj.output_history.find(
+        (o) => o.output_id === action.versionId
+      );
+
+      // set current state to old state
+      obj.tasks = [...version.state.tasks];
+      obj.users = [...version.state.users];
+      obj.categories = [...version.state.categories];
+      obj.locked_tasks = [...version.state.locked_tasks];
+
+      obj.current_selected_output_id = version.output_id;
+      obj.unsaved_changes = false;
+      obj.locked_tasks = [];
 
       return obj;
     }

@@ -6,6 +6,10 @@ export default function NewTaskPage() {
   const [projectData, dispatch, loading] = useProjectData();
   const router = useRouter();
 
+  if (loading) {
+    return null;
+  }
+
   const handleSubmit = (name, description, category, weight) => {
     dispatch({
       type: "ADD_TASK",

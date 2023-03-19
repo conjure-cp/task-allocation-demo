@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import useProjectData from "../../../utils/ProjectDataContext";
 import { TaskEditor } from "../../../components/tasks/TaskCreateEdit";
+import { useEffect } from "react";
 
 export default function EditTaskPage() {
   const router = useRouter();
@@ -9,6 +10,12 @@ export default function EditTaskPage() {
   const [projectData, dispatch, loading] = useProjectData();
 
   const task = projectData.tasks.find((t) => t.id === parseInt(id));
+
+  useEffect(() => {
+    if (!loading && task && projectData.locked_tasks.includes(task.id)) {
+      router.push("/");
+    }
+  });
 
   const handleSubmit = (name, description, category, weight) => {
     dispatch({

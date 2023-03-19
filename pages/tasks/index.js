@@ -3,6 +3,7 @@ import useProjectData from "../../utils/ProjectDataContext";
 import TableData from "../../components/ui/TableData";
 import TableHeader from "../../components/ui/TableHeader";
 import Tag from "../../components/ui/Tag";
+import TaskActionButton from "../../components/tasks/TaskActionButton";
 
 export default function TasksPage() {
   const [projectData, dispatch, loading] = useProjectData();
@@ -71,6 +72,7 @@ export default function TasksPage() {
                     category={projectData.categories.find(
                       (c) => c.id === task.category
                     )}
+                    disabledActions={projectData.locked_tasks.includes(task.id)}
                   />
                 ))}
               </tbody>
@@ -82,7 +84,7 @@ export default function TasksPage() {
   );
 }
 
-function TaskRow({ task, category, onRemove, onDuplicate }) {
+function TaskRow({ task, category, onRemove, onDuplicate, disabledActions }) {
   return (
     <tr>
       <TableData className={"flex flex-col items-start space-y-1"}>
@@ -103,27 +105,26 @@ function TaskRow({ task, category, onRemove, onDuplicate }) {
       </TableData>
       <TableData>
         <div className={"flex items-center justify-end space-x-4"}>
-          <Link href={`/tasks/${task.id}/edit`}>
-            <button className={"text-sm hover:underline"}>Edit</button>
+          <Link href={disabledActions ? "#" : `/tasks/${task.id}/edit`}>
+            <TaskActionButton disabled={disabledActions}>Edit</TaskActionButton>
           </Link>
-          <button
-            className={"text-sm hover:underline"}
+          <TaskActionButton
             onClick={(e) => {
               e.preventDefault();
               onDuplicate(task);
             }}
           >
             Duplicate
-          </button>
-          <button
-            className={"text-sm hover:underline"}
+          </TaskActionButton>
+          <TaskActionButton
             onClick={(e) => {
               e.preventDefault();
               onRemove(task.id);
             }}
+            disabled={disabledActions}
           >
             Remove
-          </button>
+          </TaskActionButton>
         </div>
       </TableData>
     </tr>

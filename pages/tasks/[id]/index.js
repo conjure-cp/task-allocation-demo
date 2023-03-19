@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import useProjectData from "../../../utils/ProjectDataContext";
-import SecondaryButton from "../../../components/ui/SecondaryButton";
 import Tag from "../../../components/ui/Tag";
 import TableHeader from "../../../components/ui/TableHeader";
 import TableData from "../../../components/ui/TableData";
 import Link from "next/link";
+import TaskActionButton from "../../../components/tasks/TaskActionButton";
 
 export default function TaskViewPage() {
   const router = useRouter();
@@ -13,6 +13,8 @@ export default function TaskViewPage() {
   const [projectData, dispatch, loading] = useProjectData();
 
   const task = projectData.tasks.find((t) => t.id === parseInt(id));
+
+  const disabledActions = projectData.locked_tasks.includes(task.id);
 
   const handleUserToggle = (userId) => {
     const user = projectData.users.find(
@@ -48,10 +50,10 @@ export default function TaskViewPage() {
           <p className={"text-slate-300"}>{task.description}</p>
         </div>
         <div className={"flex items-center space-x-4"}>
-          <Link href={`/tasks/${id}/edit`}>
-            <SecondaryButton>Edit</SecondaryButton>
+          <Link href={disabledActions ? "#" : `/tasks/${id}/edit`}>
+            <TaskActionButton disabled={disabledActions}>Edit</TaskActionButton>
           </Link>
-          <SecondaryButton
+          <TaskActionButton
             onClick={(e) => {
               e.preventDefault();
               router.push("/tasks").then(() => {
@@ -63,8 +65,8 @@ export default function TaskViewPage() {
             }}
           >
             Duplicate
-          </SecondaryButton>
-          <SecondaryButton
+          </TaskActionButton>
+          <TaskActionButton
             onClick={(e) => {
               e.preventDefault();
               router.push("/tasks").then(() => {
@@ -74,9 +76,10 @@ export default function TaskViewPage() {
                 });
               });
             }}
+            disabled={disabledActions}
           >
             Remove
-          </SecondaryButton>
+          </TaskActionButton>
         </div>
       </div>
       <div className={"mt-4 flex items-center space-x-4"}>
