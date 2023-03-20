@@ -49,7 +49,7 @@ export const ESSENCE_MODEL =
   "        function (total) TASK --> record {category : CATEGORY, weight : int}\n" +
   "given users:\n" +
   "        function (total) USER -->\n" +
-  "            record {category_percentages : function (total) CATEGORY --> int,\n" +
+  "            record {category_percentages : function CATEGORY --> int,\n" +
   "                    forbidden_tasks : set of TASK,\n" +
   "                    task_preferences : sequence of TASK}\n" +
   "\n" +
@@ -89,12 +89,12 @@ export const ESSENCE_MODEL =
   "$ add up the absolute values of (u1/c1 - u2/c2) for every u,c pair\n" +
   "such that\n" +
   "    category_violations =\n" +
-  "    sum([ |users(u1)[category_percentages](c1) * category_counts(u2)(c2) -\n" +
-  "           users(u2)[category_percentages](c2) * category_counts(u1)(c1)|\n" +
+  "    sum([ |c1percent * category_counts(u2)(c2) -\n" +
+  "           c2percent * category_counts(u1)(c1)|\n" +
   "        | u1 : USER\n" +
-  "        , c1 : CATEGORY\n" +
+  "        , (c1, c1percent) <- users(u1)[category_percentages]\n" +
   "        , u2 : USER\n" +
-  "        , c2 : CATEGORY\n" +
+  "        , (c2, c2percent) <- users(u2)[category_percentages]\n" +
   "        , (u1, c1) <lex (u2, c2)\n" +
   "        ])\n" +
   "\n" +
