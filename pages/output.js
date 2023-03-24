@@ -19,16 +19,6 @@ export default function OutputPage() {
   useEffect(() => {
     const wait = async () => {
       let timer = setInterval(async () => {
-        console.log(
-          "wait called, looking for id " +
-            projectData.current_selected_output_id
-        );
-        console.log(
-          "found it with job id " +
-            projectData.output_history.find(
-              (o) => o.output_id === projectData.current_selected_output_id
-            ).job_id
-        );
         const res = await axios.post(
           GET_URL,
           {
