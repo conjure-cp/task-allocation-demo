@@ -13,8 +13,7 @@ export default function NoProjectGuard({ children }) {
   });
 
   if (loading) {
-    // TODO
-    return "LOADING!";
+    return null;
   }
 
   return (projectData.id !== -1 || router.pathname === "/") && children;
