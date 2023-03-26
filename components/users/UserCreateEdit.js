@@ -5,6 +5,7 @@ import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
 import TableData from "../ui/TableData";
 import TableHeader from "../ui/TableHeader";
 import useProjectData from "../../utils/ProjectDataContext";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export function UserCreator({ onSubmit }) {
   return (
@@ -292,33 +293,66 @@ function UserForm({
                 </p>
               ) : (
                 <>
-                  <table
-                    className={
-                      "w-2/3 divide-y-2 divide-slate-600 border border-slate-600"
-                    }
+                  <DragDropContext
+                    onDragEnd={(result) => {
+                      if (
+                        !result.destination ||
+                        result.destination.index === result.source.index
+                      ) {
+                        return;
+                      }
+
+                      const copy = Array.from(tasks);
+                      const [removed] = copy.splice(result.source.index, 1);
+                      copy.splice(result.destination.index, 0, removed);
+                      setTasks(copy);
+                    }}
                   >
-                    <thead className={"bg-slate-800"}>
-                      <tr>
-                        <TableHeader>Rank</TableHeader>
-                        <TableHeader>Task</TableHeader>
-                        <TableHeader />
-                      </tr>
-                    </thead>
-                    <tbody className={"divide-y divide-slate-600"}>
-                      {tasks.map((t, i) => (
-                        <PreferenceRow
-                          key={i}
-                          rank={i + 1}
-                          task={projectData.tasks.find(
-                            (tt) => tt.id === parseInt(t)
-                          )}
-                          onRemove={handleRemoveTask}
-                        />
-                      ))}
-                    </tbody>
-                  </table>
+                    <table
+                      className={
+                        "w-2/3 divide-y-2 divide-slate-600 border border-slate-600"
+                      }
+                    >
+                      <thead className={"bg-slate-800"}>
+                        <tr>
+                          <TableHeader>Rank</TableHeader>
+                          <TableHeader>Task</TableHeader>
+                          <TableHeader />
+                        </tr>
+                      </thead>
+                      <Droppable droppableId={"table"}>
+                        {(droppableProvided) => (
+                          <tbody
+                            className={"divide-y divide-slate-600"}
+                            ref={droppableProvided.innerRef}
+                            {...droppableProvided.droppableProps}
+                          >
+                            {tasks.map((t, i) => (
+                              <Draggable
+                                draggableId={t.toString()}
+                                index={i}
+                                key={t.toString()}
+                              >
+                                {(provided, snapshot) => (
+                                  <PreferenceRow
+                                    rank={i + 1}
+                                    task={projectData.tasks.find(
+                                      (tt) => tt.id === parseInt(t)
+                                    )}
+                                    onRemove={handleRemoveTask}
+                                    provided={provided}
+                                    snapshot={snapshot}
+                                  />
+                                )}
+                              </Draggable>
+                            ))}
+                            {droppableProvided.placeholder}
+                          </tbody>
+                        )}
+                      </Droppable>
+                    </table>
+                  </DragDropContext>
                   <p className={"mt-8 text-sm text-slate-500"}>
-                    {/* TODO actually implement dragging etc. */}
                     Click and drag tasks into preference order.
                   </p>
                 </>
@@ -425,20 +459,23 @@ function TaskRow({ task, isDisallowed, onToggle }) {
   );
 }
 
-function PreferenceRow({ rank, task, onRemove }) {
+function PreferenceRow({ rank, task, onRemove, provided, snapshot }) {
   return (
-    <tr>
-      <TableData>
+    <tr
+      ref={provided.innerRef}
+      className={snapshot.isDragging ? "table" : ""}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+    >
+      <TableData className={"w-24"}>
         <span
-          className={
-            "bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider"
-          }
+          className={`bg-slate-800 py-1 px-2 text-xs font-medium uppercase tracking-wider`}
         >
-          {rank}
+          <code>{rank}</code>
         </span>
       </TableData>
       <TableData className={"flex flex-col items-start space-y-1"}>
-        <button className={"hover:underline"}>{task.name}</button>
+        <p>{task.name}</p>
         <p className={"text-sm text-slate-400"}>{task.description}</p>
       </TableData>
       <TableData>
