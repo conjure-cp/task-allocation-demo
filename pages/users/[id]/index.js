@@ -93,7 +93,10 @@ export default function UserViewPage() {
       <div className={"mt-12"}>
         <div className={"mb-4 flex items-center space-x-2"}>
           <p className={"font-medium"}>Possible Tasks</p>
-          <Tag>3/4</Tag>
+          <Tag>
+            {projectData.tasks.length - user.task_blacklist.length}/
+            {projectData.tasks.length}
+          </Tag>
         </div>
         <table
           className={
@@ -111,7 +114,7 @@ export default function UserViewPage() {
               <TaskRow
                 key={t.id}
                 task={t}
-                allowed={!user.task_blacklist.includes((x) => x === t.id)}
+                allowed={!user.task_blacklist.includes(t.id)}
               />
             ))}
           </tbody>
