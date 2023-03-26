@@ -101,7 +101,7 @@ export default function Home() {
         <p className={"text-slate-300"}>
           An overview of the details of your project are displayed below.
         </p>
-        <div className={"mt-8 space-y-8"}>
+        <div className={"mt-8 flex items-center space-x-8"}>
           <PrimaryButton
             onClick={(e) => {
               e.preventDefault();
@@ -115,6 +115,17 @@ export default function Home() {
             }}
           >
             Export Project
+          </PrimaryButton>
+          <PrimaryButton
+            onClick={(e) => {
+              e.preventDefault();
+
+              window.localStorage.removeItem("workload_project_data");
+
+              router.reload();
+            }}
+          >
+            Delete Project
           </PrimaryButton>
         </div>
       </div>
