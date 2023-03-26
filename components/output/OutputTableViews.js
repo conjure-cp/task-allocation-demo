@@ -164,26 +164,28 @@ function UserHeader({
           </div>
         </th>
       </tr>
-      {Object.keys(solution.assignment).map((ta) => {
-        const rid = parseInt(ta) - 1;
+      {Object.keys(solution.assignment)
+        .filter((t) => solution.assignment[t] === user.id + 1)
+        .map((ta) => {
+          const rid = parseInt(ta) - 1;
 
-        const curTask = tasks.find((x) => x.id === rid);
-        const oldTask = oldSolutionState.tasks.find((x) => x.id === rid);
+          const curTask = tasks.find((x) => x.id === rid);
+          const oldTask = oldSolutionState.tasks.find((x) => x.id === rid);
 
-        return (
-          <UserRow
-            key={curTask ? curTask.id : "old" + oldTask.id}
-            task={curTask ? curTask : oldTask}
-            userDeleted={deleted}
-            deleted={!curTask}
-            isLocked={curTask && lockedTasks.includes(curTask.id)}
-            setLocked={setLocked}
-            edited={
-              curTask && JSON.stringify(curTask) !== JSON.stringify(oldTask)
-            }
-          />
-        );
-      })}
+          return (
+            <UserRow
+              key={curTask ? curTask.id : "old" + oldTask.id}
+              task={curTask ? curTask : oldTask}
+              userDeleted={deleted}
+              deleted={!curTask}
+              isLocked={curTask && lockedTasks.includes(curTask.id)}
+              setLocked={setLocked}
+              edited={
+                curTask && JSON.stringify(curTask) !== JSON.stringify(oldTask)
+              }
+            />
+          );
+        })}
     </Fragment>
   );
 }
