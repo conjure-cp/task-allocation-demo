@@ -15,6 +15,15 @@ export default function OutputStats({ projectData, solution }) {
     return data.reduce((total, o) => total + o.Weight, 0) / data.length;
   };
 
+  const getCoeffVariation = () => {
+    const mean = getAverageWorkload();
+    const data = getChartData();
+    const variation =
+      data.reduce((total, o) => total + Math.pow(o.Weight - mean, 2), 0) /
+      data.length;
+    return (Math.sqrt(variation) / mean) * 100;
+  };
+
   return (
     <div className={"flex space-x-4"}>
       <div className={"flex w-60 flex-col space-y-4"}>
@@ -22,8 +31,11 @@ export default function OutputStats({ projectData, solution }) {
           name={"Avg. User Workload"}
           value={getAverageWorkload().toFixed(1)}
         />
-        <KPI name={"Allocation Match"} value={"TODO"} />
-        <KPI name={"Allocation Match"} value={"TODO"} />
+        <KPI
+          name={"Coefficient of Variation"}
+          value={getCoeffVariation().toFixed(1) + "%"}
+        />
+        {/*<KPI name={"Allocation Match"} value={"TODO"} />*/}
       </div>
       <div className={"flex-1 border border-slate-600 bg-slate-800 p-4 pl-5"}>
         <AverageBarChart data={getChartData()} average={getAverageWorkload()} />
