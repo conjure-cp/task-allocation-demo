@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
 import OutputVersionDropdown from "./OutputVersionDropdown";
 import UnsavedChangesMenu from "../output/UnsavedChangesMenu";
+import Head from "next/head";
 
 export default function Layout({ children }) {
   const [projectData, dispatch, loading] = useProjectData();
@@ -17,6 +18,9 @@ export default function Layout({ children }) {
 
   return (
     <div className={"flex h-screen items-stretch"}>
+      <Head>
+        <title>Workload Planner</title>
+      </Head>
       <div
         className={"w-[19rem] border-r border-slate-700 bg-slate-800 px-8 py-8"}
       >
