@@ -5,6 +5,7 @@ import { downloadObjectAsJson } from "../utils/export-util";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
+import KPI from "../components/ui/KPI";
 
 export default function Home() {
   const router = useRouter();
@@ -101,6 +102,17 @@ export default function Home() {
         <p className={"text-slate-300"}>
           An overview of the details of your project are displayed below.
         </p>
+        <div className={"mt-8 flex items-center space-x-8"}>
+          <KPI name={"Tasks"} value={projectData.tasks.length} />
+          <KPI name={"Users"} value={projectData.users.length} />
+          <KPI name={"Categories"} value={projectData.categories.length} />
+          <KPI
+            name={"Solutions"}
+            value={
+              projectData.output_history ? projectData.output_history.length : 0
+            }
+          />
+        </div>
         <div className={"mt-8 flex items-center space-x-8"}>
           <PrimaryButton
             onClick={(e) => {

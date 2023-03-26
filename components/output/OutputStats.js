@@ -1,4 +1,5 @@
 import AverageBarChart from "../ui/AverageBarChart";
+import KPI from "../ui/KPI";
 
 export default function OutputStats({ projectData, solution }) {
   const getChartData = () => {
@@ -42,21 +43,6 @@ export default function OutputStats({ projectData, solution }) {
       <div className={"flex-1 border border-slate-600 bg-slate-800 p-4 pl-5"}>
         <AverageBarChart data={getChartData()} average={getAverageWorkload()} />
       </div>
-    </div>
-  );
-}
-
-function KPI({ name, value, className }) {
-  return (
-    <div className={`space-y-2 border border-slate-600 bg-slate-800 p-4 ${className}`}>
-      <p
-        className={
-          "text-xs font-semibold uppercase tracking-wider text-slate-400"
-        }
-      >
-        {name}
-      </p>
-      <p className={"text-3xl font-semibold"}>{value}</p>
     </div>
   );
 }
