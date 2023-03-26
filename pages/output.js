@@ -116,10 +116,9 @@ export default function OutputPage() {
               It was not possible to find a solution to output version #
               {currentOutput.output_id} with the supplied inputs.
             </p>
-            <PrimaryButton className={"mt-6"}>
-              Back to last sol??
-              {/* TODO maybe this go back to last solution if one available */}
-            </PrimaryButton>
+            {/*<PrimaryButton className={"mt-6"}>*/}
+            {/*  Back to last sol??*/}
+            {/*</PrimaryButton>*/}
           </div>
         </div>
       </PageLayout>
