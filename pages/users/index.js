@@ -110,6 +110,9 @@ function UserRow({ user, tasks, categories, handleRemove, handleDuplicate }) {
             + {user.categories.length - 3}
           </p>
         )}
+        {user.categories.length === 0 ? (
+          <p className={"text-sm text-slate-400"}>None</p>
+        ) : null}
       </TableData>
       <TableData>
         {tasks.length - user.task_blacklist.length}{" "}
