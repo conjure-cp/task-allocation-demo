@@ -90,6 +90,43 @@ export default function Home() {
               </div>
             )}
           </div>
+          <div className={"mt-16 w-[600px]"}>
+            <p className={"text-xl font-semibold"}>Instructions</p>
+            <p className={"mt-8 text-slate-300"}>
+              Start by creating a new project. Create{" "}
+              <span className={"text-white"}>tasks</span>,{" "}
+              <span className={"text-white"}>users</span> and{" "}
+              <span className={"text-white"}>categories</span>, setting
+              constraints for each.
+            </p>
+            <p className={"mt-4 text-slate-300"}>
+              A task may belong to a category and tasks are allocated to users.
+            </p>
+            <p className={"mt-4 text-slate-300"}>
+              When you are ready to find a{" "}
+              <span className={"text-white"}>solution</span>, select{" "}
+              <span className={"text-white"}>Solution Details</span> in the
+              sidebar navigation. After generating a solution, a list of which
+              task should be completed by which user will be created.
+            </p>
+            <p className={"mt-4 text-slate-300"}>
+              You may wish to adjust tasks, users and categories further. After
+              you edit the project&apos;s input data, you may generate an{" "}
+              <span className={"text-white"}>updated solution</span> by visiting
+              the Solution Details page.
+            </p>
+            <p className={"mt-4 text-slate-300"}>
+              It is possible to <span className={"text-white"}>lock tasks</span>{" "}
+              that have been previously allocated. Locking a task will ensure
+              the user to which a task has been allocated will remain if you
+              generate an updated solution.
+            </p>
+            <p className={"mt-4 text-slate-300"}>
+              You can select and view{" "}
+              <span className={"text-white"}>previous solutions</span> using the
+              dropdown in the sidebar navigation.
+            </p>
+          </div>
         </div>
       </div>
     );
