@@ -10,9 +10,6 @@ export default function Layout({ children }) {
   const [projectData, dispatch, loading] = useProjectData();
 
   if (loading) {
-    // TODO definitely dont want to do this!!!!! but easiest for right now
-    // probably should move the nav links (eg with num of tasks) into a separate component that "loads"
-    // so that the main layout can load fine on its own
     return null;
   }
 

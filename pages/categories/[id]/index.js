@@ -14,7 +14,6 @@ export default function CategoryViewPage() {
   const category = projectData.categories.find((c) => c.id === parseInt(id));
 
   if (loading || !category) {
-    // TODO
     return null;
   }
 

@@ -21,8 +21,6 @@ export default function NewTaskPage() {
     router.push("/tasks");
   };
 
-  // TODO error handling, eg missing fields arent allowed
-
   return (
     <div>
       <div>

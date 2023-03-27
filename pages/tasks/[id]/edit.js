@@ -30,7 +30,6 @@ export default function EditTaskPage() {
   };
 
   if (loading || !task) {
-    // TODO
     return null;
   }
 

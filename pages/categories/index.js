@@ -21,7 +21,6 @@ export default function CategoriesPage() {
   };
 
   if (loading) {
-    // TODO
     return null;
   }
 
@@ -46,7 +45,6 @@ export default function CategoriesPage() {
               There are currently no categories in your project.
             </p>
           ) : (
-            /* TODO make this prettier */
             <table
               className={
                 "w-full divide-y-2 divide-slate-600 border border-slate-600"

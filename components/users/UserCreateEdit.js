@@ -218,7 +218,6 @@ function UserForm({
                   value={createCategory}
                   onChange={(e) => setCreateCategory(e.target.value)}
                 />
-                {/* TODO make this a form, and make this actually work nicely (eg notify you it worked) */}
                 <button
                   className={"mt-8 border p-2 hover:underline"}
                   onClick={(e) => {

@@ -6,7 +6,6 @@ import projectDataReducer from "../utils/ProjectDataReducer";
 import NoProjectGuard from "../components/NoProjectGuard";
 
 function MyApp({ Component, pageProps }) {
-  // TODO not sure what to put for reducer initial data argument
   const stickyReducer = useStickyReducer(
     projectDataReducer,
     { id: -1 },

@@ -24,7 +24,6 @@ export default function EditUserPage() {
   };
 
   if (loading || !user) {
-    // TODO
     return null;
   }
 

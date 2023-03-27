@@ -31,7 +31,6 @@ export default function TaskViewPage() {
   };
 
   if (loading || !task) {
-    // TODO
     return null;
   }
 

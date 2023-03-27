@@ -15,7 +15,6 @@ export default function UserViewPage() {
   const user = projectData.users.find((u) => u.id === parseInt(id));
 
   if (loading || !user) {
-    // TODO
     return null;
   }
 
