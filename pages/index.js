@@ -11,6 +11,8 @@ export default function Home() {
   const router = useRouter();
   const [projectData, dispatch, loading] = useProjectData();
 
+  const [projectName, setProjectName] = useState("");
+
   const [showImport, setShowImport] = useState(false);
   const fileInputRef = useRef();
 
@@ -52,8 +54,17 @@ export default function Home() {
             can be added.
           </p>
           <div className={"mt-8 space-y-8"}>
-            <Input label={"Name"} placeholder={"School of CS Workload"} />
-            <PrimaryButton onClick={() => dispatch({ type: "NEW_PROJECT" })}>
+            <Input
+              label={"Name"}
+              placeholder={"School of CS Workload"}
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+            />
+            <PrimaryButton
+              onClick={() =>
+                dispatch({ type: "NEW_PROJECT", projectName: projectName })
+              }
+            >
               Create Project
             </PrimaryButton>
           </div>

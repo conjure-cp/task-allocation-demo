@@ -1,6 +1,6 @@
 export default function findNextId(state, type, idKey) {
   const cur = state[type].map((x) => parseInt(x[idKey]));
-  let max = Math.max(...cur);
+  let max = cur.length > 0 ? Math.max(...cur) : -1;
 
   if (state.output_history && state.output_history.length > 0) {
     const old = state.output_history

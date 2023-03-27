@@ -102,7 +102,7 @@ function UserRow({ user, tasks, categories, handleRemove, handleDuplicate }) {
               </div>
             );
           } else {
-            return o;
+            return null;
           }
         })}
         {user.categories.length > 3 && (
