@@ -27,6 +27,10 @@ export default function OutputStats({ projectData, solution }) {
     return (Math.sqrt(variation) / mean) * 100;
   };
 
+  const getTotalWorkload = () => {
+    return getChartData().reduce((total, o) => total + o.Weight, 0);
+  };
+
   return (
     <div className={"flex space-x-4"}>
       <div className={"flex w-60 flex-col space-y-4"}>
@@ -38,7 +42,7 @@ export default function OutputStats({ projectData, solution }) {
           name={"Coefficient of Variation"}
           value={getCoeffVariation().toFixed(1) + "%"}
         />
-        <KPI name={"Allocation Match"} value={"TODO"} />
+        <KPI name={"Total Workload"} value={getTotalWorkload()} />
       </div>
       <div className={"flex-1 border border-slate-600 bg-slate-800 p-4 pl-5"}>
         <AverageBarChart data={getChartData()} average={getAverageWorkload()} />
