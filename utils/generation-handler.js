@@ -7,7 +7,8 @@ export const handleGenerate = async (e, projectData, dispatch, router) => {
   const res = await axios.post(
     SUBMIT_URL,
     {
-      solver: "cadical",
+      appName: "task-allocation",
+      solver: "chuffed",
       model: ESSENCE_MODEL,
       data: JSON.stringify(convertInput(projectData)),
     },
