@@ -55,7 +55,6 @@ export default function OutputPage() {
       calledWait.current = true;
       wait();
     }
-    wait();
   }, [loading, projectData, dispatch]);
 
   if (loading) {
