@@ -22,6 +22,7 @@ export default function OutputPage() {
         const res = await axios.post(
           GET_URL,
           {
+            appName: "task-allocation",
             jobid: projectData.output_history.find(
               (o) => o.output_id === projectData.current_selected_output_id
             ).job_id,
@@ -54,7 +55,8 @@ export default function OutputPage() {
       calledWait.current = true;
       wait();
     }
-  }, [loading]);
+    wait();
+  }, [loading, projectData, dispatch]);
 
   if (loading) {
     return null;
