@@ -240,8 +240,8 @@ function innerProjectDataReducer(state, action) {
       };
 
     case "WAIT_OUTPUT": {
-      const new_output_id = state.output_history
-        ? Math.max(...state.output_history.map((oh) => oh.output_id)) + 1
+      const new_output_id = state.output_history.length
+        ? Math.max(...state.output_history.map((oh) => oh.output_id)) ?? 0 + 1
         : 1;
 
       const new_output_state = {
@@ -253,9 +253,7 @@ function innerProjectDataReducer(state, action) {
           categories: [...state.categories],
           locked_tasks: state.locked_tasks ? [...state.locked_tasks] : [],
         },
-        output_id: state.output_history
-          ? Math.max(...state.output_history.map((oh) => oh.output_id)) + 1
-          : 1,
+        output_id: new_output_id,
         date: Date.now(),
       };
 
@@ -264,7 +262,7 @@ function innerProjectDataReducer(state, action) {
         current_selected_output_id: new_output_id,
         unsaved_changes: false,
         locked_tasks: [],
-        output_history: state.output_history
+        output_history: state.output_history.length
           ? [...state.output_history, new_output_state]
           : [new_output_state],
       };
