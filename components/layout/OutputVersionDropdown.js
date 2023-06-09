@@ -19,6 +19,13 @@ export default function OutputVersionDropdown() {
     return <p className={"text-sm text-slate-300"}>None</p>;
   }
 
+  const sortedHistory = projectData.output_history.slice(0).map( (h, i) => {
+    return {
+      idx: i + 1,
+      entry: h
+    }
+  }).reverse();
+
   return (
     <Menu as={"div"} className={"relative inline-block w-full"}>
       <Menu.Button
@@ -27,7 +34,7 @@ export default function OutputVersionDropdown() {
         }
       >
         <span className={"text-slate-200 group-hover:text-slate-100"}>
-          Solution #{projectData.current_selected_output_id}
+          Solution #{sortedHistory.find(p => p.entry.output_id == projectData.current_selected_output_id).idx}
         </span>
         <ChevronDownIcon
           className={"h-5 w-5 text-slate-300 group-hover:text-slate-200"}
@@ -47,15 +54,14 @@ export default function OutputVersionDropdown() {
             "absolute left-0 mt-2 w-full origin-top-left border border-slate-700/75 bg-slate-900/50 shadow-md backdrop-blur"
           }
         >
-          {projectData.output_history
-            .slice(0)
-            .reverse()
-            .map((o) => (
+          {sortedHistory
+            .map((h) => (
               <OutputVersionItem
-                key={o.output_id}
-                output={o}
+                key={h.entry.output_id}
+                idx={h.idx}
+                output={h.entry}
                 isCurrent={
-                  o.output_id === projectData.current_selected_output_id
+                  h.entry.output_id === projectData.current_selected_output_id
                 }
                 dispatch={dispatch}
               />
@@ -66,7 +72,7 @@ export default function OutputVersionDropdown() {
   );
 }
 
-function OutputVersionItem({ output, isCurrent, dispatch }) {
+function OutputVersionItem({ output, isCurrent, dispatch, idx }) {
   const isFail = output.status !== "ok";
 
   const handleClick = (e) => {
@@ -88,7 +94,7 @@ function OutputVersionItem({ output, isCurrent, dispatch }) {
           onClick={handleClick}
         >
           <div className={"flex flex-col"}>
-            <span>Solution #{output.output_id}</span>
+            <span>Solution #{idx}</span>
             <span className={"text-sm"}>{moment(output.date).fromNow()}</span>
           </div>
           {isFail ? (

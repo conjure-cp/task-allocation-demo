@@ -9,12 +9,13 @@ import OutputTableViews from "../components/output/OutputTableViews";
 import { handleGenerate } from "../utils/generation-handler";
 import axios from "axios";
 import { GET_URL } from "../utils/model";
+import { useState } from "react";
 
 export default function OutputPage() {
   const router = useRouter();
   const [projectData, dispatch, loading] = useProjectData();
 
-  const calledWait = useRef(false);
+  const [calledWait, setWait] = useState(false);
 
   useEffect(() => {
     const wait = async () => {
@@ -32,7 +33,7 @@ export default function OutputPage() {
 
         if (res.data && res.data.status && res.data.status !== "wait") {
           clearInterval(timer);
-
+          setWait(false);
           dispatch({
             type: "ADD_OUTPUT",
             output: res.data,
@@ -50,9 +51,9 @@ export default function OutputPage() {
           o.output_id === projectData.current_selected_output_id &&
           o.status === "wait"
       ) &&
-      !calledWait.current
+      !calledWait
     ) {
-      calledWait.current = true;
+      setWait(true);
       wait();
     }
   }, [loading, projectData, dispatch]);

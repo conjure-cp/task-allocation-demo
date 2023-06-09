@@ -240,9 +240,7 @@ function innerProjectDataReducer(state, action) {
       };
 
     case "WAIT_OUTPUT": {
-      const new_output_id = state.output_history.length
-        ? Math.max(...state.output_history.map((oh) => oh.output_id)) ?? 0 + 1
-        : 1;
+      const new_output_id = action.job_id
 
       const new_output_state = {
         status: "wait",

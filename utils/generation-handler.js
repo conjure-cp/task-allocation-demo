@@ -24,5 +24,4 @@ export const handleGenerate = async (e, projectData, dispatch, router) => {
     job_id: parseInt(res.data.jobid),
   });
 
-  router.reload();
 };
