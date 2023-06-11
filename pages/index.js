@@ -56,7 +56,7 @@ export default function Home() {
           <div className={"mt-8 space-y-8"}>
             <Input
               label={"Name"}
-              placeholder={"School of CS Workload"}
+              placeholder={"Project name"}
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
             />
