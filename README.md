@@ -30,8 +30,26 @@ Below are some screenshots of the project UI:
 
 This is the homepage with no existing project
 
+![Project Page](screenshots/project.png)
+
+This is the project page showing the project details
+
 ## Application Preview
 
-**Create new project**
+### Create new project
 
 ![Create Project](screenshots/create-project.gif)
+
+Create a new project named **Project Management System**
+
+![Create Category](screenshots/Create-categories.gif)
+
+Create a new category named **Planning**
+
+![Create Task](screenshots/creat-task.gif)
+
+Create a new task named **Design the database schema** under the **Planning** category
+
+![Create User](screenshots/create-user.gif)
+
+Create a user named **John Smith** managing the **Planning** tasks. He prefers to take over the **Design database schema** task.
