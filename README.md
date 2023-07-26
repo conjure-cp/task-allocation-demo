@@ -1,5 +1,7 @@
 # Workload Planner
 
+## Description
+
 Simple user interface for workload planning paired with a backend constraint programming model to find optimal and balanced workloads for users.
 
 Created as a dissertation project at the University of St Andrews.
@@ -30,6 +32,8 @@ Below are some screenshots of the project UI:
 
 This is the homepage with no existing project
 
+### Project Page
+
 ![Project Page](screenshots/project.png)
 
 This is the project page showing the project details
@@ -42,13 +46,19 @@ This is the project page showing the project details
 
 Create a new project named **Project Management System**
 
+### Create new category
+
 ![Create Category](screenshots/Create-categories.gif)
 
 Create a new category named **Planning**
 
+### Create new task
+
 ![Create Task](screenshots/creat-task.gif)
 
 Create a new task named **Design the database schema** under the **Planning** category
+
+### Create new user
 
 ![Create User](screenshots/create-user.gif)
 
