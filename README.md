@@ -8,6 +8,9 @@ Created as a dissertation project at the University of St Andrews.
 
 Requires an environment with NodeJS and NPM installed.
 
+#### Running in Production
+To start the production server, use the following command:
+
 1. Install dependencies
 
 `npm install`
@@ -19,3 +22,12 @@ Requires an environment with NodeJS and NPM installed.
 3. Run
 
 `npm run start`
+
+The application will now be available at /task-allocation.
+
+#### Running in Development
+To start the development server, use the following command:
+
+`npm run dev`
+
+This will start the application in development mode. Open http://localhost:3000 to view the application in the browser. The page will reload if you make edits.

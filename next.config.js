@@ -1,8 +1,10 @@
+const isProd = process.env.NODE_ENV === 'production'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
   reactStrictMode: false,
-  basePath: "/task-allocation",
+  basePath: isProd ? '/task-allocation' : ''
 };
 
 module.exports = nextConfig;
