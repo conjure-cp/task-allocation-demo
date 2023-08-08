@@ -74,10 +74,13 @@ export default function Layout({ children }) {
               <Link href={"/output"}>
                 <button
                   className={
-                    "group flex w-full items-center justify-between space-x-2 px-2"
+                    "group flex w-full items-center justify-start space-x-2 px-2"
                   }
                 >
-                  <span className={"text-slate-400 group-hover:text-slate-200"}>
+                  <span 
+                    className={"text-slate-400 group-hover:text-slate-200"}
+                    style={{ display: 'block', textAlign: 'left' }}
+                  >
                     Solution Details
                   </span>
                   <ArrowSmallRightIcon
