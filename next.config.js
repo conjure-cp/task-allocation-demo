@@ -4,7 +4,8 @@ const isProd = process.env.NODE_ENV === 'production'
 const nextConfig = {
   output: 'export',
   reactStrictMode: false,
-  basePath: isProd ? '/task-allocation' : ''
+  basePath: isProd ? '/task-allocation-demo' : '',
+  assetPrefix: isProd ? '/task-allocation-demo' : ''
 };
 
 module.exports = nextConfig;
