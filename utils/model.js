@@ -115,7 +115,9 @@ export const ESSENCE_MODEL =
   "        ])\n" +
   "\n" +
   "\n" +
-  "minimising 1000 * weight_violations + category_violations + 100 * preference_violations\n" +
+  "find opt : int(1..M)\n" +
+  "such that opt = 1000 * weight_violations + category_violations + 100 * preference_violations\n" +
+  "minimising opt\n" +
   "\n" +
   "\n" +
   "\n" +
