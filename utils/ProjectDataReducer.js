@@ -260,7 +260,7 @@ function innerProjectDataReducer(state, action) {
         current_selected_output_id: new_output_id,
         unsaved_changes: false,
         locked_tasks: [],
-        output_history: state.output_history.length
+        output_history: (state.output_history ?? []).length > 0
           ? [...state.output_history, new_output_state]
           : [new_output_state],
       };
