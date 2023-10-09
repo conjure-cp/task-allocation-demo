@@ -11,7 +11,7 @@ export const handleGenerate = async (e, projectData, dispatch, router) => {
       solver: "chuffed",
       model: ESSENCE_MODEL,
       data: JSON.stringify(convertInput(projectData)),
-      conjureOptions: ["--solver-options='-t 10000'"] // use a time limit of 10 seconds
+      conjureOptions: ["--solver-options='-t 20000'"] // use a time limit of 10 seconds
     },
     {
       headers: {
