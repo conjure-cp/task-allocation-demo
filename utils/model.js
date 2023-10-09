@@ -29,8 +29,8 @@ export function convertInput(projectData) {
   };
 }
 
-export const SUBMIT_URL = "https://conjure-aas.cs.st-andrews.ac.uk/server/submit";
-export const GET_URL = "https://conjure-aas.cs.st-andrews.ac.uk/server/get";
+export const SUBMIT_URL = "https://conjure-aas.cs.st-andrews.ac.uk/submit";
+export const GET_URL = "https://conjure-aas.cs.st-andrews.ac.uk/get";
 
 export const ESSENCE_MODEL =
   "language Essence 1.3\n" +
