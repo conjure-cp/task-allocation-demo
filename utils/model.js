@@ -29,8 +29,8 @@ export function convertInput(projectData) {
   };
 }
 
-export const SUBMIT_URL = "https://demos.constraintmodelling.org/server/submit";
-export const GET_URL = "https://demos.constraintmodelling.org/server/get";
+export const SUBMIT_URL = "https://conjure-aas.cs.st-andrews.ac.uk/server/submit";
+export const GET_URL = "https://conjure-aas.cs.st-andrews.ac.uk/server/get";
 
 export const ESSENCE_MODEL =
   "language Essence 1.3\n" +
