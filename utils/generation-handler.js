@@ -22,7 +22,7 @@ export const handleGenerate = async (e, projectData, dispatch, router) => {
 
   dispatch({
     type: "WAIT_OUTPUT",
-    job_id: parseInt(res.data.jobid),
+    job_id: res.data.jobid,
   });
 
 };
