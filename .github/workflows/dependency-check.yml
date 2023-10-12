@@ -3,7 +3,7 @@ name: Check for outdated NPM dependencies
 on:
   push:
     branches:
-      - main                  # Run after every commit pushed to the main branch
+      - Github-Action-dependency-check                  # Run after every commit pushed to the main branch
   schedule:
     - cron: '0 0 * * 0'       # Run once a week on Sunday at midnight
 
