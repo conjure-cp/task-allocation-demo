@@ -10,6 +10,8 @@ on:
 jobs:
   update-dependency:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     steps:
     - name: Checkout code
@@ -27,7 +29,12 @@ jobs:
       run: npm outdated
       continue-on-error: true
 
+    - name: Check for changes
+      id: git-check
+      run: echo "::set-output name=status::$(git status --porcelain)"
+
     - name: Update outdated dependencies and create PR
+      if: steps.git-check.outputs.status != ''
       uses: actions/github-script@v5
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -44,7 +51,7 @@ jobs:
             console.log(error);
           }
 
-          const octokit = github.getOctokit(github-token);
+          const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
           const base = "main"; 
           const branch = "main";
           const title = "Update NPM Dependencies";
