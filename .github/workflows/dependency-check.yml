@@ -30,7 +30,7 @@ jobs:
     - name: Update outdated dependencies and create PR
       uses: actions/github-script@v5
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const { execSync } = require('child_process');
           try {
@@ -44,7 +44,7 @@ jobs:
             console.log(error);
           }
 
-          const octokit = github.getOctokit(github_token);
+          const octokit = github.getOctokit(github-token);
           const base = "main"; 
           const branch = "main";
           const title = "Update NPM Dependencies";
