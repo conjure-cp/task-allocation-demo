@@ -75,3 +75,8 @@ Create a new task named **Design the database schema** under the **Planning** ca
 ![Create User](screenshots/create-user.gif)
 
 Create a user named **John Smith** managing the **Planning** tasks. He prefers to take over the **Design database schema** task.
+
+## License
+
+This project is licensed under the Mozilla Public License 2.0. For full license information, please see the [LICENSE](./LICENSE) file in the repository.
+
