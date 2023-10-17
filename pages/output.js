@@ -107,7 +107,7 @@ export default function OutputPage() {
   }
 
   // output failed state
-  if (currentOutput.status !== "ok") {
+  if (currentOutput.status !== "ok" || !currentOutput.solution) {
     return (
       <PageLayout>
         <div className={"flex justify-center"}>
