@@ -9,3 +9,7 @@ updates:
       interval: "weekly"
     assignees:
       - "ozgurakgun"
+    groups:
+      all:
+        patterns:
+          - "*"
