@@ -36,7 +36,8 @@ export default function Layout({ children }) {
           Flex-grow: 'flex-grow' allows the div to take up any remaining space in the flex container.
           Height   : h-4/5 sets the height to be 80% of the parent container.
         */}
-      <div className={"flex flex-grow h-4/5"}>
+
+      <div className={"flex flex-grow"}>
         {/* 
           2.1 Sidebar 
             Width     : w-[19rem] sets the width of the sidebar to 19rem.
@@ -120,27 +121,19 @@ export default function Layout({ children }) {
             </div>
           ) : null}
         </div>
-        {/* 
-          2.2.Content 
-            Width   : w-full sets the width to take up all available space.
-            Overflow: overflow-auto allows the content to scroll if it overflows.
-            Padding : py-8 px-28 sets vertical padding of 8 units and horizontal padding of 28 units.    
-        */}
-        <div className={"flex-grow h-full w-full overflow-auto py-8 px-28"}>
-          <UnsavedChangesMenu />
-          {children}
+
+        <div className={"flex flex-col flex-grow h-full w-full overflow-auto"}>
+          {/* Content */}
+          <div className={"flex-grow py-8 px-28 min-h-[80%] "}>
+            <UnsavedChangesMenu />
+            {children}
+          </div>
+
+          {/* Banner */}
+          <div className={"w-full border-slate-700 p-2"}>
+            <Banner />
+          </div>
         </div>
-      </div>
-      {/* 
-        3.Banner 
-          Height    : h-1/5 sets the height to be 20% of the parent container.
-          Width     : w-full sets the width to take up all available space.
-          Background: bg-slate-700 sets the background to a slate-grey colour.
-          Padding   : p-4 adds padding of 4 units to all sides.
-          Bottom    : bottom-0 places it at the bottom of the flex container.
-      */}
-      <div className={"h-1/5 w-full bg-slate-700 p-2 bottom-0"}>
-        <Banner />
       </div>
     </div>
   );
