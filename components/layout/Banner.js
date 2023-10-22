@@ -30,29 +30,34 @@ const Banner = () => {
         {/* 
           1. Banner Container
             Height      : 'h-full' makes the div take up the full height of its parent.
-            Background  : 'bg-gray-900' sets the background colour to dark gray.
             Text Colour : 'text-white' sets the text colour to white.
             Padding     : 'p-4' sets padding of 4 units on all sides.
         */}
         
           {/* 
-            2. Flex Container
+            Flex Container
               Container   : 'container' sets the max-width to the designed container width.
-              Margin Auto : 'mx-auto' centers the container horizontally.
-              Flex Row    : 'flex flex-row' enables flex layout and arranges children in a row.
-              Justify     : 'justify-between' places the first item at the start and the last item at the end.
+              Margin Auto : 'm-auto' centers the container horizontally.
+              Grid Layout: The 'grid grid-cols-5 grid-flow-col-dense gap-2' classes are used to set up a grid layout. This replaces the previous flex layout ('flex flex-row').
+              Grid Columns: 'grid-cols-5' specifies that the grid should have 5 columns.
+              Column Flow: 'grid-flow-col-dense' tries to fill in earlier columns before adding more columns to the layout.
+              Grid Gap: 'gap-2' sets the grid gap between columns to 2 units.
               Responsive  : md:grid-cols-4 TODO
           */}
         <div className=" container m-auto grid grid-cols-5 grid-flow-col-dense gap-2"> 
 
-          {/* 
-            2.4 Logo
-                Flex-Col   : 'flex flex-col' enables flex layout and arranges children in a column.
-                Alignment  : 'items-start' aligns the flex items to the start of the container.
-                2.2.1 span
-                    Text Style: 'text-lg font-semibold mb-2' sets the text size to large, makes it 
-                                semi-bold and adds a margin-bottom of 2 units.
-            */}
+           {/* 
+            1 Logo
+              Flex-Col: 'flex flex-col' enables flex layout and arranges children in a column.
+              Column Span: 'col-span-2' spans the div across 2 columns of the grid.
+              Row Span: 'row-span-5' spans the div across 5 rows of the grid.
+              Alignment: 'items-start' aligns the flex items to the start of the container.
+              Padding: 'p-4' sets padding of 4 units on all sides.
+              Text Style: 
+                - 'text-lg' sets the text size to large,
+                - 'font-semibold' makes the text semi-bold,
+                - 'mb-2' adds a margin-bottom of 2 units to the span elements inside.
+          */}
           <div className="col-span-2 row-span-5 flex flex-col items-start p-4">
               {/* Logo */}
               <div className="flex items-center p-2">
@@ -71,17 +76,10 @@ const Banner = () => {
               <div className="text-sm mb-2">Last Updated: 20-10-2023</div>
             </div>
 
-
+          {/* Horizontal line */}
            <div className="row-start-1 col-span-5 border-t border-slate-700"/>
 
-          {/* 
-            2.1 Contributor Info Section 
-                Flex-Col   : 'flex flex-col' enables flex layout and arranges children in a column.
-                Alignment  : 'items-start' aligns the flex items to the start of the container.
-                2.1.1 span
-                    Text Style: 'text-lg font-semibold mb-2' sets the text size to large, makes it 
-                                semi-bold and adds a margin-bottom of 2 units.
-            */}
+          {/* 1.1 Project Author */}
           <div className="row-start-2 col-span-1 flex flex-col items-stretch">
             <span className="text-lg font-semibold mb-2">Project Author</span>
             <div className="grid grid-cols-2 grid-flow-col gap-2 overflow-auto"> 
@@ -89,14 +87,7 @@ const Banner = () => {
             </div>
           </div>
 
-          {/* 
-            2.1 Contributor Info Section 
-                Flex-Col   : 'flex flex-col' enables flex layout and arranges children in a column.
-                Alignment  : 'items-start' aligns the flex items to the start of the container.
-                2.1.1 span
-                    Text Style: 'text-lg font-semibold mb-2' sets the text size to large, makes it 
-                                semi-bold and adds a margin-bottom of 2 units.
-            */}
+           {/* 1.2 Project Contributors */}
           <div className="row-start-2 col-span-2 flex flex-col items-stretch">
             <span className="text-lg font-semibold mb-2">Project Contributors</span>
             <div className="grid grid-cols-2 grid-flow-col gap-2 overflow-auto"> 
@@ -109,17 +100,11 @@ const Banner = () => {
             ))}
             </div>
           </div>
+          
           {/* Horizontal line */}
           <div className="row-start-3 col-span-3 border-t border-slate-700"/>
           
-          {/* 
-            2.2 Source Code Info Section 
-                Flex-Col   : 'flex flex-col' enables flex layout and arranges children in a column.
-                Alignment  : 'items-start' aligns the flex items to the start of the container.
-                2.2.1 span
-                    Text Style: 'text-lg font-semibold mb-2' sets the text size to large, makes it 
-                                semi-bold and adds a margin-bottom of 2 units.
-            */}
+          {/* 2.1 Additional Links*/}
            <div className="row-start-4 col-span-1 flex flex-col items-stretch">
             <span className="text-lg font-semibold mb-2">Additional Links</span>
             <a href={`https://github.com/${REPO_URL}`} className="mb-1 hover:underline">GitHub</a>
@@ -128,14 +113,7 @@ const Banner = () => {
           </div>
 
             
-          {/* 
-            2.2 Source Code Info Section 
-                Flex-Col   : 'flex flex-col' enables flex layout and arranges children in a column.
-                Alignment  : 'items-start' aligns the flex items to the start of the container.
-                2.2.1 span
-                    Text Style: 'text-lg font-semibold mb-2' sets the text size to large, makes it 
-                                semi-bold and adds a margin-bottom of 2 units.
-            */}
+          {/* 2.2 Source Code Info Section */}
            <div className="row-start-4 col-span-1 flex flex-col items-stretch">
               <span className="text-lg font-semibold mb-2">Demo</span>
               <a href={`https://github.com/${REPO_URL}/blob/main/screenshots/create-project.gif`} className="mb-1 hover:underline">Create new project</a>

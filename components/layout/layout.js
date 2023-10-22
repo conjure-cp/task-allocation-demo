@@ -130,7 +130,7 @@ export default function Layout({ children }) {
           </div>
 
           {/* Banner */}
-          <div className={"w-full border-slate-700 p-2"}>
+          <div className={"w-full bg-banner-blue p-2"}>
             <Banner />
           </div>
         </div>

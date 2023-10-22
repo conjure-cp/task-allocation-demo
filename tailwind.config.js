@@ -12,6 +12,9 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        'banner-blue': '#1A2638',
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],
