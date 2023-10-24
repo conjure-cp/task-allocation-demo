@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Link from "next/link";
 import useProjectData from "../../utils/ProjectDataContext";
 import { useRouter } from "next/router";
@@ -10,6 +11,8 @@ import Banner from './Banner';
 
 export default function Layout({ children }) {
   const [projectData, dispatch, loading] = useProjectData();
+
+  const [version, setVersion] = useState("v0.1");
 
   if (loading) {
     return null;
@@ -57,7 +60,7 @@ export default function Layout({ children }) {
             <span
               className={"text-xs font-medium tracking-wider text-fuchsia-500"}
             >
-              v0.1
+              {version}
             </span>
           </div>
           <div className={"mt-8 flex flex-col items-start space-y-4"}>
@@ -122,7 +125,7 @@ export default function Layout({ children }) {
           ) : null}
         </div>
 
-        <div className={"flex flex-col flex-grow h-full w-full overflow-auto"}>
+        <div className={"flex flex-col flex-grow h-full w-full overflow-auto items-stretch"}>
           {/* Content */}
           <div className={"flex-grow py-8 px-28 min-h-[80%] "}>
             <UnsavedChangesMenu />
@@ -131,7 +134,7 @@ export default function Layout({ children }) {
 
           {/* Banner */}
           <div className={"w-full bg-banner-blue p-2"}>
-            <Banner />
+            <Banner version={version}/>
           </div>
         </div>
       </div>
