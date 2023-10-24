@@ -1,4 +1,4 @@
-# Workload Planner
+# Task allocation
 
 ## Description
 

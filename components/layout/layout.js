@@ -16,7 +16,7 @@ export default function Layout({ children }) {
   return (
     <div className={"flex h-screen items-stretch"}>
       <Head>
-        <title>Workload Planner</title>
+        <title>Task allocation</title>
       </Head>
       <div
         className={"w-[19rem] border-r border-slate-700 bg-slate-800 px-8 py-8"}
@@ -24,7 +24,7 @@ export default function Layout({ children }) {
         <div className={"flex items-center space-x-2"}>
           <Link href={"/"}>
             <h1 className={"text-lg font-semibold hover:underline"}>
-              Workload Planner
+            Task allocation
             </h1>
           </Link>
           <span
