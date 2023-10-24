@@ -100,7 +100,7 @@ such that
 
 $ forbidden_tasks
 such that
-    [assignment(u) != t | (u, rec) <- users, t <- rec[forbidden_tasks]]
+    [assignment(t) != u | (u, rec) <- users, t <- rec[forbidden_tasks]]
 
 $ task_preferences
 find preference_violations : int(0..M)
