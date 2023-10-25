@@ -12,8 +12,6 @@ import Banner from './Banner';
 export default function Layout({ children }) {
   const [projectData, dispatch, loading] = useProjectData();
 
-  const [version, setVersion] = useState("v0.1");
-
   if (loading) {
     return null;
   }
@@ -57,11 +55,6 @@ export default function Layout({ children }) {
                 Workload Planner
               </h1>
             </Link>
-            <span
-              className={"text-xs font-medium tracking-wider text-fuchsia-500"}
-            >
-              {version}
-            </span>
           </div>
           <div className={"mt-8 flex flex-col items-start space-y-4"}>
             <NavigationLink href={"/"} equals>
@@ -134,7 +127,7 @@ export default function Layout({ children }) {
 
           {/* Banner */}
           <div className={"w-full bg-banner-blue p-2"}>
-            <Banner version={version}/>
+            <Banner/>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const REPO_URL = 'conjure-cp/task-allocation-demo'
 
-const Banner = ({version}) => {
+const Banner = () => {
   // fetch and slice the contributors list
     const [contributors, setContributors] = useState([]);
     const [lastUpdated, setLastUpdated] = useState('');
@@ -71,20 +71,20 @@ const Banner = ({version}) => {
           */}
           <div className="col-span-2 row-span-5 flex flex-col items-start p-4">
               {/* Logo */}
-              <div className="flex items-center p-2">
-                <img src="conjure-cp-logo.png" alt="conjure-cp" className="w-16 h-16" />
+              <div className="flex items-center m-1">
+                <img src="conjure-cp-logo.png" alt="conjure-cp" className="w-16 h-16 " />
                   <div className="text-xl font-semibold ml-4">
                     <a href="https://github.com/conjure-cp" target="_blank" rel="noopener noreferrer" className="hover:underline">
                       conjure-cp
                     </a>
                   </div>
               </div>
-              <div className="mb-2">Workload Planner</div>
-              <div className="mb-2">Version: {version}</div>
-              <div className="mb-2">This project is created as a dissertation project at the University of St Andrews for optimal workload planning.</div>
-              <div className="mb-2">License: Mozilla Public License 2.0</div>
+              <div className="text-3 font-bold tracking-wide mb-4 m-1">Workload Planner</div>
+             
+              <div className="mb-2 m-1">This project is created as a dissertation project at the University of St Andrews for optimal workload planning.</div>
+              <div className="mb-2 m-1">License: Mozilla Public License 2.0</div>
               {/* Last Updated */}
-              <div className="text-sm mb-2"> Last Updated: {lastUpdated} </div>
+              <div className="text-sm mb-2 m-1"> Last Updated: {lastUpdated} </div>
             </div>
 
           {/* Horizontal line */}
