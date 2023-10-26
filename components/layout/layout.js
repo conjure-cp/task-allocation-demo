@@ -28,7 +28,7 @@ export default function Layout({ children }) {
                      cross-axis, making sure they take up the full height of the container.
         */}
       <Head>
-        <title>Workload Planner</title>
+        <title>Task allocation</title>
       </Head>
       {/* 
           2.Feature Section
@@ -52,7 +52,7 @@ export default function Layout({ children }) {
           <div className={"flex items-center space-x-2"}>
             <Link href={"/"}>
               <h1 className={"text-lg font-semibold hover:underline"}>
-                Workload Planner
+                Task allocation
               </h1>
             </Link>
           </div>
