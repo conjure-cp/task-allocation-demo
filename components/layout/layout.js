@@ -17,7 +17,7 @@ export default function Layout({ children }) {
   }
 
   return (
-    <div className={"flex flex-col h-screen items-stretch"}>
+    <div className={"flex flex-col items-stretch"}>
       {/* 
         1.Header & Container
           Flex     : flex sets the display to flex, allowing elements to be laid out in a row or 
@@ -118,18 +118,17 @@ export default function Layout({ children }) {
           ) : null}
         </div>
 
-        <div className={"flex flex-col flex-grow h-full w-full overflow-auto items-stretch"}>
+        {/* <div className={"flex flex-col flex-grow h-full w-full overflow-auto items-stretch"}> */}
           {/* Content */}
           <div className={"flex-grow py-8 px-28 min-h-[80%] "}>
             <UnsavedChangesMenu />
             {children}
           </div>
+      </div>
 
-          {/* Banner */}
-          <div className={"w-full bg-banner-blue p-2"}>
-            <Banner/>
-          </div>
-        </div>
+      {/* Banner */}
+      <div className={"w-full bg-banner-blue p-2"}>
+        <Banner/>
       </div>
     </div>
   );
