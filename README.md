@@ -60,13 +60,13 @@ Create a new project named **Project Management System**
 
 ### Create new category
 
-![Create Category](screenshots/Create-categories.gif)
+![Create Category](screenshots/create-categories.gif)
 
 Create a new category named **Planning**
 
 ### Create new task
 
-![Create Task](screenshots/creat-task.gif)
+![Create Task](screenshots/create-task.gif)
 
 Create a new task named **Design the database schema** under the **Planning** category
 
