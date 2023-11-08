@@ -5,7 +5,6 @@ const REPO_URL = 'conjure-cp/task-allocation-demo'
 const Banner = () => {
   // fetch and slice the contributors list
     const [contributors, setContributors] = useState([]);
-    const [lastUpdated, setLastUpdated] = useState('');
 
     useEffect(() => {
       // Fetch contributors from GitHub
@@ -16,16 +15,6 @@ const Banner = () => {
           setContributors(filteredData.map(contributor => contributor.login));
         })
         .catch(error => console.error('Error:', error));
-
-      // Fetch last updated time
-      fetch(`https://api.github.com/repos/${REPO_URL}`)
-      .then(response => response.json())
-      .then(data => {
-        const updatedDate   = new Date(data.updated_at);
-        const formattedDate = `${updatedDate.getFullYear()}-${String(updatedDate.getMonth() + 1).padStart(2, '0')}-${String(updatedDate.getDate()).padStart(2, '0')}`;
-        setLastUpdated(formattedDate);
-      })
-      .catch(error => console.error('Error:', error));
     }, []);
 
     const chunkSize = 3;
@@ -83,8 +72,6 @@ const Banner = () => {
              
               <div className="mb-2 m-1">This project is created as a dissertation project at the University of St Andrews for optimal task allocation.</div>
               <div className="mb-2 m-1">License: Mozilla Public License 2.0</div>
-              {/* Last Updated */}
-              <div className="text-sm mb-2 m-1"> Last Updated: {lastUpdated} </div>
             </div>
 
           {/* Horizontal line */}
