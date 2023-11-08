@@ -79,9 +79,9 @@ const Banner = () => {
                     </a>
                   </div>
               </div>
-              <div className="text-3 font-bold tracking-wide mb-4 m-1">Workload Planner</div>
+              <div className="text-3 font-bold tracking-wide mb-4 m-1">Task allocation</div>
              
-              <div className="mb-2 m-1">This project is created as a dissertation project at the University of St Andrews for optimal workload planning.</div>
+              <div className="mb-2 m-1">This project is created as a dissertation project at the University of St Andrews for optimal task allocation.</div>
               <div className="mb-2 m-1">License: Mozilla Public License 2.0</div>
               {/* Last Updated */}
               <div className="text-sm mb-2 m-1"> Last Updated: {lastUpdated} </div>
