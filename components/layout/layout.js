@@ -17,7 +17,7 @@ export default function Layout({ children }) {
   }
 
   return (
-    <div className={"flex flex-col items-stretch"}>
+    <div className={"flex flex-col items-stretch"} style={{minHeight: "100vh", justifyContent: "space-between"}}>
       {/* 
         1.Header & Container
           Flex     : flex sets the display to flex, allowing elements to be laid out in a row or 
