@@ -128,13 +128,7 @@ export default function Layout({ children }) {
 
       {/* Banner */}
       <div className={"w-full bg-banner-blue p-2"}>
-      <Banner
-        title="Conjure CP"
-        description="A Powerful Constraint Programming System"
-        author="University of St Andrews"
-        github="https://github.com/conjure-cp"
-        lastUpdated="2023-10-17"
-      />
+        <Banner/>
       </div>
     </div>
   );
