@@ -32,6 +32,11 @@ jobs:
           git log -3
           mkdir -p old-build
           cp -r * old-build || true
+
+          # remove js and css imports
+          npm install cheerio
+          node scripts/remove-imports.js $(find . -name '*.html')
+
           rm -rf *-build/node_modules
           echo "===== Brief ====="
           diff --brief --recursive --new-file old-build new-build || true
