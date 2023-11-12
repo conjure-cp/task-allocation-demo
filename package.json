@@ -12,8 +12,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.16",
-    "axios": "^1.6.0",
-    "create-next-app": "^13.5.6",
+    "axios": "^1.6.1",
+    "create-next-app": "^14.0.2",
     "eslint": "8.53.0",
     "eslint-config-next": "14.0.2",
     "moment": "^2.29.4",
@@ -21,14 +21,14 @@
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
-    "recharts": "^2.9.0"
+    "recharts": "^2.9.3"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.18",
     "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.6",
+    "prettier-plugin-tailwindcss": "^0.5.7",
     "tailwindcss": "^3.3.5"
   },
   "homepage": "/task-allocation"
