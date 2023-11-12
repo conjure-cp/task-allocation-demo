@@ -50,7 +50,7 @@ This is the homepage with no existing project
 
 This is the project page showing the project details
 
-## Application Preview
+## Example GIFs
 
 ### Create new project
 

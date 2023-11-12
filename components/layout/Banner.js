@@ -1,14 +1,30 @@
 import React, { useEffect, useState } from 'react';
 
-const REPO_URL = 'conjure-cp/task-allocation-demo'
+import bannerConfig from '../../config/banner';
 
 const Banner = () => {
-  // fetch and slice the contributors list
+
+  // config
+
+  const {
+    logo,
+    title,
+    author,
+    description,
+    author_github,
+    repo_url,
+    github,
+    license
+  } = bannerConfig;
+
+  // contributor
+  // fetch the contributors list
+
     const [contributors, setContributors] = useState([]);
 
     useEffect(() => {
       // Fetch contributors from GitHub
-      fetch(`https://api.github.com/repos/${REPO_URL}/contributors`)
+      fetch(`https://api.github.com/repos/${repo_url}/contributors`)
         .then(response => response.json())
         .then(data => {
           const filteredData = data.filter(contributor => contributor.login !== 'williamburns' && !contributor.login.endsWith('[bot]'));
@@ -16,14 +32,6 @@ const Banner = () => {
         })
         .catch(error => console.error('Error:', error));
     }, []);
-
-    const chunkSize = 3;
-    const chunkedContributors = [];
-  
-    // Chunk the array into sizes of 3
-    for (let i = 0; i < contributors.length; i += chunkSize) {
-      chunkedContributors.push(contributors.slice(i, i + chunkSize));
-    }
 
     return (
       <div className="h-full text-white p-4">
@@ -64,14 +72,14 @@ const Banner = () => {
                 <img src="conjure-cp-logo.png" alt="conjure-cp" className="w-16 h-16 " />
                   <div className="text-xl font-semibold ml-4">
                     <a href="https://github.com/conjure-cp" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                      conjure-cp
+                      {logo}
                     </a>
                   </div>
               </div>
-              <div className="text-3 font-bold tracking-wide mb-4 m-1">Task allocation</div>
+              <div className="text-3 font-bold tracking-wide mb-4 m-1">{title}</div>
              
-              <div className="mb-2 m-1">This project is created as a dissertation project at the University of St Andrews for optimal task allocation.</div>
-              <div className="mb-2 m-1">License: Mozilla Public License 2.0</div>
+              <div className="mb-2 m-1">{description}</div>
+              <div className="mb-2 m-1">License: {license}</div>
             </div>
 
           {/* Horizontal line */}
@@ -81,22 +89,22 @@ const Banner = () => {
           <div className="row-start-2 col-span-1 flex flex-col items-stretch">
             <span className="text-lg font-semibold mb-2">Project Author</span>
             <div className="grid grid-cols-2 grid-flow-col gap-2 overflow-auto"> 
-              <a href={`https://github.com/williamburns`} className="mb-1 hover:underline" >William Burns</a>
+              <a href={author_github} className="mb-1 hover:underline" >{author}</a>
             </div>
           </div>
 
            {/* 1.2 Project Contributors */}
           <div className="row-start-2 col-span-2 flex flex-col items-stretch">
             <span className="text-lg font-semibold mb-2">Project Contributors</span>
-            <div className="grid grid-cols-2 grid-flow-col gap-2 overflow-auto"> 
-            {chunkedContributors.map((chunk, chunkIndex) => (
-              <div key={`chunk-${chunkIndex}`} className="row-span-1 col-span-1 flex flex-col items-start">
-                {chunk.map((contributor, index) => (
-                  <a key={index} href={`https://github.com/${contributor}`} className="mb-1 hover:underline">{contributor}</a>
+              <p className="text-sm">
+                {contributors.map((contributor, index) => (
+                  <a key={index} 
+                    href={`https://github.com/${contributor}`} 
+                    className="mb-1 hover:underline pr-4">
+                    {contributor}
+                  </a>
                 ))}
-              </div>
-            ))}
-            </div>
+              </p>
           </div>
           
           {/* Horizontal line */}
@@ -105,9 +113,9 @@ const Banner = () => {
           {/* 2.1 Additional Links*/}
            <div className="row-start-4 col-span-1 flex flex-col items-stretch">
             <span className="text-lg font-semibold mb-2">Links</span>
-            <a href={`https://github.com/${REPO_URL}`} className="mb-1 hover:underline">Source code</a>
-            <a href={`https://github.com/${REPO_URL}#readme`} className="mb-1 hover:underline">Documentation</a>
-            <a href={`https://github.com/${REPO_URL}#application-preview`} className="mb-1 hover:underline">Example Screenshots</a>
+            <a href={`${github}`} className="mb-1 hover:underline">Source code</a>
+            <a href={`${github}#readme`} className="mb-1 hover:underline">Documentation</a>
+            <a href={`${github}#application-preview`} className="mb-1 hover:underline">Example Screenshots</a>
           </div>
 
             
@@ -115,7 +123,7 @@ const Banner = () => {
            <div className="row-start-4 col-span-1 flex flex-col items-stretch">
               <span className="text-lg font-semibold mb-2">Contact us</span>
                 {/* <p className="text-sm">If you find any issues, please submit them through the following link:</p> */}
-                <a href={`https://github.com/${REPO_URL}/issues/new`} className="hover:underline">Report an Issue</a>
+                <a href={`${github}/issues/new`} className="hover:underline">Report an Issue</a>
           </div>
 
           {/* Horizontal line */}
