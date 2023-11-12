@@ -5,8 +5,7 @@ const nextConfig = {
   output: 'export',
   reactStrictMode: false,
   basePath: isProd ? '/task-allocation-demo' : '',
-  assetPrefix: isProd ? '/task-allocation-demo' : '',
-  optimization: false
+  assetPrefix: isProd ? '/task-allocation-demo' : ''
 };
 
 module.exports = nextConfig;

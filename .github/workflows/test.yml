@@ -24,26 +24,3 @@ jobs:
           npm run build
           # creates a .nojekyll file in the out directory to tell GitHub Pages not to treat the site as a Jekyll project.
           touch out/.nojekyll
-
-      - name: Deploy to GitHub Pages (dry run)
-        run: |
-          mv out new-build
-          cp scripts/remove-imports.js new-build/remove-imports.js
- 
-          git checkout gh-pages
-          git log -3
-          mkdir -p old-build
-          cp -r * old-build || true
-
-          rm -rf *-build/node_modules
-
-          # remove js and css imports
-          mkdir -p scripts
-          cp new-build/remove-imports.js scripts/remove-imports.js
-          npm install cheerio
-          node scripts/remove-imports.js $(find . -name '*.html')
-
-          echo "===== Brief ====="
-          diff --brief --recursive --new-file old-build new-build || true
-          echo "===== Diff ====="
-          diff --recursive --new-file old-build new-build || true
