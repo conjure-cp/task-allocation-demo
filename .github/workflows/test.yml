@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v2
         with:
@@ -24,10 +26,10 @@ jobs:
           touch out/.nojekyll
 
       - name: Deploy to GitHub Pages (dry run)
-        uses: JamesIves/github-pages-deploy-action@v4.4.3
-        with:
-          branch: gh-pages
-          folder: out
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
-          dry-run: true
-          clean: true
+        run: |
+          mv out out-new-build
+          git checkout gh-pages
+          echo "===== Diff ====="
+          diff --recursive --new-file out out-new-build
+          echo "===== Brief ====="
+          diff --brief --recursive --new-file out out-new-build
