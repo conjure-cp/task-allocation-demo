@@ -22,3 +22,12 @@ jobs:
           npm run build
           # creates a .nojekyll file in the out directory to tell GitHub Pages not to treat the site as a Jekyll project.
           touch out/.nojekyll
+
+      - name: Deploy to GitHub Pages (dry run)
+        uses: JamesIves/github-pages-deploy-action@v4.4.3
+        with:
+          branch: gh-pages
+          folder: out
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+          dry-run: true
+          clean: true
