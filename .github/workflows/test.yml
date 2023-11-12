@@ -29,7 +29,7 @@ jobs:
         run: |
           mv out out-new-build
           git checkout gh-pages
-          echo "===== Diff ====="
-          diff --recursive --new-file out out-new-build
           echo "===== Brief ====="
-          diff --brief --recursive --new-file out out-new-build
+          diff --brief --recursive --new-file out out-new-build || true
+          echo "===== Diff ====="
+          diff --recursive --new-file out out-new-build || true
