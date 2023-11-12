@@ -27,10 +27,12 @@ jobs:
 
       - name: Deploy to GitHub Pages (dry run)
         run: |
-          mv out out-new-build
+          mv out new-build
           git checkout gh-pages
           git log -3
+          mkdir -p old-build
+          cp -r * old-build || true
           echo "===== Brief ====="
-          diff --brief --recursive --new-file out out-new-build || true
+          diff --brief --recursive --new-file old-build new-build || true
           echo "===== Diff ====="
-          diff --recursive --new-file out out-new-build || true
+          diff --recursive --new-file old-build new-build || true
