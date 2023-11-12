@@ -28,12 +28,16 @@ jobs:
       - name: Deploy to GitHub Pages (dry run)
         run: |
           mv out new-build
+          cp scripts/remove-imports.js new-build/remove-imports.js
+ 
           git checkout gh-pages
           git log -3
           mkdir -p old-build
           cp -r * old-build || true
 
           # remove js and css imports
+          mkdir -p scripts
+          cp new-build/remove-imports.js scripts/remove-imports.js
           npm install cheerio
           node scripts/remove-imports.js $(find . -name '*.html')
 
