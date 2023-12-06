@@ -34,6 +34,29 @@ To start the development server, use the following command:
 
 This will start the application in development mode. Open http://localhost:3000 to view the application in the browser. The page will reload if you make edits.
 
+## Testing
+
+#### Run E2E Tests
+
+First, start the server
+
+```bash
+npm run build
+npm run dev
+```
+
+and then open another terminal to run
+
+```bash
+npm run cypress -- --e2e
+```
+
+#### Run Component Tests
+
+```bash
+npm run cypress -- --component
+```
+
 ## User Interface
 
 Below are some screenshots of the project UI:
