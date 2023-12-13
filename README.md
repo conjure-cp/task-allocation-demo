@@ -48,13 +48,19 @@ npm run dev
 and then open another terminal to run
 
 ```bash
-npm run cypress -- --e2e
+npm run e2e:headless
 ```
 
 #### Run Component Tests
 
 ```bash
-npm run cypress -- --component
+npm run component:headless
+```
+
+#### Or 
+
+```bash
+npm run cypress
 ```
 
 ## User Interface

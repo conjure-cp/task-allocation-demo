@@ -56,6 +56,7 @@ export default function Home() {
           <div className={"mt-8 space-y-8"}>
             <Input
               label={"Name"}
+              name="projectName"
               placeholder={"Project name"}
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
