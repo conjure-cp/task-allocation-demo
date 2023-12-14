@@ -62,6 +62,7 @@ export default function Home() {
               onChange={(e) => setProjectName(e.target.value)}
             />
             <PrimaryButton
+              id="createProjectButton"
               onClick={() =>
                 dispatch({ type: "NEW_PROJECT", projectName: projectName })
               }
@@ -164,6 +165,7 @@ export default function Home() {
         </div>
         <div className={"mt-8 flex items-center space-x-8"}>
           <PrimaryButton
+            id={"exportProjectButton"}
             onClick={(e) => {
               e.preventDefault();
 
@@ -178,6 +180,7 @@ export default function Home() {
             Export Project
           </PrimaryButton>
           <PrimaryButton
+            id={"deleteProjectButton"}
             onClick={(e) => {
               e.preventDefault();
 

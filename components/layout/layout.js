@@ -48,6 +48,7 @@ export default function Layout({ children }) {
         */}
         <div
           className={"w-[19rem] border-r border-slate-700 bg-slate-800 px-8 py-8 "}
+          id="sidebar"
         >
           <div className={"flex items-center space-x-2"}>
             <Link href={"/"}>
@@ -127,7 +128,10 @@ export default function Layout({ children }) {
       </div>
 
       {/* Banner */}
-      <div className={"w-full bg-banner-blue p-2"}>
+      <div 
+        className={"w-full bg-banner-blue p-2"}
+        id="banner"
+      >
         <Banner/>
       </div>
     </div>
