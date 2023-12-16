@@ -1,24 +1,43 @@
-name: Build test
+name: Cypress Tests with Dependency and Artifact Caching
 
-on:
-  workflow_dispatch:        # can be triggered manually
-  pull_request:             # and for PRs
+on: push
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
+  install:
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Cypress install
+        uses: cypress-io/github-action@v6
         with:
-          node-version: 21
-          cache: npm
+          # Disable running of tests within install job
+          runTests: false
+          build: npm run build
 
-      - name: Build
-        run: |
-          npm ci
-          npm run build
-          # creates a .nojekyll file in the out directory to tell GitHub Pages not to treat the site as a Jekyll project.
-          touch out/.nojekyll
+      - name: Save out folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: out
+          if-no-files-found: error
+          path: out
+
+  cypress-run:
+    runs-on: ubuntu-22.04
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the out folder
+        uses: actions/download-artifact@v3
+        with:
+          name: out
+          path: out
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run dev
+          browser: chrome
