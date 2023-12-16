@@ -58,23 +58,30 @@ export default function Layout({ children }) {
             </Link>
           </div>
           <div className={"mt-8 flex flex-col items-start space-y-4"}>
-            <NavigationLink href={"/"} equals>
+            <NavigationLink 
+              href={"/"} 
+              id={"nav-project"}
+              equals
+            >
               Project
             </NavigationLink>
             <NavigationLink
               href={"/tasks"}
+              id={"nav-tasks"}
               badge={projectData.tasks ? projectData.tasks.length : 0}
             >
               Tasks
             </NavigationLink>
             <NavigationLink
               href={"/users"}
+              id={"nav-users"}
               badge={projectData.users ? projectData.users.length : 0}
             >
               Users
             </NavigationLink>
             <NavigationLink
               href={"/categories"}
+              id={"nav-categories"}
               badge={projectData.categories ? projectData.categories.length : 0}
             >
               Categories
@@ -138,7 +145,7 @@ export default function Layout({ children }) {
   );
 }
 
-function NavigationLink({ children, badge, href, equals = false }) {
+function NavigationLink({ children, badge, href, equals = false ,id}) {
   const router = useRouter();
 
   const active = equals
@@ -147,6 +154,7 @@ function NavigationLink({ children, badge, href, equals = false }) {
 
   return (
     <button
+      id={id}
       className={`flex w-full items-center justify-between px-3 py-2 ${
         active ? "bg-slate-900" : "hover:bg-slate-700"
       }`}

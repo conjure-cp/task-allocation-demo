@@ -30,18 +30,20 @@ describe('The home page when opening the demo', () => {
         // Steps for testing project import
     });
 
-    // 4. stay on the home page for clicking any sidebar buttons
-    // [Failed]: page update after click?
-    // it('should stay on the home page after clicking on any side buttons', () => {
-    //   cy.visit('/')
-
-    //   // Select the sidebar by ID, then find all button elements within it
-    //   cy.get('#sidebar').find('button').each(button => {
-    //     cy.wrap(button).click()
-    //     // Assert that the URL hasn't changed (staying on the home page)
-    //     cy.url().should('eq', Cypress.config().baseUrl + '/')
-    //   })
-    // })
+    it('stays at dashboard page when click on the tasks link', () => {
+      cy.get('#nav-tasks').should('be.visible').click()
+      cy.url().should('eq', '/')
+    })
+  
+    it('stays at dashboard page when click on the users link', () => {
+      cy.get('#nav-users').should('be.visible').click()
+      cy.url().should('eq', '/')
+    })
+  
+    it('stays at dashboard page when click on the categories link', () => {
+      cy.get('#nav-categories').should('be.visible').click()
+      cy.url().should('eq', '/')
+    })
   })
 
   context('when project data exists', () => {
@@ -76,12 +78,26 @@ describe('The home page when opening the demo', () => {
       cy.get('#exportProjectButton').should('exist')
       cy.get('#deleteProjectButton').should('exist')
 
-      // 1.2 Sidebar
+    })
 
+    it('navigates to the Tasks page', () => {
+      cy.get('#nav-tasks').debug().click();
+      cy.url().should('include', '/tasks')
+    })
+  
+    it('navigates to the Users page', () => {
+      cy.get('#nav-users').should('be.visible').click()
+      cy.url().should('include', '/users')
+    })
+  
+    it('navigates to the Categories page', () => {
+      cy.get('#nav-categories').should('be.visible').click()
+      cy.url().should('include', '/categories')
+    })
 
-      // 1.3 Banner
-
-
+    it('return to the dashboard', () => {
+      cy.get('#nav-project').should('be.visible').click()
+      cy.url().should('eq', '/')
     })
   })
 })
