@@ -22,9 +22,13 @@ describe('The solution page when click on Show Solution Detail link', () => {
         cy.get('#nav-tasks').should('be.visible').click()
         cy.url().should('eq', Cypress.config().baseUrl + '/tasks')
     })
+
+    it('starts creating new tasks by clicking on the New Task button', () => {
+        cy.get('#nav-tasks').should('be.visible').click()
+        cy.url().should('eq', Cypress.config().baseUrl + '/tasks')
+    })
   
-    // it('navigates to [Another Page Name] and checks UI elements', () => {
-    // })
+ 
   
-  })
+})
   

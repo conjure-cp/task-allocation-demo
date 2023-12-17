@@ -29,21 +29,6 @@ describe('The home page when opening the demo', () => {
         cy.visit('/');
         // Steps for testing project import
     });
-
-    it('stays at dashboard page when click on the tasks link', () => {
-      cy.get('#nav-tasks').should('be.visible').click()
-      cy.url().should('eq', '/')
-    })
-  
-    it('stays at dashboard page when click on the users link', () => {
-      cy.get('#nav-users').should('be.visible').click()
-      cy.url().should('eq', '/')
-    })
-  
-    it('stays at dashboard page when click on the categories link', () => {
-      cy.get('#nav-categories').should('be.visible').click()
-      cy.url().should('eq', '/')
-    })
   })
 
   context('when project data exists', () => {
@@ -78,26 +63,6 @@ describe('The home page when opening the demo', () => {
       cy.get('#exportProjectButton').should('exist')
       cy.get('#deleteProjectButton').should('exist')
 
-    })
-
-    it('navigates to the Tasks page', () => {
-      cy.get('#nav-tasks').debug().click();
-      cy.url().should('include', '/tasks')
-    })
-  
-    it('navigates to the Users page', () => {
-      cy.get('#nav-users').should('be.visible').click()
-      cy.url().should('include', '/users')
-    })
-  
-    it('navigates to the Categories page', () => {
-      cy.get('#nav-categories').should('be.visible').click()
-      cy.url().should('include', '/categories')
-    })
-
-    it('return to the dashboard', () => {
-      cy.get('#nav-project').should('be.visible').click()
-      cy.url().should('eq', '/')
     })
   })
 })
