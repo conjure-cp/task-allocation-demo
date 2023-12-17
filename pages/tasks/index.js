@@ -36,6 +36,7 @@ export default function TasksPage() {
       </div>
       <div className={"mt-8"}>
         <Link
+          id = 'newTaskLink'
           href={"/tasks/new"}
           className={"border py-2 px-2 hover:underline"}
         >
