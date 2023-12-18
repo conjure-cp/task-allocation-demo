@@ -6,7 +6,8 @@ describe('Navigation to categories pages from the home page', () => {
         tasks: [],
         users: [],
         categories: [],
-        output_history: []
+        output_history: [],
+        locked_tasks:[]
     };
 
     beforeEach(() => {
@@ -19,23 +20,19 @@ describe('Navigation to categories pages from the home page', () => {
     })
   
     it('navigates to categories and checks UI elements', () => {
-      // Click on the sidebar button for navigating to the page
-      cy.get('[data-testid="sidebar-button-for-page-name"]').click()
-  
-      // Check if URL is updated correctly
-      cy.url().should('include', '/page-name')
-  
-      // Check for UI elements specific to [Page Name]
-      // Example: cy.get('[data-testid="specific-element"]').should('exist')
-  
-      // Add more assertions as per your page's UI and functionalities
+      cy.get('#nav-categories').as('navCategoryButton');
+      cy.get('@navCategoryButton').click();
+      cy.url().should('eq', Cypress.config().baseUrl + '/categories')
+     
+      // 1. click on new task link
+      cy.get('#newCategoryLink').click()
+
+      // 2. Filling Create new Category form
+      // Find the 'Name' field by label and type into it
+      cy.contains('p', 'Name').next('input').type('Planning')
+      // Click the Create Category button
+      cy.get('#createCategoryButton').click()
+
     })
-  
-    // Repeat the structure for other pages
-    it('navigates to [Another Page Name] and checks UI elements', () => {
-      // Similar structure as above, tailored for another page
-    })
-  
-    // Add more tests for each page you want to test through the sidebar
-  })
-  
+
+  })  

@@ -1,12 +1,13 @@
 describe('The solution page when click on Show Solution Detail link', () => {
 
     const project_data = {
-        id: 1,
+        id: 0,
         name: 'Testing Project',
         tasks: [],
         users: [],
         categories:[{"id":0,"name":"Planning"}],
-        output_history: []
+        output_history: [],
+        locked_tasks:[]
     };
 
     before(() => {

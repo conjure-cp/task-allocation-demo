@@ -26,6 +26,8 @@ export default function TasksPage() {
     return null;
   }
 
+  console.log(projectData)
+
   return (
     <div>
       <div>

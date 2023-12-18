@@ -1,12 +1,13 @@
 describe('Navigation to user page from the home page', () => {
 
     const project_data = {
-        id: 1,
-        name: 'Testing Project',
-        tasks: [],
-        users: [],
-        categories: [],
-        output_history: []
+      id: 0,
+      name: 'Testing Project',
+      tasks: [{id: 0, name: "Task", description: "Descrption", weight: 1}],
+      users: [],
+      categories:[{"id":0,"name":"Planning"}],
+      output_history: [],
+      locked_tasks:[]
     };
 
     beforeEach(() => {
@@ -18,24 +19,42 @@ describe('Navigation to user page from the home page', () => {
         });
     })
   
-    it('navigates to user and checks UI elements', () => {
-      // Click on the sidebar button for navigating to the page
-      cy.get('[data-testid="sidebar-button-for-page-name"]').click()
-  
-      // Check if URL is updated correctly
-      cy.url().should('include', '/page-name')
-  
-      // Check for UI elements specific to [Page Name]
-      // Example: cy.get('[data-testid="specific-element"]').should('exist')
-  
-      // Add more assertions as per your page's UI and functionalities
-    })
-  
-    // Repeat the structure for other pages
-    it('navigates to [Another Page Name] and checks UI elements', () => {
-      // Similar structure as above, tailored for another page
-    })
-  
-    // Add more tests for each page you want to test through the sidebar
+    it('starts creating a new user by clicking New User Button', () => {
+      cy.get('#nav-users').as('navUserButton');
+      cy.get('@navUserButton').click();
+      cy.url().should('eq', Cypress.config().baseUrl + '/users')
+     
+      // 1. click on new user link
+      cy.get('#newUserLink').click()
+
+      // Step 1
+      // Filling Create new user form
+      // Find the 'Name' field by label and type into it
+      cy.contains('p', 'Name').next('input').type('User Name')
+
+      cy.get('#continueButton').click()
+
+      // Step 2
+      cy.get('#continueButton').click()
+
+      // Step 3
+      cy.get('#continueButton').click()
+
+      // Step 4
+      // Select the first task from the dropdown
+      cy.get('#taskPerference select').then($select => {
+        // Get the value of the first option
+        const firstOptionValue = $select.find('option').eq(1).val();
+
+        // Select the first option using its value
+        cy.get('#taskPerference select').select(firstOptionValue);
+      });
+
+      // Click the 'Create User' button
+      cy.get('#continueButton').click()
+
   })
+
+
+})
   

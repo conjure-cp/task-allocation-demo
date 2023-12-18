@@ -266,7 +266,10 @@ function UserForm({
         {currentStep === 4 && (
           <>
             <p className={"font-medium"}>Task preferences</p>
-            <div className={"mt-4 flex items-center space-x-4"}>
+            <div 
+              id="taskPerference"
+              className={"mt-4 flex items-center space-x-4"}
+              >
               <Select
                 placeholder={"Select..."}
                 value={selectedTask}
@@ -360,6 +363,7 @@ function UserForm({
           </>
         )}
         <button
+          id="continueButton"
           onClick={(e) => {
             e.preventDefault();
 

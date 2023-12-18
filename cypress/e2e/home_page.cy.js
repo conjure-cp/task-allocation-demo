@@ -21,18 +21,6 @@ describe('The home page when opening the demo', () => {
       cy.get('#createProjectButton').click()
       // Assert that after creating a new project, we stay at the home page
       cy.url().should('include', '/')
-
-      // stays at dashboard page when click on the tasks link
-      cy.get('#nav-tasks').should('be.visible').click()
-      cy.url().should('eq', '/')
-  
-      // stays at dashboard page when click on the users link
-      cy.get('#nav-users').should('be.visible').click()
-      cy.url().should('eq', '/')
-    
-      // stays at dashboard page when click on the categories link'
-      cy.get('#nav-categories').should('be.visible').click()
-      cy.url().should('eq', '/')
     });
 
     // 3 importing a project
