@@ -54,7 +54,7 @@ function UserForm({
   const [createCategory, setCreateCategory] = useState("");
 
   const [disallowedTasks, setDisallowedTasks] = useState(
-    initialDisallowedTasks
+    initialDisallowedTasks,
   );
 
   const [selectedTask, setSelectedTask] = useState(-1);
@@ -84,7 +84,7 @@ function UserForm({
         } else {
           return c;
         }
-      })
+      }),
     );
   };
 
@@ -266,10 +266,10 @@ function UserForm({
         {currentStep === 4 && (
           <>
             <p className={"font-medium"}>Task preferences</p>
-            <div 
+            <div
               id="taskPerference"
               className={"mt-4 flex items-center space-x-4"}
-              >
+            >
               <Select
                 placeholder={"Select..."}
                 value={selectedTask}
@@ -339,7 +339,7 @@ function UserForm({
                                   <PreferenceRow
                                     rank={i + 1}
                                     task={projectData.tasks.find(
-                                      (tt) => tt.id === parseInt(t)
+                                      (tt) => tt.id === parseInt(t),
                                     )}
                                     onRemove={handleRemoveTask}
                                     provided={provided}

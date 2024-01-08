@@ -18,7 +18,7 @@ export default function TaskViewPage() {
 
   const handleUserToggle = (userId) => {
     const user = projectData.users.find(
-      (u) => parseInt(u.id) === parseInt(userId)
+      (u) => parseInt(u.id) === parseInt(userId),
     );
 
     dispatch({

@@ -171,9 +171,9 @@ export default function Home() {
 
               downloadObjectAsJson(
                 JSON.parse(
-                  window.localStorage.getItem("workload_project_data")
+                  window.localStorage.getItem("workload_project_data"),
                 ),
-                "workload-project-" + projectData.id
+                "workload-project-" + projectData.id,
               );
             }}
           >

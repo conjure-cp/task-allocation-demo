@@ -7,7 +7,7 @@ import OutputVersionDropdown from "./OutputVersionDropdown";
 import UnsavedChangesMenu from "../output/UnsavedChangesMenu";
 import Head from "next/head";
 
-import Banner from './Banner';
+import Banner from "./Banner";
 
 export default function Layout({ children }) {
   const [projectData, dispatch, loading] = useProjectData();
@@ -17,7 +17,10 @@ export default function Layout({ children }) {
   }
 
   return (
-    <div className={"flex flex-col items-stretch"} style={{minHeight: "100vh", justifyContent: "space-between"}}>
+    <div
+      className={"flex flex-col items-stretch"}
+      style={{ minHeight: "100vh", justifyContent: "space-between" }}
+    >
       {/* 
         1.Header & Container
           Flex     : flex sets the display to flex, allowing elements to be laid out in a row or 
@@ -47,7 +50,9 @@ export default function Layout({ children }) {
             Padding   : px-8 py-8 sets padding of 8 units on both x and y-axes.
         */}
         <div
-          className={"w-[19rem] border-r border-slate-700 bg-slate-800 px-8 py-8 "}
+          className={
+            "w-[19rem] border-r border-slate-700 bg-slate-800 px-8 py-8 "
+          }
           id="sidebar"
         >
           <div className={"flex items-center space-x-2"}>
@@ -58,11 +63,7 @@ export default function Layout({ children }) {
             </Link>
           </div>
           <div className={"mt-8 flex flex-col items-start space-y-4"}>
-            <NavigationLink 
-              href={"/"} 
-              id={"nav-project"}
-              equals
-            >
+            <NavigationLink href={"/"} id={"nav-project"} equals>
               Project
             </NavigationLink>
             <NavigationLink
@@ -108,9 +109,9 @@ export default function Layout({ children }) {
                       "group flex w-full items-center justify-start space-x-2 px-2"
                     }
                   >
-                    <span 
+                    <span
                       className={"text-slate-400 group-hover:text-slate-200"}
-                      style={{ display: 'block', textAlign: 'left' }}
+                      style={{ display: "block", textAlign: "left" }}
                     >
                       Solution Details
                     </span>
@@ -127,25 +128,22 @@ export default function Layout({ children }) {
         </div>
 
         {/* <div className={"flex flex-col flex-grow h-full w-full overflow-auto items-stretch"}> */}
-          {/* Content */}
-          <div className={"flex-grow py-8 px-28 min-h-[80%] "}>
-            <UnsavedChangesMenu />
-            {children}
-          </div>
+        {/* Content */}
+        <div className={"flex-grow py-8 px-28 min-h-[80%] "}>
+          <UnsavedChangesMenu />
+          {children}
+        </div>
       </div>
 
       {/* Banner */}
-      <div 
-        className={"w-full bg-banner-blue p-2"}
-        id="banner"
-      >
-        <Banner/>
+      <div className={"w-full bg-banner-blue p-2"} id="banner">
+        <Banner />
       </div>
     </div>
   );
 }
 
-function NavigationLink({ children, badge, href, equals = false ,id}) {
+function NavigationLink({ children, badge, href, equals = false, id }) {
   const router = useRouter();
 
   const active = equals

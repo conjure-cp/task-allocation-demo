@@ -243,12 +243,12 @@ function TasksTable({
 
           const curTask = tasks.find((t) => t.id === rid);
           const curUser = users.find(
-            (u) => u.id === solution.assignment[ta] - 1
+            (u) => u.id === solution.assignment[ta] - 1,
           );
 
           const oldTask = oldSolutionState.tasks.find((t) => t.id === rid);
           const oldUser = oldSolutionState.users.find(
-            (u) => u.id === solution.assignment[ta] - 1
+            (u) => u.id === solution.assignment[ta] - 1,
           );
 
           if (!curTask || !curUser) {

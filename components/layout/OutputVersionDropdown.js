@@ -19,12 +19,15 @@ export default function OutputVersionDropdown() {
     return <p className={"text-sm text-slate-300"}>None</p>;
   }
 
-  const sortedHistory = projectData.output_history.slice(0).map( (h, i) => {
-    return {
-      idx: i + 1,
-      entry: h
-    }
-  }).reverse();
+  const sortedHistory = projectData.output_history
+    .slice(0)
+    .map((h, i) => {
+      return {
+        idx: i + 1,
+        entry: h,
+      };
+    })
+    .reverse();
 
   return (
     <Menu as={"div"} className={"relative inline-block w-full"}>
@@ -34,7 +37,13 @@ export default function OutputVersionDropdown() {
         }
       >
         <span className={"text-slate-200 group-hover:text-slate-100"}>
-          Solution #{sortedHistory.find(p => p.entry.output_id == projectData.current_selected_output_id).idx}
+          Solution #
+          {
+            sortedHistory.find(
+              (p) =>
+                p.entry.output_id == projectData.current_selected_output_id,
+            ).idx
+          }
         </span>
         <ChevronDownIcon
           className={"h-5 w-5 text-slate-300 group-hover:text-slate-200"}
@@ -54,18 +63,17 @@ export default function OutputVersionDropdown() {
             "absolute left-0 mt-2 w-full origin-top-left border border-slate-700/75 bg-slate-900/50 shadow-md backdrop-blur"
           }
         >
-          {sortedHistory
-            .map((h) => (
-              <OutputVersionItem
-                key={h.entry.output_id}
-                idx={h.idx}
-                output={h.entry}
-                isCurrent={
-                  h.entry.output_id === projectData.current_selected_output_id
-                }
-                dispatch={dispatch}
-              />
-            ))}
+          {sortedHistory.map((h) => (
+            <OutputVersionItem
+              key={h.entry.output_id}
+              idx={h.idx}
+              output={h.entry}
+              isCurrent={
+                h.entry.output_id === projectData.current_selected_output_id
+              }
+              dispatch={dispatch}
+            />
+          ))}
         </Menu.Items>
       </Transition>
     </Menu>

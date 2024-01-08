@@ -11,6 +11,7 @@ Created as a dissertation project at the University of St Andrews.
 Requires an environment with NodeJS and NPM installed.
 
 #### Running in Production
+
 To start the production server, use the following command:
 
 1. Install dependencies
@@ -28,6 +29,7 @@ To start the production server, use the following command:
 The application will now be available at /task-allocation.
 
 #### Running in Development
+
 To start the development server, use the following command:
 
 `npm run dev`
@@ -57,7 +59,7 @@ npm run e2e:headless
 npm run component:headless
 ```
 
-#### Or 
+#### Or
 
 ```bash
 npm run cypress
@@ -108,4 +110,3 @@ Create a user named **John Smith** managing the **Planning** tasks. He prefers t
 ## License
 
 This project is licensed under the Mozilla Public License 2.0. For full license information, please see the [LICENSE](./LICENSE) file in the repository.
-

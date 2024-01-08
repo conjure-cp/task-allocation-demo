@@ -26,8 +26,6 @@ export default function TasksPage() {
     return null;
   }
 
-  console.log(projectData)
-
   return (
     <div>
       <div>
@@ -38,7 +36,7 @@ export default function TasksPage() {
       </div>
       <div className={"mt-8"}>
         <Link
-          id = 'newTaskLink'
+          id="newTaskLink"
           href={"/tasks/new"}
           className={"border py-2 px-2 hover:underline"}
         >
@@ -71,7 +69,7 @@ export default function TasksPage() {
                     onRemove={handleRemove}
                     onDuplicate={handleDuplicate}
                     category={projectData.categories.find(
-                      (c) => c.id === task.category
+                      (c) => c.id === task.category,
                     )}
                     disabledActions={projectData.locked_tasks.includes(task.id)}
                   />

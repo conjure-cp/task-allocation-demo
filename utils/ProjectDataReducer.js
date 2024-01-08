@@ -103,10 +103,10 @@ function innerProjectDataReducer(state, action) {
         users: state.users.map((u) => ({
           ...u,
           task_blacklist: u.task_blacklist.filter(
-            (x) => x !== parseInt(action.taskId)
+            (x) => x !== parseInt(action.taskId),
           ),
           preferences: u.preferences.filter(
-            (x) => x !== parseInt(action.taskId)
+            (x) => x !== parseInt(action.taskId),
           ),
         })),
         locked_tasks: state.locked_tasks
@@ -211,7 +211,7 @@ function innerProjectDataReducer(state, action) {
 
       const assignment = state.output_history
         ? state.output_history.find(
-            (oh) => oh.output_id === state.current_selected_output_id
+            (oh) => oh.output_id === state.current_selected_output_id,
           ).solution.assignment
         : {};
 
@@ -219,7 +219,7 @@ function innerProjectDataReducer(state, action) {
         ? [
             ...state.locked_tasks.filter(
               (tid) =>
-                parseInt(assignment[tid + 1]) !== parseInt(action.userId) + 1
+                parseInt(assignment[tid + 1]) !== parseInt(action.userId) + 1,
             ),
           ]
         : [];
@@ -240,7 +240,7 @@ function innerProjectDataReducer(state, action) {
       };
 
     case "WAIT_OUTPUT": {
-      const new_output_id = action.job_id
+      const new_output_id = action.job_id;
 
       const new_output_state = {
         status: "wait",
@@ -260,9 +260,10 @@ function innerProjectDataReducer(state, action) {
         current_selected_output_id: new_output_id,
         unsaved_changes: false,
         locked_tasks: [],
-        output_history: (state.output_history ?? []).length > 0
-          ? [...state.output_history, new_output_state]
-          : [new_output_state],
+        output_history:
+          (state.output_history ?? []).length > 0
+            ? [...state.output_history, new_output_state]
+            : [new_output_state],
       };
     }
 
@@ -299,7 +300,7 @@ function innerProjectDataReducer(state, action) {
       let obj = { ...state };
 
       const version = obj.output_history.find(
-        (o) => o.output_id === action.versionId
+        (o) => o.output_id === action.versionId,
       );
 
       // set current state to old state

@@ -11,18 +11,17 @@ export const handleGenerate = async (e, projectData, dispatch, router) => {
       solver: "chuffed",
       model: ESSENCE_MODEL,
       data: JSON.stringify(convertInput(projectData)),
-      conjureOptions: ["--solver-options='-t 30000'"] // use a time limit of 10 seconds
+      conjureOptions: ["--solver-options='-t 30000'"], // use a time limit of 10 seconds
     },
     {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   );
 
   dispatch({
     type: "WAIT_OUTPUT",
     job_id: res.data.jobid,
   });
-
 };

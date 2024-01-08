@@ -39,11 +39,7 @@ function CategoryForm({ initialName, handleSubmit, buttonText }) {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <PrimaryButton 
-        id={"createCategoryButton"}
-      >
-        {buttonText}
-      </PrimaryButton>
+      <PrimaryButton id={"createCategoryButton"}>{buttonText}</PrimaryButton>
     </form>
   );
 }

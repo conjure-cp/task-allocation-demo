@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   const stickyReducer = useStickyReducer(
     projectDataReducer,
     { id: -1 },
-    "workload_project_data"
+    "workload_project_data",
   );
 
   return (
