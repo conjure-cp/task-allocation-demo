@@ -1,12 +1,40 @@
 # Testing Documentation for Task-Allocation Demo
 
-## Testing Scenarios
+### Test 1: Render the Home Page When Opening the Demo
 
-### Creating item from each Page
+#### Context 1: When No Project Data Exists
 
-**Test Steps:**
+| Test Case             | Description                                     | Steps                                            |
+|-----------------------|-------------------------------------------------|--------------------------------------------------|
+|  **Check for Complete UI**      | Verifies that the options to create or import a project are displayed when no project data is present. | Visit the home page and check for the presence of the 'Create Project' button and the option to import an existing project.  |
+| **Create a New Project** | Tests the functionality to create a new project and ensures staying on the home page after creation. | Visit the home page, enter a project name, click the 'Create Project' button, and verify the URL.                            |
+| **Import a Project**  | Tests the functionality to import a project.                                                     | [Wait to be tested]                                                                                                        |
 
-### Getting solution for Satisfiable Project Tests
+
+#### Context 2: When Project Data Exists
+
+| Test Case             | Description                                     | Steps                                            |
+|-----------------------|-------------------------------------------------|--------------------------------------------------|
+|  **Check for Complete UI**     | Ensures that project data and options are correctly displayed when project data is present. | Visit the home page, check for the display of project data, and verify the presence of 'Export Project' and 'Delete Project' buttons.  | 
+
+### Test 2: Creating a New Category on the Category Page
+
+| Test Case             | Description                                     | Steps                                           |
+|-----------------------|-------------------------------------------------|-------------------------------------------------|
+| **Navigate to Categories and Check UI Elements**| Tests the ability to navigate to the categories page and check the UI elements.           | Navigate to the categories page, click on 'New Category' link, enter a category name, and click the 'Create Category' button.    |
+
+
+### Test 3: Creating a New Task on the Task Page
+| Test Case             | Description                                     | Steps                                           |
+|-----------------------|-------------------------------------------------|-------------------------------------------------|
+| **Start Creating a New Task**        | Tests the creation of a new task by filling out the task creation form.     | Navigate to the tasks page, click on 'New Task' link, fill out the task form with name, description, category, and weight, and click the 'Create Task' button. |
+
+### Test 4: Creating a New User on the User Page
+| Test Case             | Description                                     | Steps                                           |
+|-----------------------|-------------------------------------------------|-------------------------------------------------|
+| **Start Creating a New User**        | Tests the creation of a new user through a multi-step form.                       | Navigate to the users page, click on 'New User' link, fill out the user form including name and task preferences, and click the 'Create User' button.  |
+
+### Test 5: Getting solution for Satisfiable Project Tests
 
 **Project Setup:**
 - **Project**: Project Management in a Software Development Team
@@ -20,7 +48,7 @@
 |---------|---------------------|---------------|--------|
 | 0       | Code Feature A      | Development   | 2      |
 | 1       | Debug Module B      | Development   | 3      |
-| 2       | Write Unit Tests    | Testing       | 1    |
+| 2       | Write Unit Tests    | Testing       | 1      |
 | 3       | Conduct Code Review | Documentation | 5      |
 | 4       | Document Feature C  | Documentation | 1      |
 
@@ -42,144 +70,6 @@
 | 2           | Documentation  |
 
 
-**JSON Object:**
-
-```javascript
-{
-    "id": 0,
-    "name": "Project Management",
-    "tasks": [
-        {
-            "id": 0,
-            "name": " Code feature A",
-            "description": "",
-            "category": 0,
-            "weight": 2
-        },
-        {
-            "id": 1,
-            "name": "Debug module B",
-            "description": "",
-            "category": 0,
-            "weight": 3
-        },
-        {
-            "id": 2,
-            "name": "Write unit tests",
-            "description": "",
-            "category": 1,
-            "weight": 1
-        },
-        {
-            "id": 3,
-            "name": "Conduct code review",
-            "description": "",
-            "category": 2,
-            "weight": 5
-        },
-        {
-            "id": 4,
-            "name": "Document feature C",
-            "description": "",
-            "category": 2,
-            "weight": 1
-        }
-    ],
-    "users": [
-        {
-            "id": 0,
-            "name": "Alice",
-            "categories": [
-                {
-                    "id": 0,
-                    "percentage": 0
-                }
-            ],
-            "task_blacklist": [
-                2,
-                3,
-                4
-            ],
-            "preferences": [
-                0
-            ]
-        },
-        {
-            "id": 1,
-            "name": "Bob",
-            "categories": [
-                {
-                    "id": 0,
-                    "percentage": 0
-                }
-            ],
-            "task_blacklist": [
-                2,
-                3,
-                4,
-                0
-            ],
-            "preferences": [
-                1
-            ]
-        },
-        {
-            "id": 2,
-            "name": "Charlie",
-            "categories": [
-                {
-                    "id": 1,
-                    "percentage": 0
-                }
-            ],
-            "task_blacklist": [
-                0,
-                1,
-                4,
-                3
-            ],
-            "preferences": [
-                2
-            ]
-        },
-        {
-            "id": 3,
-            "name": "David",
-            "task_blacklist": [
-                0,
-                1,
-                2
-            ],
-            "preferences": [
-                3,
-                4
-            ],
-            "categories": [
-                {
-                    "id": 2,
-                    "percentage": 0
-                }
-            ]
-        }
-    ],
-    "categories": [
-        {
-            "id": 0,
-            "name": "Development"
-        },
-        {
-            "id": 1,
-            "name": "Testing"
-        },
-        {
-            "id": 2,
-            "name": "Documentation"
-        }
-    ],
-    "locked_tasks": []
-}
-```
-
 **Test Steps:**
 
 1. Load the satisfiable project data into the system.
@@ -187,10 +77,15 @@
 3. Click on `Generate Solution` Button to generate solution
 4. Render the solution on the page
 
-### Getting solution for Unsatisfiable Project Tests
+**Note**
 
-Getting Solution for Unsatisfiable Project Tests
-Project: Class Assignments in a School
+Step 4 wait to be tested when server is back up
+
+### Test 6: Getting solution for Unsatisfiable Project Tests
+
+**Project Setup:**
+- **Project**: Class Assignments in a School
+- **Scenario**: Scenario: Assigning subjects to teachers based on their specialisations and schedule availability. The problem is unsatisfiable due to lack of supervision stuffs.
 
 **Project Data:**
 
@@ -219,118 +114,13 @@ Project: Class Assignments in a School
 | 0           | Teaching   |
 | 1           | Supervision|
 
-```javascript
+**Test Steps:**
 
-{
-    "id": 0,
-    "name": "Class Assignments in a School",
-    "tasks": [
-        {
-            "id": 0,
-            "name": "Teach Math",
-            "description": "",
-            "category": 0,
-            "weight": 4
-        },
-        {
-            "id": 1,
-            "name": " Teach Science",
-            "description": "",
-            "category": 0,
-            "weight": 3
-        },
-        {
-            "id": 2,
-            "name": "Teach History",
-            "description": "",
-            "category": 0,
-            "weight": 5
-        },
-        {
-            "id": 3,
-            "name": "Supervise Laboratory",
-            "description": "",
-            "category": 1,
-            "weight": 2
-        },
-        {
-            "id": 4,
-            "name": "Monitor Recess",
-            "description": "",
-            "category": 1,
-            "weight": 4
-        }
-    ],
-    "users": [
-        {
-            "id": 0,
-            "name": "Mr. Smith",
-            "task_blacklist": [
-                1,
-                2,
-                3,
-                4
-            ],
-            "preferences": [
-                0
-            ],
-            "categories": [
-                {
-                    "id": 0,
-                    "percentage": 0
-                }
-            ]
-        },
-        {
-            "id": 1,
-            "name": "Ms. Johnson",
-            "task_blacklist": [
-                0,
-                2,
-                3,
-                4
-            ],
-            "preferences": [
-                1
-            ],
-            "categories": [
-                {
-                    "id": 0,
-                    "percentage": 0
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "name": "Mr. Brown",
-            "task_blacklist": [
-                0,
-                1,
-                3,
-                4
-            ],
-            "preferences": [
-                2
-            ],
-            "categories": [
-                {
-                    "id": 0,
-                    "percentage": 0
-                }
-            ]
-        }
-    ],
-    "categories": [
-        {
-            "id": 0,
-            "name": "Teaching"
-        },
-        {
-            "id": 1,
-            "name": "Supervision"
-        }
-    ],
-    "locked_tasks": []
-}
-```
+1. Load the unsatisfiable project data into the system.
+2. Navigate to Solution page by clicking `get Solution Detail` Link
+3. Click on `Generate Solution` Button to generate solution
+4. Render the failed prompt on the page
 
+**Note**
+
+Step 4 wait to be tested when server is back up

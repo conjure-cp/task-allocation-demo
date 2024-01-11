@@ -71,13 +71,13 @@ Below are some screenshots of the project UI:
 
 ### Home Page
 
-![Home Page](screenshots/homepage.png)
+![Home Page](docs/screenshots/homepage.png)
 
 This is the homepage with no existing project
 
 ### Project Page
 
-![Project Page](screenshots/project.png)
+![Project Page](docs/screenshots/project.png)
 
 This is the project page showing the project details
 
@@ -85,25 +85,25 @@ This is the project page showing the project details
 
 ### Create new project
 
-![Create Project](screenshots/create-project.gif)
+![Create Project](docs/screenshots/create-project.gif)
 
 Create a new project named **Project Management System**
 
 ### Create new category
 
-![Create Category](screenshots/create-categories.gif)
+![Create Category](docs/screenshots/create-categories.gif)
 
 Create a new category named **Planning**
 
 ### Create new task
 
-![Create Task](screenshots/create-task.gif)
+![Create Task](docs/screenshots/create-task.gif)
 
 Create a new task named **Design the database schema** under the **Planning** category
 
 ### Create new user
 
-![Create User](screenshots/create-user.gif)
+![Create User](docs/screenshots/create-user.gif)
 
 Create a user named **John Smith** managing the **Planning** tasks. He prefers to take over the **Design database schema** task.
 

@@ -105,6 +105,7 @@ export default function Layout({ children }) {
               <div className={"mt-8"}>
                 <Link href={"/output"}>
                   <button
+                    id={"nav-solution"}
                     className={
                       "group flex w-full items-center justify-start space-x-2 px-2"
                     }
