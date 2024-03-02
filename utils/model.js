@@ -20,11 +20,11 @@ export function convertInput(projectData) {
     }, {}),
     partial_assignment: projectData.locked_tasks
       ? projectData.locked_tasks.reduce((acc, cur) => {
-        acc[cur + 1] = projectData.output_history.find(
-          (oh) => oh.output_id === projectData.current_selected_output_id
-        ).solution.assignment[cur + 1];
-        return acc;
-      }, {})
+          acc[cur + 1] = projectData.output_history.find(
+            (oh) => oh.output_id === projectData.current_selected_output_id,
+          ).solution.assignment[cur + 1];
+          return acc;
+        }, {})
       : [],
   };
 }

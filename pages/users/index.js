@@ -34,6 +34,7 @@ export default function UsersPage() {
       </div>
       <div className={"mt-8"}>
         <Link
+          id={"newUserLink"}
           href={"/users/new"}
           className={"border py-2 px-2 hover:underline"}
         >

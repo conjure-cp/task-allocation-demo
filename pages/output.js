@@ -15,6 +15,8 @@ export default function OutputPage() {
   const router = useRouter();
   const [projectData, dispatch, loading] = useProjectData();
 
+  console.log(projectData)
+
   const [calledWait, setWait] = useState(false);
 
   useEffect(() => {
@@ -25,10 +27,10 @@ export default function OutputPage() {
           {
             appName: "task-allocation",
             jobid: projectData.output_history.find(
-              (o) => o.output_id === projectData.current_selected_output_id
+              (o) => o.output_id === projectData.current_selected_output_id,
             ).job_id,
           },
-          { headers: { "Content-Type": "application/json" } }
+          { headers: { "Content-Type": "application/json" } },
         );
 
         if (res.data && res.data.status && res.data.status !== "wait") {
@@ -49,7 +51,7 @@ export default function OutputPage() {
       projectData.output_history.some(
         (o) =>
           o.output_id === projectData.current_selected_output_id &&
-          o.status === "wait"
+          o.status === "wait",
       ) &&
       !calledWait
     ) {
@@ -64,7 +66,7 @@ export default function OutputPage() {
 
   const currentOutput = projectData.output_history
     ? projectData.output_history.find(
-        (x) => x.output_id === projectData.current_selected_output_id
+        (x) => x.output_id === projectData.current_selected_output_id,
       )
     : null;
 

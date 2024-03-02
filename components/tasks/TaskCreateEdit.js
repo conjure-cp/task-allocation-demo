@@ -85,7 +85,10 @@ function TaskForm({
         value={weight}
         onChange={(e) => setWeight(e.target.value)}
       />
-      <button className={"border py-2 px-2 hover:underline"}>
+      <button
+        id={"createTaskButton"}
+        className={"border py-2 px-2 hover:underline"}
+      >
         {buttonText}
       </button>
     </form>
