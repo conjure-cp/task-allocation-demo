@@ -34,6 +34,7 @@ export default function CategoriesPage() {
       </div>
       <div className={"mt-8"}>
         <Link
+          id={"newCategoryLink"}
           href={"/categories/new"}
           className={"border py-2 px-2 hover:underline"}
         >

@@ -13,7 +13,7 @@ module.exports = {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'banner-blue': '#1A2638',
+        "banner-blue": "#1A2638",
       },
     },
   },

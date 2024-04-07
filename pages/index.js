@@ -56,11 +56,13 @@ export default function Home() {
           <div className={"mt-8 space-y-8"}>
             <Input
               label={"Name"}
+              name="projectName"
               placeholder={"Project name"}
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
             />
             <PrimaryButton
+              id="createProjectButton"
               onClick={() =>
                 dispatch({ type: "NEW_PROJECT", projectName: projectName })
               }
@@ -163,20 +165,22 @@ export default function Home() {
         </div>
         <div className={"mt-8 flex items-center space-x-8"}>
           <PrimaryButton
+            id={"exportProjectButton"}
             onClick={(e) => {
               e.preventDefault();
 
               downloadObjectAsJson(
                 JSON.parse(
-                  window.localStorage.getItem("workload_project_data")
+                  window.localStorage.getItem("workload_project_data"),
                 ),
-                "workload-project-" + projectData.id
+                "workload-project-" + projectData.id,
               );
             }}
           >
             Export Project
           </PrimaryButton>
           <PrimaryButton
+            id={"deleteProjectButton"}
             onClick={(e) => {
               e.preventDefault();
 

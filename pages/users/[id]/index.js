@@ -81,7 +81,7 @@ export default function UserViewPage() {
               <CategoryRow
                 key={c.id}
                 category={projectData.categories.find(
-                  (x) => x.id === parseInt(c.id)
+                  (x) => x.id === parseInt(c.id),
                 )}
                 percentage={c.percentage}
               />
