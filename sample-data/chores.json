@@ -1,0 +1,67 @@
+{
+    "id": 0,
+    "name": "Household chores",
+    "tasks": [
+        { "id": 0, "name": "Vacuuming and sweeping floors", "weight": 12, "category": 0, "description": "" },
+        { "id": 1, "name": "Dusting surfaces and furniture", "weight": 10, "category": 0, "description": "" },
+        { "id": 2, "name": "Cleaning bathrooms (toilet, sink, shower/bathtub)", "weight": 16, "category": 0, "description": "" },
+        { "id": 3, "name": "Cleaning windows", "weight": 14, "category": 0, "description": "" },
+        { "id": 4, "name": "Cooking meals / meal prep", "weight": 18, "category": 0, "description": "" },
+        { "id": 5, "name": "Washing dishes", "weight": 14, "category": 0, "description": "" },
+        { "id": 6, "name": "Cleaning up after meals (table), counters", "weight": 8, "category": 0, "description": "" },
+        { "id": 7, "name": "Grocery shopping", "weight": 15, "category": 1, "description": "" },
+        { "id": 8, "name": "Emptying trash and recycling bins", "weight": 6, "category": 1, "description": "" },
+        { "id": 9, "name": "Watering and taking care of any houseplants", "weight": 5, "category": 1, "description": "" },
+        { "id": 10, "name": "Regularly checking and replacing batteries in smoke detectors", "weight": 2, "category": 1, "description": "" },
+        { "id": 11, "name": "Keeping shared living spaces tidy", "weight": 10, "category": 2, "description": "" },
+        { "id": 12, "name": "Restocking household supplies", "weight": 8, "category": 2, "description": "" },
+        { "id": 13, "name": "Managing utility bills and rent payments", "weight": 4, "category": 2, "description": "" },
+        { "id": 14, "name": "Laundry (washing, drying, folding)", "weight": 16, "category": 2, "description": "" }
+    ],
+    "users": [
+        {
+            "id": 0,
+            "name": "Remy",
+            "task_blacklist": [ ],
+            "preferences": [ ],
+            "categories": [
+                { "id": 0, "percentage": "40" },
+                { "id": 1, "percentage": "40" },
+                { "id": 2, "percentage": "20" }
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Kieran",
+            "task_blacklist": [ ],
+            "preferences": [ ],
+            "categories": [
+                { "id": 0, "percentage": "30" },
+                { "id": 1, "percentage": "20" },
+                { "id": 2, "percentage": "50" }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Lin",
+            "task_blacklist": [ ],
+            "preferences": [ ],
+            "categories": [
+                { "id": 0, "percentage": "30" },
+                { "id": 1, "percentage": "10" },
+                { "id": 2, "percentage": "60" }
+            ]
+        }
+    ],
+    "categories": [
+        { "id": 0, "name": "Cleaning and Kitchen Tasks" },
+        { "id": 1, "name": "Maintenance and Outdoors" },
+        { "id": 2, "name": "Household Management" }
+    ],
+    "locked_tasks": [
+
+    ],
+    "output_history": [
+
+    ]
+}
