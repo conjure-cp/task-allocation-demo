@@ -20,7 +20,7 @@
     "@heroicons/react": "^2.2.0",
     "axios": "^1.7.9",
     "create-next-app": "^15.0.2",
-    "eslint": "8.57.0",
+    "eslint": "9.19.0",
     "eslint-config-next": "14.2.5",
     "moment": "^2.30.1",
     "next": "^15.1.3",
