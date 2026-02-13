@@ -18,7 +18,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
-    "axios": "^1.7.9",
+    "axios": "^1.13.5",
     "create-next-app": "^15.0.2",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
