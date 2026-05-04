@@ -5,7 +5,7 @@ import { CheckCircleIcon, TrashIcon } from "@heroicons/react/24/solid";
 import TableData from "../ui/TableData";
 import TableHeader from "../ui/TableHeader";
 import useProjectData from "../../utils/ProjectDataContext";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 
 export function UserCreator({ onSubmit }) {
   return (
