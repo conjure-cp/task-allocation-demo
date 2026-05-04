@@ -1,18 +1,55 @@
-export function convertInput(projectData) {
+export function createSolverMappings(projectData) {
+  const taskToSolver = createDenseIdMap(projectData.tasks);
+  const userToSolver = createDenseIdMap(projectData.users);
+  const categoryToSolver = createDenseIdMap(projectData.categories);
+
+  return {
+    taskToSolver,
+    solverToTask: invertMap(taskToSolver),
+    userToSolver,
+    solverToUser: invertMap(userToSolver),
+    categoryToSolver,
+    solverToCategory: invertMap(categoryToSolver),
+  };
+}
+
+function createDenseIdMap(items) {
+  return items.reduce((acc, item, index) => {
+    acc[item.id] = index + 1;
+    return acc;
+  }, {});
+}
+
+function invertMap(map) {
+  return Object.entries(map).reduce((acc, [id, solverId]) => {
+    acc[solverId] = parseInt(id);
+    return acc;
+  }, {});
+}
+
+export function convertInput(
+  projectData,
+  mappings = createSolverMappings(projectData),
+) {
   return {
     nb_tasks: projectData.tasks.length,
     nb_users: projectData.users.length,
     nb_categories: projectData.categories.length,
     tasks: projectData.tasks.reduce((acc, cur) => {
-      acc[cur.id + 1] = { category: cur.category + 1, weight: cur.weight };
+      acc[mappings.taskToSolver[cur.id]] = {
+        category: mappings.categoryToSolver[cur.category],
+        weight: cur.weight,
+      };
       return acc;
     }, {}),
     users: projectData.users.reduce((acc, cur) => {
-      acc[cur.id + 1] = {
-        forbidden_tasks: cur.task_blacklist.map((x) => x + 1),
-        task_preferences: cur.preferences.map((x) => x + 1),
+      acc[mappings.userToSolver[cur.id]] = {
+        forbidden_tasks: cur.task_blacklist.map(
+          (x) => mappings.taskToSolver[x],
+        ),
+        task_preferences: cur.preferences.map((x) => mappings.taskToSolver[x]),
         category_percentages: cur.categories.reduce((catAcc, catCur) => {
-          catAcc[catCur.id + 1] = catCur.percentage;
+          catAcc[mappings.categoryToSolver[catCur.id]] = catCur.percentage;
           return catAcc;
         }, {}),
       };
@@ -20,12 +57,35 @@ export function convertInput(projectData) {
     }, {}),
     partial_assignment: projectData.locked_tasks
       ? projectData.locked_tasks.reduce((acc, cur) => {
-          acc[cur + 1] = projectData.output_history.find(
+          const uiAssignment = projectData.output_history.find(
             (oh) => oh.output_id === projectData.current_selected_output_id,
-          ).solution.assignment[cur + 1];
+          ).solution.assignment;
+          const userId = parseInt(uiAssignment[cur + 1]) - 1;
+
+          acc[mappings.taskToSolver[cur]] = mappings.userToSolver[userId];
           return acc;
         }, {})
       : [],
+  };
+}
+
+export function convertSolutionToProjectIds(solution, mappings) {
+  if (!solution.assignment) {
+    return solution;
+  }
+
+  return {
+    ...solution,
+    assignment: Object.entries(solution.assignment).reduce(
+      (acc, [solverTaskId, solverUserId]) => {
+        const taskId = mappings.solverToTask[solverTaskId];
+        const userId = mappings.solverToUser[solverUserId];
+
+        acc[taskId + 1] = userId + 1;
+        return acc;
+      },
+      {},
+    ),
   };
 }
 

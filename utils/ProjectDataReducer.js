@@ -1,4 +1,5 @@
 import findNextId from "./max-id";
+import { convertSolutionToProjectIds } from "./model";
 
 const ACTIONS_NOT_ELICITING_UNSAVED_CHANGES = [
   "NEW_PROJECT",
@@ -251,6 +252,7 @@ function innerProjectDataReducer(state, action) {
           categories: [...state.categories],
           locked_tasks: state.locked_tasks ? [...state.locked_tasks] : [],
         },
+        solverMappings: action.solverMappings,
         output_id: new_output_id,
         date: Date.now(),
       };
@@ -278,7 +280,10 @@ function innerProjectDataReducer(state, action) {
         action.output.solution.length > 0
       ) {
         hist_obj.status = "ok";
-        hist_obj.solution = action.output.solution[0];
+        hist_obj.solution = convertSolutionToProjectIds(
+          action.output.solution[0],
+          hist_obj.solverMappings,
+        );
       } else {
         hist_obj.status = action.output.status;
       }

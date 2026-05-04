@@ -1,8 +1,15 @@
 import axios from "axios";
-import { convertInput, ESSENCE_MODEL, SUBMIT_URL } from "./model";
+import {
+  convertInput,
+  createSolverMappings,
+  ESSENCE_MODEL,
+  SUBMIT_URL,
+} from "./model";
 
 export const handleGenerate = async (e, projectData, dispatch, router) => {
   e.preventDefault();
+
+  const solverMappings = createSolverMappings(projectData);
 
   const res = await axios.post(
     SUBMIT_URL,
@@ -10,7 +17,7 @@ export const handleGenerate = async (e, projectData, dispatch, router) => {
       appName: "task-allocation",
       solver: "chuffed",
       model: ESSENCE_MODEL,
-      data: JSON.stringify(convertInput(projectData)),
+      data: JSON.stringify(convertInput(projectData, solverMappings)),
       conjureOptions: ["--solver-options='-t 30000'"], // use a time limit of 10 seconds
     },
     {
@@ -23,5 +30,6 @@ export const handleGenerate = async (e, projectData, dispatch, router) => {
   dispatch({
     type: "WAIT_OUTPUT",
     job_id: res.data.jobid,
+    solverMappings,
   });
 };
