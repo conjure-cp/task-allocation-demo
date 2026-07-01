@@ -33,7 +33,7 @@
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.7",
     "postcss": "^8.5.13",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.4",
     "start-server-and-test": "^3.0.6",
     "tailwindcss": "^3.4.18"
   },
