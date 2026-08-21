@@ -35,7 +35,7 @@
     "postcss": "^8.5.13",
     "prettier": "^3.9.4",
     "start-server-and-test": "^3.0.11",
-    "tailwindcss": "^3.4.18"
+    "tailwindcss": "^4.3.3"
   },
   "overrides": {
     "postcss": "^8.5.13",
