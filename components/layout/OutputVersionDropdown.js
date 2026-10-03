@@ -60,7 +60,7 @@ export default function OutputVersionDropdown() {
       >
         <Menu.Items
           className={
-            "absolute left-0 mt-2 w-full origin-top-left border border-slate-700/75 bg-slate-900/50 shadow-md backdrop-blur"
+            "absolute left-0 mt-2 w-full origin-top-left border border-slate-700/75 bg-slate-900/50 shadow-md backdrop-blur-sm"
           }
         >
           {sortedHistory.map((h) => (
@@ -94,7 +94,7 @@ function OutputVersionItem({ output, isCurrent, dispatch, idx }) {
     <Menu.Item disabled={isCurrent}>
       {({ active }) => (
         <button
-          className={`flex w-full items-center justify-between py-2 px-3 text-left backdrop-blur ${
+          className={`flex w-full items-center justify-between py-2 px-3 text-left backdrop-blur-sm ${
             !isCurrent
               ? "text-slate-400 hover:bg-slate-800/75"
               : "text-slate-400/60"

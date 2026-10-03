@@ -41,7 +41,7 @@ export default function Layout({ children }) {
           Height   : h-4/5 sets the height to be 80% of the parent container.
         */}
 
-      <div className={"flex flex-grow"}>
+      <div className={"flex grow"}>
         {/* 
           2.1 Sidebar 
             Width     : w-[19rem] sets the width of the sidebar to 19rem.
@@ -130,7 +130,7 @@ export default function Layout({ children }) {
 
         {/* <div className={"flex flex-col flex-grow h-full w-full overflow-auto items-stretch"}> */}
         {/* Content */}
-        <div className={"flex-grow py-8 px-28 min-h-[80%] "}>
+        <div className={"grow py-8 px-28 min-h-[80%] "}>
           <UnsavedChangesMenu />
           {children}
         </div>
