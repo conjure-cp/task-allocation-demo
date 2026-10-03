@@ -13,6 +13,18 @@ describe("Render the home page when opening the demo", () => {
       cy.contains("...or import an existing project").should("exist");
     });
 
+    it("preserves the configured theme and form styles", () => {
+      cy.visit("/");
+      cy.get("body").should("have.css", "font-family").and("include", "Inter");
+      cy.get("#banner").should("have.css", "background-color", "rgb(26, 38, 56)");
+      cy.get(".grow").first().should("have.css", "flex-grow", "1");
+      cy.get('input[name="projectName"]')
+        .should("have.css", "appearance", "none")
+        .and("have.css", "padding-top", "10px")
+        .and("have.css", "padding-left", "16px");
+      cy.get("#createProjectButton").should("have.css", "border-top-width", "1px");
+    });
+
     // 2. create a new project
     it("allows creating a new project", () => {
       cy.visit("/");
