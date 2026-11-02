@@ -32,7 +32,7 @@
     "cypress": "^15.21.1",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.8",
-    "postcss": "^8.5.28",
+    "postcss": "^8.5.32",
     "prettier": "^3.9.9",
     "start-server-and-test": "^3.0.12",
     "tailwindcss": "^4.3.3"
