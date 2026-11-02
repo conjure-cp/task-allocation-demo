@@ -5,6 +5,7 @@ updates:
     schedule:
       interval: "monthly"
     ignore:
+      # Next's import, JSX accessibility, and React plugins still require ESLint 9.
       - dependency-name: "eslint"
         update-types:
           - "version-update:semver-major"
