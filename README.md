@@ -107,6 +107,20 @@ Create a new task named **Design the database schema** under the **Planning** ca
 
 Create a user named **John Smith** managing the **Planning** tasks. He prefers to take over the **Design database schema** task.
 
+## Generated asset comparison
+
+Pull requests build the base and head revisions in the same environment and
+compare every generated HTML, JavaScript (`.js`, `.mjs`, `.cjs`), and CSS file in
+`out/`. The check fails on any byte or filename difference, including asset
+hashes; nothing is normalized. Changed files appear in the job summary, and the
+`generated-assets-diff` artifact contains the recursive diff. Intentional output
+changes therefore also fail this comparison and need review.
+
+For this CI job only, both revisions use the same Next.js build ID through
+`generateBuildId` before compilation. This removes random build inputs without
+rewriting or filtering the generated files. Deployment builds keep their normal
+build IDs.
+
 ## License
 
 This project is licensed under the Mozilla Public License 2.0. For full license information, please see the [LICENSE](./LICENSE) file in the repository.
